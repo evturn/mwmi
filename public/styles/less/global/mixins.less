@@ -1,0 +1,45 @@
+.scale() {
+  -webkit-transform: scale(1.05);
+  -moz-transform: scale(1.05);
+  -o-transform: scale(1.05);
+  transform: scale(1.05);
+}
+
+.box-shadow(@shadow) {
+  -webkit-box-shadow: @shadow;
+          box-shadow: @shadow;
+}
+
+.transition(@transition) {
+  -webkit-transition: @transition;
+       -o-transition: @transition;
+          transition: @transition;
+}
+
+.clearfix() {
+  zoom: 1;
+  &:before,
+  &:after {
+    content: " ";
+    display: table;
+  }
+  &:after {
+    clear: both;
+  }
+}
+
+.no-scrollbar {
+  ::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+.img-shadow {
+  .box-shadow(0px -3px 4px -4px rgba(0,0,0,0.4));
+}
+
+.img-scale {
+  width: 100%;
+  height: auto;
+  display: block;
+}

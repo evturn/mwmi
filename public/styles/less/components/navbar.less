@@ -1,0 +1,73 @@
+.navbar {
+  background: transparent;
+  font-family: @sans;
+  .transition(0.3s);
+
+
+  @media (min-width: @sm) {
+    overflow: auto;
+    background: @white;
+  }
+
+  ul {
+    padding-top: 20px;
+    padding-bottom: 20px;
+    float: none;
+    text-align: center;
+
+    @media (min-width: @sm) {
+      width: 100%;
+      float: right;
+    }
+  }
+
+  li {
+    text-transform: uppercase;
+    display: inline-block;
+    padding-right: 10px;
+    padding-left: 10px;
+    border-right: 1px solid @black;
+
+    &:last-child {
+      border-right: 0;
+      margin-right: 0;
+    }
+
+
+    @media(min-width: @sm) {
+      border-right: 0;
+      font-size: 16px;
+      margin-right: 20px;
+    }
+
+    a.all {
+      font-size: 13px;
+
+      @media (min-width: @iphone6) {
+        font-size: 16px;
+      }
+
+      @media (min-width: @xs) {
+        font-size: 19px;
+      }
+    }
+
+
+    a {
+      color: @black;
+      text-decoration: none;
+      font-size: 16px;
+      vertical-align: baseline;
+
+      @media (min-width: @iphone6) {
+        font-size: 20px;
+      }
+
+
+      @media (min-width: @sm) {
+        vertical-align: -webkit-baseline-middle;
+        color: @standard-dark;
+      }
+    }
+  }
+}

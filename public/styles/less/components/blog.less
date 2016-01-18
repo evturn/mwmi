@@ -1,0 +1,53 @@
+.blog {
+
+  .group-desktop {
+    overflow: auto;
+  }
+  @media (min-width: @sm) {
+    padding-top: 30px;
+  }
+
+  .title-container {
+    padding-top: 20px;
+    padding-bottom: 40px;
+
+    .img-backend {
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+
+      img {
+        width: 90px;
+
+      }
+    }
+  }
+
+
+  .header {
+    @media (min-width: @sm) {
+      margin-left: 25px;
+      font-size: 46px;
+    }
+  }
+
+
+  .stats-container {
+    margin-bottom: 5px;
+    text-align: right;
+
+    @media (min-width: @sm) {
+      margin-top: 30px;
+    }
+
+    .meta {
+      font-size: 12px;
+
+      @media (min-width: @sm) {
+        font-size: 14px;
+      }
+    }
+
+  }
+}

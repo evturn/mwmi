@@ -1,0 +1,15 @@
+*.log
+node_modules
+.env
+.DS_Store
+app
+public/images
+routes/views
+routes/middleware
+routes/emails
+templates/_views
+templates/emails
+updates
+webpack.config
+.editorconfig
+.jshintrc

@@ -1,0 +1,36 @@
+var keystone = require('keystone');
+
+keystone.init({
+
+  'name': 'mwmi',
+  'brand': 'mwmi',
+
+  'less': 'public',
+  'static': 'public',
+  'favicon': 'public/images/logo.png',
+  'views': 'templates/views',
+  'view engine': 'jade',
+
+  'auto update': true,
+  'session': true,
+  'auth': true,
+  'user model': 'User',
+  'cookie secret': '939390a671664cf1eca64ee5f4a98b08746c301934cdcbb4c3e49bc18fb3fd88a4580b1e464702b29c0bbde893f9b37e9889002af623d1b6a1df0b960373b03c',
+
+});
+
+keystone.import('models');
+
+keystone.set('locals', {
+  _: require('underscore'),
+  env: keystone.get('env'),
+  utils: keystone.utils,
+  editable: keystone.content.editable
+});
+
+keystone.set('routes', require('./routes'));
+keystone.set('nav', {
+  'users': 'users'
+});
+
+keystone.start();
