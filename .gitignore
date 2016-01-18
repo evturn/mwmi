@@ -10,6 +10,7 @@ routes/emails
 templates/_views
 templates/emails
 updates
-webpack.config
+webpack.config.js
 .editorconfig
 .jshintrc
+public/styles/less/migrations
