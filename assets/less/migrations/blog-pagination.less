@@ -1,0 +1,35 @@
+.pagination {
+  margin-top: 15px;
+  text-align: center;
+  font-size: 28px;
+
+  ul {
+    width: 100%;
+
+  }
+  li {
+    display: inline-block;
+    margin-left: 15px;
+    margin-right: 15px;
+
+    &.active a {
+      font-size: 2em;
+      color: @standard-dark;
+    }
+
+    &.disabled a {
+      color: @grey;
+    }
+
+    & a .fa {
+      vertical-align: bottom;
+      font-size: 1.5em;
+    }
+  }
+
+  a {
+    color: @black;
+    text-decoration: none;
+  }
+
+}
