@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
+import { connect } from 'react-redux';
 import {Link} from 'react-router';
 
-export default class Pagination extends React.Component {
+class Pagination extends React.Component {
   constructor(props) {
     super(props);
 
@@ -50,3 +51,19 @@ export default class Pagination extends React.Component {
     });
   }
 }
+
+Pagination.propTypes = {
+  posts: PropTypes.object,
+  user: PropTypes.object,
+  dispatch: PropTypes.func
+}
+
+
+function mapStateToProps(state) {
+  return {
+    posts: state.blog.posts,
+    user: state.site.user
+  };
+}
+
+export default connect(mapStateToProps)(Pagination);

@@ -5,7 +5,7 @@ const devMiddleware = require('./dev/middleware');
 const keystone = require('keystone');
 const index = require('./routes/index');
 const blog = require('./controllers/blog');
-const post = require('./routes/post');
+const post = require('./controllers/post');
 const gallery = require('./routes/gallery');
 const contact = require('./routes/contact');
 
@@ -16,7 +16,7 @@ module.exports = function(app) {
 
   app.get('/api', index);
   app.get('/api/blog/:category?', blog.currentCategoryFilter, blog.loadCategories, blog.loadPosts, blog.send);
-  app.get('/api/blog/post/:post', post);
+  app.get('/api/blog/post/:post', post.loadCurrentPost, post.loadOtherPosts, post.send);
   app.get('/api/gallery', gallery);
   app.get('/api/contact', contact);
 

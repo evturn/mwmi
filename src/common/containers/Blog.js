@@ -27,7 +27,7 @@ class Blog extends React.Component {
         {this.props.posts.results.map((post, i) => {
           return (
             <div key={i} className="post-item" data-ks-editable="if-user-blah-blah-blah">
-              <Link to={`/blog/${post._id}`}>{post.title}</Link>
+              <Link to={`/blog/post/${post.slug}`}>{post.title}</Link>
               <div className="post-item__caption">By: {post.author.name.first} | Posted in | {post.publishedDate}</div>
               <img className="post-item__image" src={post.image.url} />
               <div className="post-item__body" dangerouslySetInnerHTML={ {__html: post.content.extended} } />
@@ -44,7 +44,7 @@ class Blog extends React.Component {
           <ul className="categories-list">
             <li className="category-item"><Link to="/blog"><span className="category-item__link">All Categories</span></Link></li>
             {this.props.categories.map((category, i) => {
-              return <li key={i} className="category-item"><Link to={category.key}><span className="category-item__link">{category.name}</span></Link></li>;
+              return <li key={i} className="category-item"><Link to={`/blog/${category.key}`}><span className="category-item__link">{category.name}</span></Link></li>;
             })}
           </ul>
       </div>
