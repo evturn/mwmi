@@ -1,91 +1,53 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router';
 import { bindActionCreators } from 'redux'
 import * as Actions from '../actions';
+import Pagination from '../components/Pagination';
 
 class Blog extends React.Component {
   constructor(props) {
     super(props);
-
-    this.previous = false;
-    this.next = true;
-    this.categories = [
-      {key: 'Dudez', name: 'Dudex'},
-      {key: 'Fudez', name: 'Fudex'},
-      {key: 'Cudez', name: 'Cudex'}
-    ];
   }
   render() {
     return (
-      <div className="container blog">
-      <div className="wrapper">
-
-        <div className="title-container">
-          <p className="header"><span className="img-backend"><img className="img-scale" src="/assets/images/mi-logo-800.png" /></span> Blog</p>
-        </div>
-        <div className="group-desktop">
-        <div className="stats-container">
-          <p className="meta">Showing {this.props.posts.total} posts.</p>
-        </div>
-          <div className="blog-items">
-            <div className="blog-container">
-              {this.renderPosts()}
-            </div>
-          </div>
-          <div className="categories">
-            <div className="inner">
-              <div className="categories-container">
-                <div className="title-container">
-                  <p className="subhead">Categories</p>
-                </div>
-                <div className="category-item">
-                  <p className="meta"><a href="/blog">All Categories</a></p>
-                </div>
-                {this.renderCategories()}
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div className="pagination">
-          {this.renderPagination()}
-        </div>
+      <div className="blog">
+        {this.renderPosts()}
+        {this.renderCategories()}
+        <Pagination posts={this.props.posts}/>
       </div>
-    </div>
     );
   }
   renderPosts() {
-    return this.props.posts.results.map((post, i) => {
-      return (
-        <div key={i} className="blog-item" data-ks-editable="if-user-blah-blah-blah">
-          <p className="subhead"><a href={`/blog/${post._id}`}>{post.title}</a></p>
-          <p className="caption">By: {post.author.name.first} | Posted in | {post.publishedAt}</p>
-          <img class="img-scale" src={post.image.url} />
-          <div dangerouslySetInnerHTML={ {__html: post.content.extended} } />
-        </div>
-      );
-    });
+    return (
+      <div className="posts">
+        <div className="posts-header">Showing {this.props.posts.total} posts.</div>
+        {this.props.posts.results.map((post, i) => {
+          return (
+            <div key={i} className="post-item" data-ks-editable="if-user-blah-blah-blah">
+              <Link to={`/blog/${post._id}`}>{post.title}</Link>
+              <div className="post-item__caption">By: {post.author.name.first} | Posted in | {post.publishedAt}</div>
+              <img class="post-item__image" src={post.image.url} />
+              <div class="post-item__body" dangerouslySetInnerHTML={ {__html: post.content.extended} } />
+            </div>
+          );
+        })};
+      </div>
+    )
   }
   renderCategories() {
-    return this.props.categories.map((category, i) => {
-      return (
-        <div key={i} className="category-item">
-          <p className="meta"><a href={category.key}>{category.name}</a></p>
-        </div>
-      );
-    });
-  }
-  renderPagination() {
     return (
-      <ul>
-        <li class={!this.props.posts.previous ? 'disabled': ''}>
-          <a href="#"><i className="fa fa-chevron-left"></i></a>
-        </li>
-        <li class={!this.props.posts.next ? 'disabled': ''}>
-          <a href="#"><i className="fa fa-chevron-right"></i></a>
-        </li>
-      </ul>
-    )
+      <div className="categories">
+        <div className="categories-header">Categories</div>
+          {this.props.categories.map((category, i) => {
+            if (i === 1) {
+              return <Link key={i} to="/blog">All Categories</Link>;
+            } else {
+              return <Link key={i} to={category.key}>{category.name}</Link>;
+            }
+          })};
+      </div>
+    );
   }
 }
 

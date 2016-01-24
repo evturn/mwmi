@@ -1,42 +1,15 @@
 .blog {
 
-  .group-desktop {
-    overflow: auto;
-  }
-  @media (min-width: @sm) {
-    padding-top: 30px;
-  }
-
-  .title-container {
-    padding-top: 20px;
-    padding-bottom: 40px;
-
-    .img-backend {
-      top: 0;
-      bottom: 0;
-      left: 0;
-      right: 0;
-
-      img {
-        width: 90px;
-
-      }
-    }
-  }
 .categories {
   vertical-align: top;
   width: 100%;
   display: block;
 
-  @media (min-width: @sm) {
+  @media(@tablet) {
     width: 40%;
     float: right;
     display: inline-block;
     text-align: right;
-  }
-
-  @media (min-width: @mlarge) {
-    width: 35%;
   }
 
   .inner {
