@@ -1,27 +1,89 @@
-'use strict';
-const babelify = require('babelify');
-const browserify = require('browserify-middleware');
-const middleware = require('./middleware');
-const keystone = require('keystone');
-const importRoutes = keystone.importer(__dirname);
-const routes = { views: importRoutes('./views') };
+var keystone = require('keystone');
+var async = require('async');
 
-exports = module.exports = function(app) {
-keystone.pre('routes', middleware.initLocals);
-keystone.pre('render', middleware.flashMessages);
+exports = module.exports = function(req, res) {
 
-app.use('/js', browserify('./client/server.js', {
-  transform: [babelify.configure({
-    plugins: ['object-assign']
-  })]
-}));
+	var view = new keystone.View(req, res);
+	var locals = res.locals;
 
-app.get('/', routes.views.index);
-app.get('/blog/:category?', routes.views.blog);
-app.get('/blog/post/:post', routes.views.post);
-app.get('/gallery', routes.views.gallery);
-app.all('/contact', routes.views.contact);
+	// locals.section is used to set the currently selected
+	// item in the header navigation.
+	locals.section = 'home';
+  // Init locals
+  // locals.section = 'blog';
+  locals.filters = {
+    category: req.params.category
+  };
+  locals.data = {
+    posts: [],
+    categories: []
+  };
 
-  // NOTE: To protect a route so that only admins can see it, use the requireUser middleware:
-  // app.get('/protected', middleware.requireUser, routes.views.protected);
+  // Load all categories
+  view.on('init', function(next) {
+
+    keystone.list('PostCategory').model.find().sort('name').exec(function(err, results) {
+
+      if (err || !results.length) {
+        return next(err);
+      }
+
+      locals.data.categories = results;
+
+      // Load the counts for each category
+      async.each(locals.data.categories, function(category, next) {
+
+        keystone.list('Post').model.count().where('categories').in([category.id]).exec(function(err, count) {
+          category.postCount = count;
+          next(err);
+        });
+
+      }, function(err) {
+        next(err);
+      });
+
+    });
+
+  });
+
+  // Load the current category filter
+  view.on('init', function(next) {
+
+    if (req.params.category) {
+      keystone.list('PostCategory').model.findOne({ key: locals.filters.category }).exec(function(err, result) {
+        locals.data.category = result;
+        next(err);
+      });
+    } else {
+      next();
+    }
+
+  });
+
+  // Load the posts
+  view.on('init', function(next) {
+
+    var q = keystone.list('Post').paginate({
+        page: req.query.page || 1,
+        perPage: 10,
+        maxPages: 10
+      })
+      .where('state', 'published')
+      .sort('-publishedDate')
+      .populate('author categories');
+
+    if (locals.data.category) {
+      q.where('categories').in([locals.data.category]);
+    }
+
+    q.exec(function(err, results) {
+      locals.data.posts = results;
+      next(err);
+    });
+
+  });
+
+	// Render the view
+	view.render('index');
+
 };

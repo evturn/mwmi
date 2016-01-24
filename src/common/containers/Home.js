@@ -1,8 +1,9 @@
-import React, { Component } from 'react';
+import React from 'react';
 
-class Home extends Component {
+export default class Home extends React.Component {
   constructor(props) {
     super(props);
+
     this.title = 'MWMI';
     this.subtitle = 'Inspiring stories from successful industry experts, artists, and songwriters';
   }
@@ -37,5 +38,3 @@ class Home extends Component {
     );
   }
 }
-
-export default Home;

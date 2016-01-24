@@ -10,6 +10,7 @@ keystone.init({
   'favicon': 'public/images/logo.png',
   'views': 'templates/views',
   'view engine': 'jade',
+  'mongo': 'mongodb://localhost/mwmi',
 
   'auto update': true,
   'session': true,
@@ -28,9 +29,10 @@ keystone.set('locals', {
   editable: keystone.content.editable
 });
 
-keystone.set('routes', require('./routes'));
+keystone.set('routes', require('./src/server'));
+
 keystone.set('nav', {
   'users': 'users'
 });
 
-keystone.start();
+module.exports = keystone.start();

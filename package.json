@@ -53,6 +53,7 @@
     "less-loader": "^2.2.2",
     "merge": "1.2.0",
     "mocha": "2.1.0",
+    "model-transform": "^2.0.0",
     "react-transform-catch-errors": "1.0.0",
     "react-transform-hmr": "1.0.0",
     "redbox-react": "1.1.0",
