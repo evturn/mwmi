@@ -67,6 +67,9 @@ export default function render(req, res) {
     }
     fetchBlog(apiResult => {
       const store = configureStore({
+        post: {
+          post: apiResult.data.post
+        },
         blog: {
           posts: apiResult.data.posts,
           categories: apiResult.data.categories

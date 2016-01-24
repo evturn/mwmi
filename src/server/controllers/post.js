@@ -2,7 +2,9 @@
 const keystone = require('keystone');
 
 exports.loadCurrentPost = function(req, res, next) {
-  res.locals.filters.post = req.params.post;
+  res.locals.filters = {
+    post: req.params.post
+  };
   res.locals.section = 'blog';
   const dbQuery = keystone.list('Post')
     .model

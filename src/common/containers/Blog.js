@@ -44,7 +44,7 @@ class Blog extends React.Component {
           <ul className="categories-list">
             <li className="category-item"><Link to="/blog"><span className="category-item__link">All Categories</span></Link></li>
             {this.props.categories.map((category, i) => {
-              return <li key={i} className="category-item"><Link to={`/blog/${category.key}`}><span className="category-item__link">{category.name}</span></Link></li>;
+              return <li key={i} className="category-item"><Link to={`/blog`} query={{category: category.key}}><span className="category-item__link">{category.name}</span></Link></li>;
             })}
           </ul>
       </div>
