@@ -10,10 +10,10 @@ export default class Pagination extends React.Component {
     return (
       <div className="pagination">
         <ul>
-          <li class={!this.props.posts.previous ? 'disabled': ''}>
+          <li className={!this.props.posts.previous ? 'disabled': ''}>
             <Link to={this.previousUrl()}><i className="fa fa-chevron-left"></i></Link>
           </li>
-          <li class={!this.props.posts.next ? 'disabled': ''}>
+          <li className={!this.props.posts.next ? 'disabled': ''}>
             <Link to={this.nextUrl()}><i className="fa fa-chevron-right"></i></Link>
           </li>
         </ul>

@@ -27,8 +27,8 @@ class Blog extends React.Component {
             <div key={i} className="post-item" data-ks-editable="if-user-blah-blah-blah">
               <Link to={`/blog/${post._id}`}>{post.title}</Link>
               <div className="post-item__caption">By: {post.author.name.first} | Posted in | {post.publishedAt}</div>
-              <img class="post-item__image" src={post.image.url} />
-              <div class="post-item__body" dangerouslySetInnerHTML={ {__html: post.content.extended} } />
+              <img className="post-item__image" src={post.image.url} />
+              <div className="post-item__body" dangerouslySetInnerHTML={ {__html: post.content.extended} } />
             </div>
           );
         })};
