@@ -7,14 +7,16 @@ export default class Pagination extends React.Component {
 
   }
   render() {
+    const previousClass = !this.props.posts.previous ? 'disabled': '';
+    const nextClass = !this.props.posts.next ? 'disabled': '';
     return (
       <div className="pagination">
-        <ul>
-          <li className={!this.props.posts.previous ? 'disabled': ''}>
-            <Link to={this.previousUrl()}><i className="fa fa-chevron-left"></i></Link>
+        <ul className="pagination-buttons">
+          <li className="pagination-button">
+            <Link to={this.previousUrl()}><i className={`${previousClass} fa fa-chevron-left`}></i></Link>
           </li>
-          <li className={!this.props.posts.next ? 'disabled': ''}>
-            <Link to={this.nextUrl()}><i className="fa fa-chevron-right"></i></Link>
+          <li className="pagination-button">
+            <Link to={this.nextUrl()}><i className={`${nextClass} fa fa-chevron-right`}></i></Link>
           </li>
         </ul>
       </div>

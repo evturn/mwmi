@@ -12,8 +12,11 @@ class Blog extends React.Component {
   render() {
     return (
       <div className="blog">
-        {this.renderPosts()}
-        {this.renderCategories()}
+        <div className="blog-content">
+          <div className="blog-content__header">Showing {this.props.posts.total} posts.</div>
+          {this.renderPosts()}
+          {this.renderCategories()}
+        </div>
         <Pagination posts={this.props.posts}/>
       </div>
     );
@@ -21,7 +24,7 @@ class Blog extends React.Component {
   renderPosts() {
     return (
       <div className="posts">
-        <div className="posts-header">Showing {this.props.posts.total} posts.</div>
+
         {this.props.posts.results.map((post, i) => {
           return (
             <div key={i} className="post-item" data-ks-editable="if-user-blah-blah-blah">
@@ -39,13 +42,13 @@ class Blog extends React.Component {
     return (
       <div className="categories">
         <div className="categories-header">Categories</div>
-          {this.props.categories.map((category, i) => {
+          <ul className="categories-list">{this.props.categories.map((category, i) => {
             if (i === 1) {
-              return <Link key={i} to="/blog">All Categories</Link>;
+              return <li className="category-item"><Link key={i} to="/blog">All Categories</Link></li>;
             } else {
-              return <Link key={i} to={category.key}>{category.name}</Link>;
+              return <li className="category-item"><Link key={i} to={category.key}>{category.name}</Link></li>;
             }
-          })};
+          })}</ul>
       </div>
     );
   }
