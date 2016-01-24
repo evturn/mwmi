@@ -15,11 +15,7 @@ class Blog extends React.Component {
       {key: 'Cudez', name: 'Cudex'}
     ];
   }
-  componentDidMount() {
-    this.props.getBlogPosts();
-  }
   render() {
-    console.log(this);
     return (
       <div className="container blog">
       <div className="wrapper">
@@ -88,7 +84,7 @@ class Blog extends React.Component {
 }
 
 Blog.propTypes = {
-  posts: PropTypes.array,
+  posts: PropTypes.object,
   categories: PropTypes.array,
   section: PropTypes.string,
   user: PropTypes.object,
@@ -101,6 +97,7 @@ function mapStateToProps(state) {
     section: state.site.section,
     posts: state.blog.posts,
     categories: state.blog.categories,
+    filters: state.blog.filters,
     user: state.site.user
   };
 }

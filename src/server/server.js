@@ -14,8 +14,8 @@ const clientConfig = {
   port: process.env.PORT || '3000'
 };
 
-function fetchAll(callback) {
-  fetch(`http://${clientConfig.host}:${clientConfig.port}/api`)
+function fetchBlog(callback) {
+  fetch(`http://${clientConfig.host}:${clientConfig.port}/api/blog`)
     .then(res => res.json())
     .then(json => callback(json))
     .catch(err => console.log(err));
@@ -56,20 +56,31 @@ export default function render(req, res) {
       return res.status(404).end('Not found');
     }
     const site = {
-      site: {
-        section: res.locals.section,
-        navLinks: res.locals.navLinks,
-        user: res.locals.user
-      }
+
     };
+    fetchBlog(apiResult => {
+      console.log(apiResult);
+      console.log('========DYATA==========')
+      const store = configureStore({
+        blog: {
+          posts: apiResult.data.posts,
+          categories: apiResult.data.categories
+        },
+        site: {
+          section: res.locals.section,
+          navLinks: res.locals.navLinks,
+          user: res.locals.user
+        }
+      });
+      const initialState = store.getState();
+      const renderedContent = ReactDOM.renderToString(
+        <Provider store={store}>
+          <RoutingContext {...renderProps} />
+        </Provider>);
 
-    const store = configureStore(site);
-    const initialState = store.getState();
-    const renderedContent = ReactDOM.renderToString(
-      <Provider store={store}>
-        <RoutingContext {...renderProps} />
-      </Provider>);
+      res.status(200).end(renderFullPage(renderedContent, initialState))
+    })
 
-    res.status(200).end(renderFullPage(renderedContent, initialState))
+
   });
 }

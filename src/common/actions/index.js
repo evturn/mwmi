@@ -10,9 +10,9 @@ export const GET_BLOG_POSTS_ERROR = 'GET_BLOG_POSTS_ERROR';
 
 let API_ENDPOINT = 'http://localhost:3000/api/blog';
 
-function createRequest(method, data) {
+function createRequest(data) {
   return fetch(API_ENDPOINT, {
-    method: method,
+    method: 'get',
     credentials: 'same-origin',
     headers: {
         'Accept': 'application/json',
@@ -48,7 +48,7 @@ export function getBlogPosts() {
   return dispatch => {
     dispatch(getBlogPostsBegin());
 
-    return createRequest('get')
+    return createRequest()
       .then(res => {
         return res.json();
       })
