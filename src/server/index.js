@@ -4,14 +4,14 @@ const middleware = require('./middleware');
 const devMiddleware = require('./dev/middleware');
 const keystone = require('keystone');
 const index = require('./routes/index');
-const blog = require('./controllers/blog-controller');
+const blog = require('./controllers/blog');
 const post = require('./routes/post');
 const gallery = require('./routes/gallery');
 const contact = require('./routes/contact');
 
 module.exports = function(app) {
   keystone.pre('routes', middleware.initLocals);
-  keystone.pre('render', middleware.flashMessages);
+  keystone.pre('routes', middleware.flashMessages);
   devMiddleware(app);
 
   app.get('/api', index);

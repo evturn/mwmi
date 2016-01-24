@@ -1,5 +1,6 @@
 import React, {PropTypes} from 'react';
 import Header from '../components/Header';
+import Footer from '../components/Footer';
 import { connect } from 'react-redux';
 
 
@@ -14,6 +15,7 @@ class App extends React.Component {
       <div className='site-content'>
         <Header links={this.props.navLinks} />
         {this.props.children}
+        <Footer />
       </div>
     );
   }

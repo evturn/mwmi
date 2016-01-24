@@ -76,7 +76,6 @@ class Blog extends React.Component {
     });
   }
   renderPagination() {
-
     return (
       <ul>
         <li class={!this.props.posts.previous ? 'disabled': ''}>
