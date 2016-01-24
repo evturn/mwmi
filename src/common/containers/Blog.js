@@ -57,12 +57,11 @@ class Blog extends React.Component {
   renderPosts() {
     return this.props.posts.results.map((post, i) => {
       return (
-        <div className="blog-item" data-ks-editable="if-user-blah-blah-blah">
+        <div key={i} className="blog-item" data-ks-editable="if-user-blah-blah-blah">
           <p className="subhead"><a href={`/blog/${post._id}`}>{post.title}</a></p>
-          <p className="caption">By: {post.author.name.first} | Posted in | {post.createdAt}</p>
+          <p className="caption">By: {post.author.name.first} | Posted in | {post.publishedAt}</p>
           <img class="img-scale" src={post.image.url} />
-          <p className="read-more"><a href="#">{post.content.brief}</a></p>
-          <p className ="lead">{post.body}</p>
+          <div dangerouslySetInnerHTML={ {__html: post.content.extended} } />
         </div>
       );
     });
