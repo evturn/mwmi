@@ -15,6 +15,7 @@ export default class Pagination extends React.Component {
           <li className="pagination-button">
             <Link to={this.previousUrl()}><i className={`${previousClass} fa fa-chevron-left`}></i></Link>
           </li>
+          {this.navigation()}
           <li className="pagination-button">
             <Link to={this.nextUrl()}><i className={`${nextClass} fa fa-chevron-right`}></i></Link>
           </li>
@@ -36,5 +37,16 @@ export default class Pagination extends React.Component {
       return this.pageUrl(this.props.posts.totalPages);
     }
     return this.pageUrl(this.props.posts.next);
+  }
+  navigation() {
+    return this.props.posts.pages.map((page, i) => {
+      const pageText = page;
+      const liClass = page === this.props.posts.currentPage ? 'active' : '';
+
+      if (page === '...') {
+        page = i ? this.props.posts.totalPages : 1;
+      }
+      return <li key={i} className={`pagination-button ${liClass}`}><Link to={this.pageUrl(page)}>{pageText}</Link></li>;
+    });
   }
 }
