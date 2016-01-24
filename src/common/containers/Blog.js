@@ -25,15 +25,11 @@ class Blog extends React.Component {
         </div>
         <div className="group-desktop">
         <div className="stats-container">
-          <p className="meta">Showing 4 posts.</p>
+          <p className="meta">Showing {this.props.posts.total} posts.</p>
         </div>
           <div className="blog-items">
             <div className="blog-container">
-              <div className="blog-item" data-ks-editable="if-user-blah-blah-blah">
-                <p className="subhead"><a href="#">Tell Me About It</a></p>
-                <p className="caption">By: Slappy | Posted in Nothing</p>
-                <p className="read-more"><a href="#">Read more...</a></p>
-              </div>
+              {this.renderPosts()}
             </div>
           </div>
           <div className="categories">
@@ -58,9 +54,21 @@ class Blog extends React.Component {
     </div>
     );
   }
+  renderPosts() {
+    return this.props.posts.results.map((post, i) => {
+      return (
+        <div className="blog-item" data-ks-editable="if-user-blah-blah-blah">
+          <p className="subhead"><a href={`/blog/${post._id}`}>{post.title}</a></p>
+          <p className="caption">By: {post.author.name.first} | Posted in | {post.createdAt}</p>
+          <img class="img-scale" src={post.image.url} />
+          <p className="read-more"><a href="#">{post.content.brief}</a></p>
+          <p className ="lead">{post.body}</p>
+        </div>
+      );
+    });
+  }
   renderCategories() {
-
-    return this.categories.map((category, i) => {
+    return this.props.categories.map((category, i) => {
       return (
         <div key={i} className="category-item">
           <p className="meta"><a href={category.key}>{category.name}</a></p>
@@ -72,10 +80,10 @@ class Blog extends React.Component {
 
     return (
       <ul>
-        <li class={!this.previous ? 'disabled': ''}>
+        <li class={!this.props.posts.previous ? 'disabled': ''}>
           <a href="#"><i className="fa fa-chevron-left"></i></a>
         </li>
-        <li class={!this.next ? 'disabled': ''}>
+        <li class={!this.props.posts.next ? 'disabled': ''}>
           <a href="#"><i className="fa fa-chevron-right"></i></a>
         </li>
       </ul>
