@@ -2,7 +2,8 @@ import React, {PropTypes} from 'react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import { connect } from 'react-redux';
-
+import { bindActionCreators } from 'redux'
+import * as Actions from '../actions';
 
 class App extends React.Component {
   constructor(props){
@@ -10,7 +11,6 @@ class App extends React.Component {
 
   }
   render() {
-    console.log(this.props);
     return (
       <div className='site-content'>
         <Header links={this.props.navLinks} />
@@ -25,7 +25,8 @@ App.propTypes = {
   children: PropTypes.object,
   navLinks: PropTypes.array,
   section: PropTypes.string,
-  user: PropTypes.object
+  user: PropTypes.object,
+  dispatch: PropTypes.func
 }
 
 
@@ -34,10 +35,15 @@ function mapStateToProps(state) {
     navLinks: state.site.navLinks,
     section: state.site.section,
     posts: state.blog.posts,
+    post: state.post.post,
     categories: state.blog.categories,
     filters: state.blog.filters,
     user: state.site.user
   };
 }
 
-export default connect(mapStateToProps)(App);
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators(Actions, dispatch)
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
