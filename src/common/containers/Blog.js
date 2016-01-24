@@ -42,13 +42,12 @@ class Blog extends React.Component {
     return (
       <div className="categories">
         <div className="categories-header">Categories</div>
-          <ul className="categories-list">{this.props.categories.map((category, i) => {
-            if (i === 1) {
-              return <li className="category-item"><Link key={i} to="/blog">All Categories</Link></li>;
-            } else {
-              return <li className="category-item"><Link key={i} to={category.key}>{category.name}</Link></li>;
-            }
-          })}</ul>
+          <ul className="categories-list">
+            <li className="category-item"><Link to="/blog"><span className="category-item__link">All Categories</span></Link></li>
+            {this.props.categories.map((category, i) => {
+              return <li key={i} className="category-item"><Link to={category.key}><span className="category-item__link">{category.name}</span></Link></li>;
+            })}
+          </ul>
       </div>
     );
   }
