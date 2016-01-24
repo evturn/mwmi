@@ -18,7 +18,7 @@ module.exports = function(app) {
   app.get('/api/blog/:category?', blog);
   app.get('/api/blog/post/:post', post);
   app.get('/api/gallery', gallery);
-  app.all('/api/contact', contact);
+  app.get('/api/contact', contact);
 
   app.get('*', function(req, res, next) {
     server(req, res);

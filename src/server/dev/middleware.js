@@ -6,16 +6,14 @@ import webpackDevMiddleware from 'webpack-dev-middleware';
 import webpackHotMiddleware from 'webpack-hot-middleware';
 
 export default function(app) {
-  if (process.env.NODE_ENV !== 'production'){
+  if (process.env.NODE_ENV === 'development'){
     const compiler = webpack(webpackConfig);
     app.use(webpackDevMiddleware(compiler, {
       noInfo: true,
-      publicPath: '/assets/',
-      outputPath: path.join(__dirname, '..', '..', '..', 'assets'),
+      publicPath: webpackConfig.output.publicPath
     }));
+
     app.use(webpackHotMiddleware(compiler));
-  } else{
-    app.use('/assets', express.static(path.join(__dirname, '..', '..', '..', 'assets')));
   }
 
   return app;

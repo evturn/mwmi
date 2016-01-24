@@ -1,6 +1,9 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux'
+import * as Actions from '../actions';
 
-export default class Blog extends React.Component {
+class Blog extends React.Component {
   constructor(props) {
     super(props);
 
@@ -12,7 +15,11 @@ export default class Blog extends React.Component {
       {key: 'Cudez', name: 'Cudex'}
     ];
   }
+  componentDidMount() {
+    this.props.getBlogPosts();
+  }
   render() {
+    console.log(this);
     return (
       <div className="container blog">
       <div className="wrapper">
@@ -79,3 +86,27 @@ export default class Blog extends React.Component {
     )
   }
 }
+
+Blog.propTypes = {
+  posts: PropTypes.array,
+  categories: PropTypes.array,
+  section: PropTypes.string,
+  user: PropTypes.object,
+  dispatch: PropTypes.func
+}
+
+
+function mapStateToProps(state) {
+  return {
+    section: state.site.section,
+    posts: state.blog.posts,
+    categories: state.blog.categories,
+    user: state.site.user
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators(Actions, dispatch)
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Blog);

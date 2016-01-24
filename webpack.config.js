@@ -19,8 +19,8 @@ var webpackConfig = {
       'src', 'node_modules'
     ],
     alias: {
-      images: path.join(__dirname, 'assets', 'images'),
-      style: path.join(__dirname, 'assets', 'less')
+      images: path.join(__dirname, 'assets/images'),
+      style: path.join(__dirname, 'assets/less')
     }
   }
 };

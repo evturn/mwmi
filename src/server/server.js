@@ -55,28 +55,21 @@ export default function render(req, res) {
     if (!renderProps) {
       return res.status(404).end('Not found');
     }
+    const site = {
+      site: {
+        section: res.locals.section,
+        navLinks: res.locals.navLinks,
+        user: res.locals.user
+      }
+    };
 
-    fetchAll(apiResult => {
-      console.log('==========================');
-      const store = configureStore({
-        site: {
-          section: res.locals.section,
-          navLinks: res.locals.navLinks,
-          user: res.locals.user
-        },
-        blog: {
-          filters: apiResult.filters,
-          posts: apiResult.data.posts,
-          categories: apiResult.data.categories,
-        }
-      });
-      const initialState = store.getState();
-      const renderedContent = ReactDOM.renderToString(
-        <Provider store={store}>
-          <RoutingContext {...renderProps} />
-        </Provider>);
+    const store = configureStore(site);
+    const initialState = store.getState();
+    const renderedContent = ReactDOM.renderToString(
+      <Provider store={store}>
+        <RoutingContext {...renderProps} />
+      </Provider>);
 
-      res.status(200).end(renderFullPage(renderedContent, initialState))
-    });
+    res.status(200).end(renderFullPage(renderedContent, initialState))
   });
 }

@@ -40,4 +40,4 @@ keystone.set('nav', {
   'users': 'users'
 });
 
-module.exports = keystone.start();
+keystone.start();
