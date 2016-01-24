@@ -21,6 +21,9 @@ function fetchBlog(callback) {
     .catch(err => console.log(err));
 }
 
+let adminCSS;
+let adminJS;
+
 const renderFullPage = (html, initialState) => {
   return `
     <!doctype html>
@@ -32,6 +35,7 @@ const renderFullPage = (html, initialState) => {
       <link rel="stylesheet", href="http://fonts.googleapis.com/css?family=Dosis:400,500,300,200,600,700,800" type="stylesheet">
       <link rel="stylesheet", href="http://fonts.googleapis.com/css?family=Lato:400,300,300italic,400italic,700,700italic,900,900italic,100,100italic" type="stylesheet">
       <link rel="stylesheet" type="text/css" href="/assets/app.css">
+      ${adminCSS}
     </head>
     <body>
 
@@ -39,6 +43,7 @@ const renderFullPage = (html, initialState) => {
 
       <script>window.__INITIAL_STATE__ = ${JSON.stringify(initialState)};</script>
       <script src="/assets/bundle.js"></script>
+      ${adminCSS}
     </body>
     </html>
   `;
@@ -55,12 +60,12 @@ export default function render(req, res) {
     if (!renderProps) {
       return res.status(404).end('Not found');
     }
-    const site = {
 
-    };
+    if (typeof(req.user) !== 'undefined' && req.user.isAdmin) {
+      adminCSS = `<link rel="stylesheet" href="/keystone/styles/content/editor.min.css">`;
+      adminJS = `<script src="/keystone/js/content/editor.js"></script>`;
+    }
     fetchBlog(apiResult => {
-      console.log(apiResult);
-      console.log('========DYATA==========')
       const store = configureStore({
         blog: {
           posts: apiResult.data.posts,

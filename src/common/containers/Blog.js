@@ -13,7 +13,7 @@ class Blog extends React.Component {
     return (
       <div className="blog">
         <div className="blog-content">
-          <div className="blog-content__header">Showing {this.props.posts.total} posts.</div>
+          <div className="blog-content__header">Showing {this.props.posts.first} of {this.props.posts.total}</div>
           {this.renderPosts()}
           {this.renderCategories()}
         </div>
@@ -24,12 +24,11 @@ class Blog extends React.Component {
   renderPosts() {
     return (
       <div className="posts">
-
         {this.props.posts.results.map((post, i) => {
           return (
             <div key={i} className="post-item" data-ks-editable="if-user-blah-blah-blah">
               <Link to={`/blog/${post._id}`}>{post.title}</Link>
-              <div className="post-item__caption">By: {post.author.name.first} | Posted in | {post.publishedAt}</div>
+              <div className="post-item__caption">By: {post.author.name.first} | Posted in | {post.publishedDate}</div>
               <img className="post-item__image" src={post.image.url} />
               <div className="post-item__body" dangerouslySetInnerHTML={ {__html: post.content.extended} } />
             </div>
