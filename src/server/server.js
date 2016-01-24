@@ -1,20 +1,26 @@
 import 'babel-core/polyfill';
-import express from 'express';
-import webpack from 'webpack';
-import webpackConfig from '../../webpack.config';
-import webpackDevMiddleware from 'webpack-dev-middleware';
-import webpackHotMiddleware from 'webpack-hot-middleware';
 import React from 'react';
 import ReactDOM from 'react-dom/server';
 import { RoutingContext, match } from 'react-router';
-import createLocation from 'history/lib/createLocation';
+import { Provider } from 'react-redux'
+import configureStore from '../common/store/index.js';
 import routes from '../common/routes';
+import createLocation from 'history/lib/createLocation';
 import packagejson from '../../package.json';
-import path from 'path';
-import blogMW from './routes/blog';
-import postMW from './routes/post';
+import fetch from 'isomorphic-fetch';
 
-export default function(app) {
+const clientConfig = {
+  host: process.env.HOSTNAME || 'localhost',
+  port: process.env.PORT || '3000'
+};
+
+function fetchAll(callback) {
+  fetch(`http://${clientConfig.host}:${clientConfig.port}/blogPost`)
+    .then(res => res.json())
+    .then(json => callback(json))
+    .catch(err => console.log(err));
+}
+
   const renderFullPage = (html, initialState) => {
     return `
       <!doctype html>
@@ -38,40 +44,36 @@ export default function(app) {
     `;
   }
 
-  if(process.env.NODE_ENV !== 'production'){
-    const compiler = webpack(webpackConfig);
-    app.use(webpackDevMiddleware(compiler, {
-      noInfo: true,
-      publicPath: '/assets/',
-      outputPath: path.join(__dirname, '..', '..', 'assets'),
-    }));
-    app.use(webpackHotMiddleware(compiler));
-  }else{
-    app.use('/assets', express.static(path.join(__dirname, '..', '..', 'assets')));
-  }
 
-  app.get('/*', blogMW, postMW, function(req, res, next) {
-    const location = createLocation(req.url);
-    match({ routes, location }, (err, redirectLocation, renderProps) => {
-      if (err) {
-        console.error(err);
-        return res.status(500).end('Internal server error');
-      }
+export default function render(req, res) {
+  const location = createLocation(req.url);
 
-      if (!renderProps) {
-        return res.status(404).end('Not found');
-      }
+  match({routes, location}, (err, redirectLocation, renderProps) => {
+    if (err) {
+      console.error(err);
+      return res.status(500).end('Internal server error');
+    }
 
-      const componentHTML = ReactDOM.renderToString(<RoutingContext {...renderProps} />);
-      const initialState = res.locals;
-      res.status(200).end(renderFullPage(componentHTML, initialState))
+    if (!renderProps) {
+      return res.status(404).end('Not found');
+    }
+
+    fetchAll(apiResult => {
+
+      const store = configureStore({
+        blog: {
+          filters: apiResult.filters,
+          posts: apiResult.data.posts,
+          categories: apiResult.data.categories
+        }
+      });
+      const initialState = store.getState();
+      const renderedContent = ReactDOM.renderToString(
+        <Provider store={store}>
+          <RoutingContext {...renderProps} />
+        </Provider>);
+
+      res.status(200).end(renderFullPage(renderedContent, initialState))
     });
-
   });
 }
-  // const server = app.listen(3002, () => {
-  //   const host = server.address().address;
-  //   const port = server.address().port;
-  //   console.log(`We running in ${process.env.NODE_ENV}`);
-  //   console.log(`Listening on ${port}`);
-  // });

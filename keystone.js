@@ -6,8 +6,8 @@ keystone.init({
   'brand': 'mwmi',
 
   'less': 'public',
-  'static': 'public',
-  'favicon': 'public/images/logo.png',
+  'static': 'assets',
+  'favicon': 'assets/images/logo.png',
   'views': 'templates/views',
   'view engine': 'jade',
   'mongo': 'mongodb://localhost/mwmi',

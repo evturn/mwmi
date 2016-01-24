@@ -1,19 +1,36 @@
-import React from 'react';
+import React, {PropTypes} from 'react';
 import Header from '../components/Header';
+import { connect } from 'react-redux';
 
 
-export default class App extends React.Component {
+class App extends React.Component {
   constructor(props){
     super(props);
 
-    this.state = window.__INITIAL_STATE__;
   }
   render() {
+    console.log(this);
     return (
       <div className='site-content'>
-        <Header links={this.state.navLinks}/>
+
         {this.props.children}
       </div>
     );
   }
 }
+
+App.propTypes = {
+  children: PropTypes.object,
+  posts: PropTypes.array,
+  categories: PropTypes.array
+}
+
+
+function mapStateToProps(state) {
+  return {
+    posts: state.blog.posts,
+    categories: state.blog.categories
+  };
+}
+
+export default connect(mapStateToProps)(App);
