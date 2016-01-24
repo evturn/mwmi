@@ -1,3 +1,5 @@
+require('dotenv').load();
+
 var keystone = require('keystone');
 
 keystone.init({
@@ -32,6 +34,9 @@ keystone.set('locals', {
 keystone.set('routes', require('./src/server'));
 
 keystone.set('nav', {
+  'posts': ['posts', 'post-categories'],
+  'galleries': 'galleries',
+  'enquiries': 'enquiries',
   'users': 'users'
 });
 

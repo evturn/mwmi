@@ -15,39 +15,37 @@ const clientConfig = {
 };
 
 function fetchAll(callback) {
-  fetch(`http://${clientConfig.host}:${clientConfig.port}/blogPost`)
+  fetch(`http://${clientConfig.host}:${clientConfig.port}/api`)
     .then(res => res.json())
     .then(json => callback(json))
     .catch(err => console.log(err));
 }
 
-  const renderFullPage = (html, initialState) => {
-    return `
-      <!doctype html>
-      <html>
-      <head>
-        <meta charset="utf-8">
-        <title>MWMI</title>
-        <link rel="stylesheet", href="http://fonts.googleapis.com/css?family=Raleway:600,700,400,300" type="stylesheet">
-        <link rel="stylesheet", href="http://fonts.googleapis.com/css?family=Dosis:400,500,300,200,600,700,800" type="stylesheet">
-        <link rel="stylesheet", href="http://fonts.googleapis.com/css?family=Lato:400,300,300italic,400italic,700,700italic,900,900italic,100,100italic" type="stylesheet">
-        <link rel="stylesheet" type="text/css" href="/assets/app.css">
-      </head>
-      <body>
+const renderFullPage = (html, initialState) => {
+  return `
+    <!doctype html>
+    <html>
+    <head>
+      <meta charset="utf-8">
+      <title>MWMI</title>
+      <link rel="stylesheet", href="http://fonts.googleapis.com/css?family=Raleway:600,700,400,300" type="stylesheet">
+      <link rel="stylesheet", href="http://fonts.googleapis.com/css?family=Dosis:400,500,300,200,600,700,800" type="stylesheet">
+      <link rel="stylesheet", href="http://fonts.googleapis.com/css?family=Lato:400,300,300italic,400italic,700,700italic,900,900italic,100,100italic" type="stylesheet">
+      <link rel="stylesheet" type="text/css" href="/assets/app.css">
+    </head>
+    <body>
 
-        <div id="root">${html}</div>
+      <div id="root">${html}</div>
 
-        <script>window.__INITIAL_STATE__ = ${JSON.stringify(initialState)};</script>
-        <script src="/assets/bundle.js"></script>
-      </body>
-      </html>
-    `;
-  }
-
+      <script>window.__INITIAL_STATE__ = ${JSON.stringify(initialState)};</script>
+      <script src="/assets/bundle.js"></script>
+    </body>
+    </html>
+  `;
+}
 
 export default function render(req, res) {
   const location = createLocation(req.url);
-
   match({routes, location}, (err, redirectLocation, renderProps) => {
     if (err) {
       console.error(err);
@@ -59,12 +57,17 @@ export default function render(req, res) {
     }
 
     fetchAll(apiResult => {
-
+      console.log('==========================');
       const store = configureStore({
+        site: {
+          section: res.locals.section,
+          navLinks: res.locals.navLinks,
+          user: res.locals.user
+        },
         blog: {
           filters: apiResult.filters,
           posts: apiResult.data.posts,
-          categories: apiResult.data.categories
+          categories: apiResult.data.categories,
         }
       });
       const initialState = store.getState();
