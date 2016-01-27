@@ -2,6 +2,11 @@
 const keystone = require('keystone');
 const async = require('async');
 
+exports.setSection = function setSection(req, res, next) {
+  res.locals.section = 'blog'
+  next();
+};
+
 exports.loadCategories = function loadCategories(req, res, next) {
   keystone.list('PostCategory')
     .model

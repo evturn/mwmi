@@ -61,8 +61,8 @@ Pagination.propTypes = {
 
 function mapStateToProps(state) {
   return {
-    posts: state.blog.posts,
-    user: state.site.user
+    posts: state.reducer.posts,
+    user: state.reducer.user
   };
 }
 

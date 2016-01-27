@@ -38,11 +38,11 @@ Post.propTypes = {
 
 function mapStateToProps(state) {
   return {
-    posts: state.posts,
-    categories: state.categories,
-    filters: state.filters,
-    post: state.post,
-    category: state.category
+    posts: state.reducer.posts,
+    categories: state.reducer.categories,
+    filters: state.reducer.filters,
+    post: state.reducer.post,
+    category: state.reducer.category
   };
 }
 

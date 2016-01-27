@@ -15,12 +15,15 @@ const send = (req, res, next) => {
 
 module.exports = function(app) {
   keystone.pre('routes', middleware.initLocals);
-  keystone.pre('routes', middleware.flashMessages);
+  // keystone.pre('routes', middleware.flashMessages);
+  keystone.pre('routes', blog.loadCategories);
+  keystone.pre('routes', blog.currentCategoryFilter);
+  keystone.pre('routes', blog.loadPosts);
   devMiddleware(app);
 
   app.get('/', home, send);
-  app.get('/blog/:category?', blog.loadCategories, blog.currentCategoryFilter, blog.loadPosts, send);
-  app.get('/blog/post/:post', post.loadCurrentPost, post.loadOtherPosts, send);
+  app.get('/blog/:category?', blog.setSection, send);
+  app.get('/blog/post/:post', blog.setSection, post.loadCurrentPost, post.loadOtherPosts, send);
   app.get('/gallery', gallery);
   app.get('/contact', contact);
 

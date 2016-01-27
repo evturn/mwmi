@@ -32,7 +32,7 @@ const requestBlogSuccess = (payload) => {
   };
 };
 
-const getPostSuccess = (payload) => {
+const requestPostSuccess = (payload) => {
   console.log(payload);
   console.log('=======POST PAYLOAD========');
   return {
@@ -41,7 +41,7 @@ const getPostSuccess = (payload) => {
   };
 };
 
-const getCategorySuccess = (payload) => {
+const requestCategorySuccess = (payload) => {
   console.log(payload);
   console.log('=======CATEGORY PAYLOAD========');
   return {
@@ -97,7 +97,7 @@ export const requestCategory = (slug) => {
   return dispatch => {
     dispatch(requestInit({category: slug}));
 
-    request(`${BLOG_ENDPOINT}${slug}`)
+    request(`${BLOG_ENDPOINT}/${slug}`)
       .then(res => res.json())
       .then(json => {
         console.log(json);

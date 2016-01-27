@@ -27,15 +27,29 @@ App.propTypes = {
   navLinks: PropTypes.array,
   section: PropTypes.string,
   user: PropTypes.object,
+  posts: PropTypes.object,
+  categories: PropTypes.array,
+  filters: PropTypes.object,
+  post: PropTypes.object,
+  category: PropTypes.object,
+  isFetching: PropTypes.bool,
+  completed: PropTypes.bool,
   dispatch: PropTypes.func
 }
 
 
 function mapStateToProps(state) {
   return {
-    navLinks: state.navLinks,
-    user: state.user,
-    section: state.section
+    navLinks: state.reducer.navLinks,
+    user: state.reducer.user,
+    section: state.reducer.section,
+    posts: state.reducer.posts,
+    categories: state.reducer.categories,
+    filters: state.reducer.filters,
+    post: state.reducer.post,
+    category: state.reducer.category,
+    isFetching: state.reducer.isFetching,
+    completed: state.reducer.completed
   };
 }
 

@@ -8,20 +8,22 @@ import Pagination from '../components/Pagination';
 class Blog extends React.Component {
   constructor(props) {
     super(props);
-    props.requestBlog();
   }
   componentWillReceiveProps(nextProps) {
     console.log(nextProps);
-    if (nextProps.params.category) {
-      this.props.requestCategory({category: nextProps.params});
+    if (nextProps.params.category !== nextProps.params.category) {
+      this.props.requestCategory(nextProps.params.category);
     }
   }
   render() {
-    console.log(this.props);
     return (
       <div className="blog">
         <div className="blog-content">
-</div>
+          {this.renderHeader()}
+          {this.renderPosts()}
+          {this.renderCategories()}
+        </div>
+        {this.renderPagination()}
       </div>
     );
   }
@@ -54,6 +56,15 @@ class Blog extends React.Component {
       </div>
     );
   }
+  renderHeader() {
+    return <div className="blog-content__header">Showing {this.props.posts.first} of {this.props.posts.total}</div>;
+  }
+  renderPagination() {
+    if (this.props.completed) {
+      return <Pagination posts={this.props.posts}/>;
+    }
+
+  }
 }
 
 Blog.propTypes = {
@@ -62,17 +73,21 @@ Blog.propTypes = {
   filters: PropTypes.object,
   post: PropTypes.object,
   category: PropTypes.object,
+  isFetching: PropTypes.bool,
+  completed: PropTypes.bool,
   dispatch: PropTypes.func
 }
 
 
 function mapStateToProps(state) {
   return {
-    posts: state.posts,
-    categories: state.categories,
-    filters: state.filters,
-    post: state.post,
-    category: state.category
+    posts: state.reducer.posts,
+    categories: state.reducer.categories,
+    filters: state.reducer.filters,
+    post: state.reducer.post,
+    category: state.reducer.category,
+    isFetching: state.reducer.isFetching,
+    completed: state.reducer.completed
   };
 }
 

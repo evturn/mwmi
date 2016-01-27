@@ -59,7 +59,9 @@ const render = (req, res) => {
     }
 
     if (renderProps) {
-      const store = configureStore(res.locals);
+      const store = configureStore({
+        reducer: res.locals
+      });
       const initialState = store.getState();
       const renderedContent = ReactDOM.renderToString(
         <Provider store={store}>
