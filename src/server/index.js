@@ -22,7 +22,7 @@ module.exports = function(app) {
   devMiddleware(app);
 
   app.get('/', home, send);
-  app.get('/blog/:category?', blog.setSection, send);
+  app.get('/blog/:category?', blog.setSection, blog.currentCategoryFilter, send);
   app.get('/blog/post/:post', blog.setSection, post.loadCurrentPost, post.loadOtherPosts, send);
   app.get('/gallery', gallery);
   app.get('/contact', contact);
