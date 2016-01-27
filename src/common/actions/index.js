@@ -1,118 +1,108 @@
 import { polyfill } from 'es6-promise';
 import fetch from 'isomorphic-fetch';
-import md5 from 'spark-md5';
+
+export const REQUEST_INIT = 'REQUEST_INIT';
+export const REQUEST_ERROR = 'REQUEST_ERROR';
+export const REQUEST_BLOG_SUCCESS = 'REQUEST_BLOG_SUCCESS';
+export const REQUEST_POST_SUCCESS = 'GET_POST_SUCCESS';
+export const REQUEST_CATEGORY_SUCCESS = 'GET_CATEGORY_SUCCESS';
 
 polyfill();
 
-export const GET_BLOG_POSTS_SUCCESS = 'GET_BLOG_POSTS_SUCCESS';
-export const GET_BLOG_POSTS_BEGIN = 'GET_BLOG_POSTS_BEGIN';
-export const GET_BLOG_POSTS_ERROR = 'GET_BLOG_POSTS_ERROR';
+const requestInit = (filter) => {
+  return {
+    type: REQUEST_INIT,
+    filters: filter
+  };
+};
 
-export const GET_POST_SUCCESS = 'GET_POST_SUCCESS';
-export const GET_POST_BEGIN = 'GET_POST_BEGIN';
-export const GET_POST_ERROR = 'GET_POST_ERROR';
+const requestError = (error) => {
+  return {
+    type: REQUEST_ERROR,
+    message: error
+  };
+};
 
-let BLOG_ENDPOINT = 'http://localhost:3000/api/blog';
-let POST_ENDPOINT = 'http://localhost:3000/api/blog/post/';
+const requestBlogSuccess = (payload) => {
+  console.log(payload);
+  console.log('=======BLOG PAYLOAD========');
+  return {
+    type: REQUEST_BLOG_SUCCESS,
+    payload: payload
+  };
+};
 
-function createRequest(data) {
-  return fetch(BLOG_ENDPOINT, {
+const getPostSuccess = (payload) => {
+  console.log(payload);
+  console.log('=======POST PAYLOAD========');
+  return {
+    type: REQUEST_POST_SUCCESS,
+    payload: payload
+  };
+};
+
+const getCategorySuccess = (payload) => {
+  console.log(payload);
+  console.log('=======CATEGORY PAYLOAD========');
+  return {
+    type: REQUEST_CATEGORY_SUCCESS,
+    payload: payload
+  };
+};
+
+const BLOG_ENDPOINT = 'http://localhost:3000/blog';
+const POST_ENDPOINT = 'http://localhost:3000/blog/post/';
+
+const request = (endpoint, data) => {
+  return fetch(endpoint, {
     method: 'get',
     credentials: 'same-origin',
     headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
     },
     body: JSON.stringify(data)
   });
-}
+};
 
-function requestPost(params, data) {
-  console.log(params);
-  return fetch(`${POST_ENDPOINT}${params}`, {
-    method: 'get',
-    credentials: 'same-origin',
-    headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(data)
-  });
-}
-
-export function getPost() {
+export const requestBlog = () => {
   return dispatch => {
-    dispatch(getPostBegin());
+    dispatch(requestInit({}));
 
-    return requestPost()
-      .then(res => {
-        return res.json();
-      })
+    request(BLOG_ENDPOINT)
+      .then(res => res.json())
       .then(json => {
         console.log(json);
-        dispatch(getPostSuccess(json));
+        dispatch(requestBlogSuccess(json))
       })
-      .catch(err => {
-        dispatch(getPostError(err));
-      });
+      .catch(err => dispatch(requestError(err)));
   };
-}
+};
 
-export function getPostError(error) {
-  return {
-    type: GET_POST_ERROR,
-    message: error
-  };
-}
-
-export function getPostBegin() {
-  return { type: GET_POST_BEGIN };
-}
-
-export function getPostSuccess(payload) {
-  console.log('=======payload==============');
-  console.log(payload);
-  console.log('=======payload==============');
-  return {
-    type: GET_POST_SUCCESS,
-    payload: payload
-  };
-}
-
-export function getBlogPostsSuccess(payload) {
-  console.log('=======payload==============');
-  console.log(payload);
-  console.log('=======payload==============');
-  return {
-    type: GET_BLOG_POSTS_SUCCESS,
-    payload: payload
-  };
-}
-
-export function getBlogPostsError(error) {
-  return {
-    type: GET_BLOG_POSTS_ERROR,
-    message: error
-  };
-}
-
-export function getBlogPostsBegin() {
-  return { type: GET_BLOG_POSTS_BEGIN };
-}
-
-export function getBlogPosts() {
+export const requestPost = (slug) => {
   return dispatch => {
-    dispatch(getBlogPostsBegin());
+    dispatch(requestInit({post: slug}));
 
-    return createRequest()
-      .then(res => {
-        return res.json();
-      })
+    request(`${POST_ENDPOINT}${slug}`)
+      .then(res => res.json())
       .then(json => {
-        dispatch(getBlogPostsSuccess(json));
+        console.log(json);
+        dispatch(requestPostSuccess(json))
       })
-      .catch(err => {
-        dispatch(getBlogPostsError(err));
-      });
+      .catch(err => dispatch(requestError(err)));
   };
-}
+};
+
+export const requestCategory = (slug) => {
+  return dispatch => {
+    dispatch(requestInit({category: slug}));
+
+    request(`${BLOG_ENDPOINT}${slug}`)
+      .then(res => res.json())
+      .then(json => {
+        console.log(json);
+        dispatch(requestCategorySuccess(json))
+      })
+      .catch(err => dispatch(requestError(err)));
+  };
+};

@@ -7,7 +7,7 @@ export default class Footer extends React.Component {
   }
   render() {
     return (
-      <footer className="container footer">Copyright 2016 © MWMI | All Rights Reserved</footer>
+      <footer className="footer">Copyright 2016 © MWMI | All Rights Reserved</footer>
     );
   }
 }

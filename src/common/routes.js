@@ -9,7 +9,8 @@ import Post from "./containers/Post";
 export default (
   <Route component={App} name="app">
     <Route path="/" component={Home} />
-    <Route path="blog" component={Blog} />
-    <Route path="blog/post/:post" component={Post} />
+    <Route path="blog(/:category)" component={Blog}>
+      <Route path="post/:post" component={Post} />
+    </Route>
   </Route>
 );

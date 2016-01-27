@@ -1,7 +1,7 @@
 import 'babel-core/polyfill';
 import React from 'react';
 import ReactDOM from 'react-dom/server';
-import { RoutingContext, match } from 'react-router';
+import { RouterContext, match } from 'react-router';
 import { Provider } from 'react-redux'
 import configureStore from '../common/store/index.js';
 import routes from '../common/routes';
@@ -13,13 +13,6 @@ const clientConfig = {
   host: process.env.HOSTNAME || 'localhost',
   port: process.env.PORT || '3000'
 };
-
-function fetchBlog(callback) {
-  fetch(`http://${clientConfig.host}:${clientConfig.port}/api/blog`)
-    .then(res => res.json())
-    .then(json => callback(json))
-    .catch(err => console.log(err));
-}
 
 let adminCSS;
 let adminJS;
@@ -49,46 +42,35 @@ const renderFullPage = (html, initialState) => {
   `;
 }
 
-export default function render(req, res) {
-  const location = createLocation(req.url);
-  match({routes, location}, (err, redirectLocation, renderProps) => {
-    if (err) {
-      console.error(err);
-      return res.status(500).end('Internal server error');
-    }
+const render = (req, res) => {
+  console.log(req.url);
+  console.log('======req.url=========');
 
-    if (!renderProps) {
-      return res.status(404).end('Not found');
-    }
+  const location = createLocation(req.url);
+  console.log(location);
+  console.log('======location========');
+
+  match({routes, location}, (err, redirectLocation, renderProps) => {
+    if (err) { return res.status(500).end('Internal server error'); }
 
     if (typeof(req.user) !== 'undefined' && req.user.isAdmin) {
       adminCSS = `<link rel="stylesheet" href="/keystone/styles/content/editor.min.css">`;
       adminJS = `<script src="/keystone/js/content/editor.js"></script>`;
     }
-    fetchBlog(apiResult => {
-      const store = configureStore({
-        post: {
-          post: apiResult.data.post
-        },
-        blog: {
-          posts: apiResult.data.posts,
-          categories: apiResult.data.categories
-        },
-        site: {
-          section: res.locals.section,
-          navLinks: res.locals.navLinks,
-          user: res.locals.user
-        }
-      });
+
+    if (renderProps) {
+      const store = configureStore(res.locals);
       const initialState = store.getState();
       const renderedContent = ReactDOM.renderToString(
         <Provider store={store}>
-          <RoutingContext {...renderProps} />
+          <RouterContext {...renderProps} />
         </Provider>);
 
       res.status(200).end(renderFullPage(renderedContent, initialState))
-    })
-
-
+    } else {
+      res.status(404).end('Not found');
+    }
   });
-}
+};
+
+export default render;

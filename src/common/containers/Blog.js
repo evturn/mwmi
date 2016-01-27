@@ -8,16 +8,20 @@ import Pagination from '../components/Pagination';
 class Blog extends React.Component {
   constructor(props) {
     super(props);
+    props.requestBlog();
+  }
+  componentWillReceiveProps(nextProps) {
+    console.log(nextProps);
+    if (nextProps.params.category) {
+      this.props.requestCategory({category: nextProps.params});
+    }
   }
   render() {
+    console.log(this.props);
     return (
       <div className="blog">
         <div className="blog-content">
-          <div className="blog-content__header">Showing {this.props.posts.first} of {this.props.posts.total}</div>
-          {this.renderPosts()}
-          {this.renderCategories()}
-        </div>
-        <Pagination posts={this.props.posts}/>
+</div>
       </div>
     );
   }
@@ -27,7 +31,7 @@ class Blog extends React.Component {
         {this.props.posts.results.map((post, i) => {
           return (
             <div key={i} className="post-item" data-ks-editable="if-user-blah-blah-blah">
-              <Link to={`/blog/post/${post.slug}`}>{post.title}</Link>
+              <Link to={ {pathname: `/blog/post/${post.slug}` }}>{post.title}</Link>
               <div className="post-item__caption">By: {post.author.name.first} | Posted in | {post.publishedDate}</div>
               <img className="post-item__image" src={post.image.url} />
               <div className="post-item__body" dangerouslySetInnerHTML={ {__html: post.content.extended} } />
@@ -44,7 +48,7 @@ class Blog extends React.Component {
           <ul className="categories-list">
             <li className="category-item"><Link to="/blog"><span className="category-item__link">All Categories</span></Link></li>
             {this.props.categories.map((category, i) => {
-              return <li key={i} className="category-item"><Link to={`/blog`} query={{category: category.key}}><span className="category-item__link">{category.name}</span></Link></li>;
+              return <li key={i} className="category-item"><Link to={{ pathname: `/blog/${category.key}` }}><span className="category-item__link">{category.name}</span></Link></li>;
             })}
           </ul>
       </div>
@@ -55,19 +59,20 @@ class Blog extends React.Component {
 Blog.propTypes = {
   posts: PropTypes.object,
   categories: PropTypes.array,
-  section: PropTypes.string,
-  user: PropTypes.object,
+  filters: PropTypes.object,
+  post: PropTypes.object,
+  category: PropTypes.object,
   dispatch: PropTypes.func
 }
 
 
 function mapStateToProps(state) {
   return {
-    section: state.site.section,
-    posts: state.blog.posts,
-    categories: state.blog.categories,
-    filters: state.blog.filters,
-    user: state.site.user
+    posts: state.posts,
+    categories: state.categories,
+    filters: state.filters,
+    post: state.post,
+    category: state.category
   };
 }
 

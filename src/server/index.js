@@ -3,24 +3,25 @@ const server = require('./server');
 const middleware = require('./middleware');
 const devMiddleware = require('./dev/middleware');
 const keystone = require('keystone');
-const index = require('./routes/index');
+const home = require('./controllers/home');
 const blog = require('./controllers/blog');
 const post = require('./controllers/post');
 const gallery = require('./routes/gallery');
 const contact = require('./routes/contact');
+
+const send = (req, res, next) => {
+  server(req, res);
+};
 
 module.exports = function(app) {
   keystone.pre('routes', middleware.initLocals);
   keystone.pre('routes', middleware.flashMessages);
   devMiddleware(app);
 
-  app.get('/api', index);
-  app.get('/api/blog/:category?', blog.currentCategoryFilter, blog.loadCategories, blog.loadPosts, blog.send);
-  app.get('/api/blog/post/:post', post.loadCurrentPost, post.loadOtherPosts, post.send);
-  app.get('/api/gallery', gallery);
-  app.get('/api/contact', contact);
+  app.get('/', home, send);
+  app.get('/blog/:category?', blog.loadCategories, blog.currentCategoryFilter, blog.loadPosts, send);
+  app.get('/blog/post/:post', post.loadCurrentPost, post.loadOtherPosts, send);
+  app.get('/gallery', gallery);
+  app.get('/contact', contact);
 
-  app.get('*', function(req, res, next) {
-    server(req, res);
-  });
 };

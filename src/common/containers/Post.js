@@ -27,18 +27,22 @@ class Post extends React.Component {
 }
 
 Post.propTypes = {
-  children: PropTypes.object,
+  posts: PropTypes.object,
+  categories: PropTypes.array,
+  filters: PropTypes.object,
   post: PropTypes.object,
-  section: PropTypes.string,
-  user: PropTypes.object
+  category: PropTypes.object,
+  dispatch: PropTypes.func
 }
 
 
 function mapStateToProps(state) {
   return {
-    section: state.site.section,
-    post: state.post.post,
-    user: state.site.user
+    posts: state.posts,
+    categories: state.categories,
+    filters: state.filters,
+    post: state.post,
+    category: state.category
   };
 }
 

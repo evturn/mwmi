@@ -15,10 +15,7 @@ exports.loadCurrentPost = function(req, res, next) {
     .populate('author categories');
 
   dbQuery.exec((err, result) => {
-    res.locals.data = {
-      post: result
-    };
-
+    res.locals.post = result;
     next();
   });
 };
@@ -34,7 +31,7 @@ exports.loadOtherPosts = function(req, res, next) {
 
   dbQuery
     .exec((err, results) => {
-      res.locals.data.posts = results;
+      res.locals.posts = results;
 
       next();
     });

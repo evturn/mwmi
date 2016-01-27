@@ -10,10 +10,9 @@ exports.loadCategories = function loadCategories(req, res, next) {
     .exec((err, results) => {
       if (err || !results.length) { console.log(err); }
 
-      res.locals.data = {
-        categories: results
-      };
-      async.each(res.locals.data.categories, (category, next) => {
+      res.locals.categories = results;
+
+      async.each(res.locals.categories, (category, next) => {
         keystone.list('Post')
           .model
           .count()
@@ -30,21 +29,21 @@ exports.loadCategories = function loadCategories(req, res, next) {
 
 exports.currentCategoryFilter = function currentCategoryFilter(req, res, next) {
   if (req.params.category) {
+    res.locals.filters = {
+      category: req.params.category
+    };
+
     keystone.list('PostCategory')
       .model
       .findOne({ key: res.locals.filters.category })
       .exec((err, result) => {
         if (err) { console.log(err); }
 
-        res.locals.data = {
-          category: result
-        };
+        res.locals.category = result;
         next();
       });
   } else {
-    res.locals.data = {
-      category: null
-    };
+    res.locals.category = null;
     next();
   }
 };
@@ -60,20 +59,21 @@ exports.loadPosts = function loadPosts(req, res, next) {
     .sort('-publishedDate')
     .populate('author categories');
 
-  if (res.locals.data.category) {
+  if (res.locals.category) {
     dbQuery
       .where('categories')
-      .in([res.locals.data.category]);
+      .in([res.locals.category]);
   }
 
   dbQuery
     .exec((err, results) => {
-      res.locals.data.posts = results;
+      res.locals.posts = results;
 
       next();
     });
 };
 
 exports.send = function send(req, res, next) {
+  console.log(res.locals);
   res.json(res.locals);
 };

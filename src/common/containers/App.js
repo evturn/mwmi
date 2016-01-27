@@ -11,6 +11,7 @@ class App extends React.Component {
 
   }
   render() {
+    console.log(this.props);
     return (
       <div className='site-content'>
         <Header links={this.props.navLinks} />
@@ -32,13 +33,9 @@ App.propTypes = {
 
 function mapStateToProps(state) {
   return {
-    navLinks: state.site.navLinks,
-    section: state.site.section,
-    posts: state.blog.posts,
-    post: state.post.post,
-    categories: state.blog.categories,
-    filters: state.blog.filters,
-    user: state.site.user
+    navLinks: state.navLinks,
+    user: state.user,
+    section: state.section
   };
 }
 

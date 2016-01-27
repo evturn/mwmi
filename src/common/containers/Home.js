@@ -14,7 +14,7 @@ export default class Home extends React.Component {
 
           <div className="group-desktop">
             <div className="image-container">
-              <img className="img-scale" src='/assets/images/mi-logo-800.png' />
+              <img className="img-scale" src='http://madeinmusic.co/img/mi-logo-800.png' />
               <div className="inner-text">
                 <p className="subhead">{this.title}</p>
               </div>
