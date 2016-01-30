@@ -1,9 +1,6 @@
 import React, {PropTypes} from 'react';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux'
-import * as Actions from '../actions';
 
-class Post extends React.Component {
+export default class Post extends React.Component {
   constructor(props){
     super(props);
 
@@ -34,20 +31,3 @@ Post.propTypes = {
   category: PropTypes.object,
   dispatch: PropTypes.func
 }
-
-
-function mapStateToProps(state) {
-  return {
-    posts: state.reducer.posts,
-    categories: state.reducer.categories,
-    filters: state.reducer.filters,
-    post: state.reducer.post,
-    category: state.reducer.category
-  };
-}
-
-function mapDispatchToProps(dispatch) {
-  return bindActionCreators(Actions, dispatch)
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(Post);

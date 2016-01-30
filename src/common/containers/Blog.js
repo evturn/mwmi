@@ -1,36 +1,59 @@
 import React, { PropTypes } from 'react';
-import { connect } from 'react-redux';
 import { Link } from 'react-router';
-import { bindActionCreators } from 'redux'
-import * as Actions from '../actions';
 import Pagination from '../components/Pagination';
+import xhr from '../../client/xhr';
 
-class Blog extends React.Component {
+export default class Blog extends React.Component {
   constructor(props) {
     super(props);
-  }
-  componentWillReceiveProps(nextProps) {
-    console.log(nextProps);
-    if (nextProps.params.category !== nextProps.params.category) {
-      this.props.requestCategory(nextProps.params.category);
+    this.state = {
+      fetching: false,
+      completed: false,
+      posts: null,
+      categories: null,
+      category: null
     }
   }
+  componentDidMount() {
+    this.setState({
+      fetching: true
+    });
+
+    xhr('/api/blog')
+      .then(res => res.json())
+      .then(json => {
+        this.setState({
+          posts: json.posts,
+          categories: json.categories,
+          category: json.category,
+          fetching: false,
+          completed: true
+        });
+      })
+      .catch(err => console.log(err));
+  }
   render() {
+    let content;
+    let pagination;
+    if (!this.state.fetching && this.state.completed) {
+      content = this.renderContent();
+      pagination = <Pagination posts={this.state.posts}/>;
+    } else if (this.state.fetching && !this.state.completed) {
+      content = 'Loading...';
+      pagination = null;
+    }
     return (
       <div className="blog">
-        <div className="blog-content">
-          {this.renderHeader()}
-          {this.renderPosts()}
-          {this.renderCategories()}
-        </div>
-        {this.renderPagination()}
+        {content}
+        {pagination}
       </div>
     );
   }
-  renderPosts() {
+  renderContent() {
     return (
-      <div className="posts">
-        {this.props.posts.results.map((post, i) => {
+      <div className="blog-content">
+        <div className="blog-content__header">Showing {this.state.posts.first} of {this.state.posts.total}</div>
+        <div className="posts">{this.state.posts.results.map((post, i) => {
           return (
             <div key={i} className="post-item" data-ks-editable="if-user-blah-blah-blah">
               <Link to={ {pathname: `/blog/post/${post.slug}` }}>{post.title}</Link>
@@ -39,31 +62,25 @@ class Blog extends React.Component {
               <div className="post-item__body" dangerouslySetInnerHTML={ {__html: post.content.extended} } />
             </div>
           );
-        })};
-      </div>
-    )
-  }
-  renderCategories() {
-    return (
-      <div className="categories">
-        <div className="categories-header">Categories</div>
+        })}</div>
+        <div className="categories">
+          <div className="categories-header">Categories</div>
           <ul className="categories-list">
             <li className="category-item"><Link to="/blog"><span className="category-item__link">All Categories</span></Link></li>
-            {this.props.categories.map((category, i) => {
-              return <li key={i} className="category-item"><Link to={{ pathname: `/blog/${category.key}` }}><span className="category-item__link">{category.name}</span></Link></li>;
+            {this.state.categories.map((category, i) => {
+              return (
+                <li key={i} className="category-item">
+                  <Link to={{ pathname: `/blog/${category.key}` }}>
+                    <span className="category-item__link">{category.name}</span>
+                  </Link>
+                </li>
+              );
             })}
           </ul>
+        </div>
+
       </div>
     );
-  }
-  renderHeader() {
-    return <div className="blog-content__header">Showing {this.props.posts.first} of {this.props.posts.total}</div>;
-  }
-  renderPagination() {
-    if (this.props.completed) {
-      return <Pagination posts={this.props.posts}/>;
-    }
-
   }
 }
 
@@ -77,22 +94,3 @@ Blog.propTypes = {
   completed: PropTypes.bool,
   dispatch: PropTypes.func
 }
-
-
-function mapStateToProps(state) {
-  return {
-    posts: state.reducer.posts,
-    categories: state.reducer.categories,
-    filters: state.reducer.filters,
-    post: state.reducer.post,
-    category: state.reducer.category,
-    isFetching: state.reducer.isFetching,
-    completed: state.reducer.completed
-  };
-}
-
-function mapDispatchToProps(dispatch) {
-  return bindActionCreators(Actions, dispatch)
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(Blog);

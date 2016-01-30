@@ -2,17 +2,8 @@ import 'babel-core/polyfill';
 import React from 'react';
 import ReactDOM from 'react-dom/server';
 import { RouterContext, match } from 'react-router';
-import { Provider } from 'react-redux'
-import configureStore from '../common/store/index.js';
 import routes from '../common/routes';
 import createLocation from 'history/lib/createLocation';
-import packagejson from '../../package.json';
-import fetch from 'isomorphic-fetch';
-
-const clientConfig = {
-  host: process.env.HOSTNAME || 'localhost',
-  port: process.env.PORT || '3000'
-};
 
 let adminCSS;
 let adminJS;
@@ -36,19 +27,14 @@ const renderFullPage = (html, initialState) => {
 
       <script>window.__INITIAL_STATE__ = ${JSON.stringify(initialState)};</script>
       <script src="/assets/bundle.js"></script>
-      ${adminCSS}
+      ${adminJS}
     </body>
     </html>
   `;
 }
 
 const render = (req, res) => {
-  console.log(req.url);
-  console.log('======req.url=========');
-
   const location = createLocation(req.url);
-  console.log(location);
-  console.log('======location========');
 
   match({routes, location}, (err, redirectLocation, renderProps) => {
     if (err) { return res.status(500).end('Internal server error'); }
@@ -59,16 +45,8 @@ const render = (req, res) => {
     }
 
     if (renderProps) {
-      const store = configureStore({
-        reducer: res.locals
-      });
-      const initialState = store.getState();
-      const renderedContent = ReactDOM.renderToString(
-        <Provider store={store}>
-          <RouterContext {...renderProps} />
-        </Provider>);
-
-      res.status(200).end(renderFullPage(renderedContent, initialState))
+      res.status(200).end(renderFullPage(ReactDOM.renderToString(
+        <RouterContext {...renderProps} />), res.locals))
     } else {
       res.status(404).end('Not found');
     }

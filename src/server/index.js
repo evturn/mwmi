@@ -1,30 +1,33 @@
 require('babel-core/register');
 const server = require('./server');
-const middleware = require('./middleware');
 const devMiddleware = require('./dev/middleware');
-const keystone = require('keystone');
 const home = require('./controllers/home');
 const blog = require('./controllers/blog');
 const post = require('./controllers/post');
-const gallery = require('./routes/gallery');
-const contact = require('./routes/contact');
+
+const init = (req, res, next) => {
+  res.locals.navLinks = [
+    { label: 'Home',      key: 'home',      href: '/' },
+    { label: 'Blog',      key: 'blog',      href: '/blog' },
+    { label: 'Gallery',   key: 'gallery',   href: '/gallery' },
+    { label: 'Contact',   key: 'contact',   href: '/contact' }
+  ];
+
+  res.locals.user = req.user;
+  next();
+};
 
 const send = (req, res, next) => {
-  server(req, res);
+  res.json(res.locals);
 };
 
 module.exports = function(app) {
-  keystone.pre('routes', middleware.initLocals);
-  // keystone.pre('routes', middleware.flashMessages);
-  keystone.pre('routes', blog.loadCategories);
-  keystone.pre('routes', blog.currentCategoryFilter);
-  keystone.pre('routes', blog.loadPosts);
   devMiddleware(app);
+  app.use(init);
 
-  app.get('/', home, send);
-  app.get('/blog/:category?', blog.setSection, blog.currentCategoryFilter, send);
-  app.get('/blog/post/:post', blog.setSection, post.loadCurrentPost, post.loadOtherPosts, send);
-  app.get('/gallery', gallery);
-  app.get('/contact', contact);
+  app.get('/api/locals', send);
+  app.get('/api/blog/:category?', blog.setSection, blog.currentCategoryFilter, blog.loadCategories, blog.loadPosts, blog.send);
+  app.get('/api/blog/post/:post', blog.setSection, post.loadCurrentPost, post.loadOtherPosts, send);
 
+  app.get('*', (req, res) => server(req, res));
 };
