@@ -1,6 +1,7 @@
 import React from 'react';
 import xhr from '../../client/xhr';
 import { Link } from 'react-router';
+import moment from 'moment';
 
 export default class Post extends React.Component {
   constructor(props){
@@ -49,6 +50,7 @@ export default class Post extends React.Component {
           <div className="title-container">
             <h1 className="text-header">{this.state.post.title}</h1>
             <h5 className="meta">{this.state.post.author.name.first}</h5>
+            <div className="meta">{moment(this.state.post.publishedDate).format('MMM Do YY')}</div>
             <img className="post-item__image" src={this.state.post.image.url} />
           </div>
           <div className="body-container" dangerouslySetInnerHTML={ {__html: this.state.post.content.extended} } />
