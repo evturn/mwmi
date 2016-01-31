@@ -8,25 +8,10 @@ export default class App extends React.Component {
     super(props);
 
   }
-  componentDidMount() {
-    xhr.get('/api/locals')
-      .then(res => res.json())
-      .then(json => this.setState(json))
-      .catch(err => console.log(err));
-  }
-  componentWillReceiveProps(nextProps) {
-    let page = nextProps.location.pathname.substr(1, 4)
-    if (page === '') {
-      page = 'home'
-    }
-    this.setState({
-      section: page
-    });
-  }
   render() {
     return (
       <div className='site-content'>
-        {this.state ? <Header section={this.state.section} navLinks={this.state.navLinks} /> : null }
+        <Header />
         {this.props.children}
         <Footer />
       </div>
