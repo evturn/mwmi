@@ -9,30 +9,14 @@ export default class Home extends React.Component {
   }
   render() {
     return (
-      <div className="container landing">
-        <div className="wrapper">
-
-          <div className="group-desktop">
-            <div className="image-container">
-              <img className="img-scale" src='http://madeinmusic.co/img/mi-logo-800.png' />
-              <div className="inner-text">
-                <p className="subhead">{this.title}</p>
-              </div>
-            </div>
-
-            <div className="description-container">
-              <p className="meta">{this.subtitle}</p>
-            </div>
-
-            <div className="btn-container desktop">
-              <button href="/blog" target="_blank" className="btn-red">Stream Now</button>
-            </div>
-          </div>
-
-          <div className="btn-container mobile">
-            <button href="/blog" target="_blank" className="btn-red">Stream Now</button>
-          </div>
-
+      <div className="home">
+        <div className="home__logo">
+          <img className="home__logo-image" src='http://madeinmusic.co/img/mi-logo-800.png' />
+          <div className="home__logo-title">{this.title}</div>
+        </div>
+        <div className="home__details">
+          <div className="home__details-description">{this.subtitle}</div>
+          <button className="home__details-button btn-red" href="/blog" target="_blank">Stream Now</button>
         </div>
       </div>
     );

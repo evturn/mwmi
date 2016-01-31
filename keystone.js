@@ -1,5 +1,4 @@
 'use strict';
-// require('dotenv').load();
 const keystone = require('keystone');
 
 keystone.init({
