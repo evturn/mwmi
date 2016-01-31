@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router';
 
 export default class Home extends React.Component {
   constructor(props) {
@@ -16,7 +17,7 @@ export default class Home extends React.Component {
         </div>
         <div className="home__details">
           <div className="home__details-description">{this.subtitle}</div>
-          <button className="home__details-button btn-red" href="/blog" target="_blank">Stream Now</button>
+          <Link to={{ pathname: '/blog' }}><button className="home__details-button button__red">Stream Now</button></Link>
         </div>
       </div>
     );

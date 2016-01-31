@@ -48,7 +48,7 @@ export default class Contact extends React.Component {
         </div>
 
         <div className="form__field">
-          <button onClick={this.onSubmit.bind(this)}>Send</button>
+          <button className="button__red" onClick={this.onSubmit.bind(this)}>Send</button>
         </div>
       </form>
     );
