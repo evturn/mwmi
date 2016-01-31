@@ -34,6 +34,25 @@ export default class Blog extends React.Component {
       })
       .catch(err => console.log(err));
   }
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.params.category !== this.props.params.category) {
+      this.setState({
+        fetching: true
+      });
+      xhr(`/api/blog/${nextProps.params.category}`)
+        .then(res => res.json())
+        .then(json => {
+          this.setState({
+            posts: json.posts,
+            categories: json.categories,
+            category: json.category,
+            fetching: false,
+            completed: true
+          });
+        })
+        .catch(err => console.log(err));
+    }
+  }
   render() {
     let content;
     let pagination;
