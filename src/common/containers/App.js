@@ -9,7 +9,7 @@ export default class App extends React.Component {
 
   }
   componentDidMount() {
-    xhr('/api/locals')
+    xhr.get('/api/locals')
       .then(res => res.json())
       .then(json => this.setState(json))
       .catch(err => console.log(err));

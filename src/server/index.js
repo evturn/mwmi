@@ -40,7 +40,7 @@ module.exports = function(app) {
   app.get('/api/blog/:category?', blogSection, blog.currentCategoryFilter, blog.loadCategories, blog.loadPosts, send);
   app.get('/api/blog/post/:post', blogSection, post.loadCurrentPost, post.loadOtherPosts, send);
   app.get('/api/contact', contact.get, send);
-  app.post('/contact', contact.post, send);
+  app.post('/api/contact', contact.post, send);
 
   app.get('*', (req, res) => server(req, res));
 };

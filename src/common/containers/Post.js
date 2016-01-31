@@ -16,7 +16,7 @@ export default class Post extends React.Component {
     this.setState({
       fetching: true
     });
-    xhr(`/api/blog/post/${this.props.params.post}`)
+    xhr.get(`/api/blog/post/${this.props.params.post}`)
       .then(res => res.json())
       .then(json => {
         this.setState({

@@ -21,7 +21,7 @@ export default class Blog extends React.Component {
       fetching: true
     });
 
-    xhr('/api/blog')
+    xhr.get('/api/blog')
       .then(res => res.json())
       .then(json => {
         this.setState({
@@ -40,7 +40,7 @@ export default class Blog extends React.Component {
       this.setState({
         fetching: true
       });
-      xhr(`/api/blog/${nextProps.params.category}`)
+      xhr.get(`/api/blog/${nextProps.params.category}`)
         .then(res => res.json())
         .then(json => {
           this.setState({
