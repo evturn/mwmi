@@ -35,6 +35,7 @@ export default class Blog extends React.Component {
       .catch(err => console.log(err));
   }
   componentWillReceiveProps(nextProps) {
+    console.log(nextProps.params);
     if (nextProps.params.category !== this.props.params.category) {
       this.setState({
         fetching: true
@@ -55,30 +56,29 @@ export default class Blog extends React.Component {
   }
   render() {
     let content;
-    let pagination;
     if (!this.state.fetching && this.state.completed) {
       content = this.renderContent();
-      pagination = <Pagination posts={this.state.posts}/>;
     } else if (this.state.fetching && !this.state.completed) {
       content = 'Loading...';
-      pagination = null;
     }
     return (
       <div className="blog">
         {content}
-        {pagination}
       </div>
     );
   }
   renderContent() {
     return (
-      <div className="blog-content">
-        <div className="blog-content__header">Showing {this.state.posts.first} of {this.state.posts.total}</div>
-        <Posts posts={this.state.posts} />
-        <div className="categories">
-          <div className="categories-header">Categories</div>
-          <Categories categories={this.state.categories} />
+      <div>
+        <div className="blog-content">
+          <div className="blog-content__header">Showing {this.state.posts.first} of {this.state.posts.total}</div>
+          <Posts posts={this.state.posts} />
+          <div className="categories">
+            <div className="categories-header">Categories</div>
+            <Categories categories={this.state.categories} />
+          </div>
         </div>
+        <Pagination posts={this.state.posts}/>
       </div>
     );
   }

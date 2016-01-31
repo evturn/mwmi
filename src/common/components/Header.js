@@ -7,7 +7,6 @@ export default class Header extends React.Component {
 
   }
   render() {
-    console.log(this);
     return (
       <nav className="container navbar">
         <div className="wrapper">
