@@ -51,7 +51,7 @@ export default class Post extends React.Component {
             <h5 className="meta">{this.state.post.author.name.first}</h5>
             <img className="post-item__image" src={this.state.post.image.url} />
           </div>
-          <div className="body-container">{this.state.post.content.extended}</div>
+          <div className="body-container" dangerouslySetInnerHTML={ {__html: this.state.post.content.extended} } />
         </div>
       </div>
     );
