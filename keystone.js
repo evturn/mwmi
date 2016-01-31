@@ -19,7 +19,7 @@ keystone.init({
 
 });
 
-keystone.import('models');
+keystone.import('./src/server/models');
 
 keystone.set('locals', {
   _: require('underscore'),
