@@ -1,0 +1,77 @@
+.contact {
+
+  @media (min-width: @sm) {
+    padding-top: 30px;
+  }
+  .title-container {
+    padding-top: 20px;
+
+    .img-backend {
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+    }
+  }
+
+  img {
+    width: 90px;
+  }
+
+  .header {
+    @media (min-width: @sm) {
+      margin-left: 25px;
+      font-size: 46px;
+    }
+  }
+
+  .form-container {
+    width: 100%;
+    overflow: hidden;
+    max-width: @xs;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 50px;
+
+    @media (min-width: @sm) {
+      margin-top: 15px;
+    }
+  }
+
+  .input-container {
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 10px;
+  }
+
+  label span {
+    font-size: 12px;
+  }
+
+  input,
+  select,
+  option,
+  textarea {
+    display: block;
+    font-size: 21px;
+    width: 98%;
+    border: none;
+    background-color: transparent;
+    outline: none;
+  }
+
+  select,
+  .contact-select option {
+    color: @standard-dark;
+    font-size: 18px;
+    height: 30px;
+  }
+  .contact-input {
+    height: 30px;
+    border-bottom: 1px solid @grey;
+  }
+
+  .contact-textarea {
+    border-bottom: 1px solid @grey;
+  }
+}

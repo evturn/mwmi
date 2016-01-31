@@ -19,7 +19,7 @@ const renderFullPage = (html, initialState) => {
       <link rel="stylesheet", href="http://fonts.googleapis.com/css?family=Dosis:400,500,300,200,600,700,800" type="stylesheet">
       <link rel="stylesheet", href="http://fonts.googleapis.com/css?family=Lato:400,300,300italic,400italic,700,700italic,900,900italic,100,100italic" type="stylesheet">
       <link rel="stylesheet" type="text/css" href="/assets/app.css">
-      ${adminCSS}
+
     </head>
     <body>
 
@@ -27,7 +27,7 @@ const renderFullPage = (html, initialState) => {
 
       <script>window.__INITIAL_STATE__ = ${JSON.stringify(initialState)};</script>
       <script src="/assets/bundle.js"></script>
-      ${adminJS}
+
     </body>
     </html>
   `;
@@ -39,10 +39,10 @@ const render = (req, res) => {
   match({routes, location}, (err, redirectLocation, renderProps) => {
     if (err) { return res.status(500).end('Internal server error'); }
 
-    if (typeof(req.user) !== 'undefined' && req.user.isAdmin) {
-      adminCSS = `<link rel="stylesheet" href="/keystone/styles/content/editor.min.css">`;
-      adminJS = `<script src="/keystone/js/content/editor.js"></script>`;
-    }
+    // if (typeof(req.user) !== 'undefined' && req.user.isAdmin) {
+    //   adminCSS = `<link rel="stylesheet" href="/keystone/styles/content/editor.min.css">`;
+    //   adminJS = `<script src="/keystone/js/content/editor.js"></script>`;
+    // }
 
     if (renderProps) {
       res.status(200).end(renderFullPage(ReactDOM.renderToString(

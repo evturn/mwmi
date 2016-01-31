@@ -4,6 +4,7 @@ const devMiddleware = require('./dev/middleware');
 const home = require('./controllers/home');
 const blog = require('./controllers/blog');
 const post = require('./controllers/post');
+const contact = require('./controllers/contact');
 
 const init = (req, res, next) => {
   res.locals.navLinks = [
@@ -38,6 +39,8 @@ module.exports = function(app) {
   app.get('/api/locals', homeSection, send);
   app.get('/api/blog/:category?', blogSection, blog.currentCategoryFilter, blog.loadCategories, blog.loadPosts, send);
   app.get('/api/blog/post/:post', blogSection, post.loadCurrentPost, post.loadOtherPosts, send);
+  app.get('/api/contact', contact.get, send);
+  app.post('/contact', contact.post, send);
 
   app.get('*', (req, res) => server(req, res));
 };
