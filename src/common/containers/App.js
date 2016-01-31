@@ -10,9 +10,9 @@ export default class App extends React.Component {
   }
   render() {
     return (
-      <div className='site-content'>
+      <div className='site-container'>
         <Header />
-        {this.props.children}
+        <div className='site-content'>{this.props.children}</div>
         <Footer />
       </div>
     );

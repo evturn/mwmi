@@ -1,13 +1,14 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import xhr from '../../client/xhr';
 import { Link } from 'react-router';
-import Pagination from '../components/Pagination';
 import Posts from '../components/Posts';
 import Categories from '../components/Categories';
-import xhr from '../../client/xhr';
+import Pagination from '../components/Pagination';
 
 export default class Blog extends React.Component {
-  constructor(props) {
+  constructor(props){
     super(props);
+
     this.state = {
       fetching: false,
       completed: false,
@@ -17,11 +18,44 @@ export default class Blog extends React.Component {
     }
   }
   componentDidMount() {
+    const noParams = '/api/blog';
+    const withParams = `/api/blog/${this.props.params.category}`;
+    const endpoint = this.props.params.category !== undefined ? withParams : noParams;
+
+    this.fetchPosts(endpoint);
+  }
+  componentDidUpdate(prevProps) {
+    const prev = prevProps.params.category;
+    const next = this.props.params.category;
+
+    if (next !== prev) {
+      const noParams = '/api/blog';
+      const withParams = `/api/blog/${next}`
+      const endpoint = next === undefined ? noParams : withParams;
+
+      this.fetchPosts(endpoint);
+    }
+  }
+  render() {
+    let content;
+    if (!this.state.fetching && this.state.completed) {
+      content = this.renderPosts();
+    } else if (this.state.fetching && !this.state.completed) {
+      content = null;
+    }
+    return (
+      <div >
+        {content}
+      </div>
+    );
+  }
+  fetchPosts(endpoint) {
     this.setState({
-      fetching: true
+      fetching: true,
+      completed: false
     });
 
-    xhr.get('/api/blog')
+    xhr.get(endpoint)
       .then(res => res.json())
       .then(json => {
         this.setState({
@@ -32,46 +66,19 @@ export default class Blog extends React.Component {
           completed: true
         });
       })
-      .catch(err => console.log(err));
-  }
-  componentWillReceiveProps(nextProps) {
-    console.log(nextProps.params);
-    if (nextProps.params.category !== this.props.params.category) {
-      this.setState({
-        fetching: true
+      .catch(err => {
+        console.log(err);
+        this.setState({
+          fetching: false,
+          completed: true
+        });
       });
-      xhr.get(`/api/blog/${nextProps.params.category}`)
-        .then(res => res.json())
-        .then(json => {
-          this.setState({
-            posts: json.posts,
-            categories: json.categories,
-            category: json.category,
-            fetching: false,
-            completed: true
-          });
-        })
-        .catch(err => console.log(err));
-    }
   }
-  render() {
-    let content;
-    if (!this.state.fetching && this.state.completed) {
-      content = this.renderContent();
-    } else if (this.state.fetching && !this.state.completed) {
-      content = 'Loading...';
-    }
+  renderPosts() {
     return (
       <div className="blog">
-        {content}
-      </div>
-    );
-  }
-  renderContent() {
-    return (
-      <div>
         <div className="blog-content">
-          <div className="blog-content__header">Showing {this.state.posts.first} of {this.state.posts.total}</div>
+          <div className="blog-content__header">Showing {this.state.posts.first} - {this.state.posts.last} of {this.state.posts.results.length}</div>
           <Posts posts={this.state.posts} />
           <div className="categories">
             <div className="categories-header">Categories</div>

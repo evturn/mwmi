@@ -417,11 +417,30 @@ a:focus {
 button:focus {
   outline: 0;
 }
+.site-container {
+  margin: 0 auto;
+  width: 100%;
+  height: 100%;
+  position: relative;
+  zoom: 1;
+  background-color: #cfe7f0;
+}
+.site-container:before,
+.site-container:after {
+  content: " ";
+  display: table;
+}
+.site-container:after {
+  clear: both;
+}
 .site-content {
   zoom: 1;
   position: relative;
   margin: 0 auto;
-  background-color: #cfe7f0;
+  max-width: 1200px;
+  min-height: 91vh;
+  padding-left: 15px;
+  padding-right: 15px;
 }
 .site-content:before,
 .site-content:after {
@@ -2226,12 +2245,13 @@ button:focus {
   }
 }
 .footer {
-  bottom: -20;
+  position: absolute;
+  bottom: 0;
   left: 0;
   padding: 20px 0;
   color: #000000;
   text-align: center;
-  position: absolute;
+  background-color: #f1f1f1;
   width: 100%;
   font-size: 12px;
 }
@@ -2639,53 +2659,20 @@ button:focus {
   height: 80px;
   line-height: 80px;
 }
-@media (min-width: 600px) {
-  .contact {
-    padding-top: 30px;
-  }
+.contact .contact__header {
+  margin-top: 15px;
+  margin-bottom: 15px;
+  font-size: 24px;
+  text-align: center;
 }
-.contact .title-container {
-  padding-top: 20px;
+.contact .form {
+  max-width: 500px;
+  margin: 0 auto;
 }
-.contact .title-container .img-backend {
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-}
-.contact img {
-  width: 90px;
-}
-@media (min-width: 600px) {
-  .contact .header {
-    margin-left: 25px;
-    font-size: 46px;
-  }
-}
-.contact .form-container {
-  width: 100%;
-  overflow: hidden;
-  max-width: 400px;
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: 50px;
-}
-@media (min-width: 600px) {
-  .contact .form-container {
-    margin-top: 15px;
-  }
-}
-.contact .input-container {
-  margin-left: auto;
-  margin-right: auto;
-  margin-bottom: 10px;
-}
-.contact label span {
-  font-size: 12px;
+.contact label {
+  margin-bottom: 20px;
 }
 .contact input,
-.contact select,
-.contact option,
 .contact textarea {
   display: block;
   font-size: 21px;
@@ -2693,17 +2680,6 @@ button:focus {
   border: none;
   background-color: transparent;
   outline: none;
-}
-.contact select,
-.contact .contact-select option {
-  color: #46758E;
-  font-size: 18px;
-  height: 30px;
-}
-.contact .contact-input {
-  height: 30px;
   border-bottom: 1px solid #bfbfbf;
-}
-.contact .contact-textarea {
-  border-bottom: 1px solid #bfbfbf;
+  margin-bottom: 20px;
 }

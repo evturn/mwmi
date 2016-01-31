@@ -22,28 +22,34 @@ export default class Contact extends React.Component {
     const content = this.state.enquirySubmitted ? this.renderMessage() : this.renderForm();
 
     return (
-      <div className="container">
-        <h1>Contact Us</h1>
+      <div className="contact">
+        <div className="contact__header">Leave us a message</div>
         {content}
       </div>
     );
   }
   renderForm() {
     return (
-      <form>
-        <label>Name</label>
-        <input name="name" type="text" onChange={this.isTyping.bind(this)} />
+      <form className="form">
+        <div className="form__field">
+          <input name="name" type="text" placeholder="Name" onChange={this.isTyping.bind(this)} />
+        </div>
 
-        <label>Email</label>
-        <input name="email" type="email" onChange={this.isTyping.bind(this)} />
+        <div className="form__field">
+          <input name="email" type="email" placeholder="Email" onChange={this.isTyping.bind(this)} />
+        </div>
 
-        <label>Phone</label>
-        <input name="phone" type="text" placeholder="optional" onChange={this.isTyping.bind(this)} />
+        <div className="form__field">
+          <input name="phone" type="text" placeholder="Phone (optional)" onChange={this.isTyping.bind(this)} />
+        </div>
 
-        <label>Message</label>
-        <textarea name="message" rows="4" placeholder="Leave us a message..." onChange={this.isTyping.bind(this)} />
+        <div className="form__field">
+          <textarea name="message" rows="4" placeholder="Message" onChange={this.isTyping.bind(this)} />
+        </div>
 
-        <button onClick={this.onSubmit.bind(this)}>Send</button>
+        <div className="form__field">
+          <button onClick={this.onSubmit.bind(this)}>Send</button>
+        </div>
       </form>
     );
   }

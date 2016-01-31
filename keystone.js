@@ -1,5 +1,5 @@
 'use strict';
-require('dotenv').load();
+// require('dotenv').load();
 const keystone = require('keystone');
 
 keystone.init({
@@ -20,6 +20,10 @@ keystone.init({
 });
 
 keystone.import('./src/server/models');
+
+keystone.set('cloudinary config', process.env.CLOUDINARY_URL);
+keystone.set('mandrill api key', process.env.MANDRILL_API_KEY);
+keystone.set('mandrill username', process.env.MANDRILL_USERNAME);
 
 keystone.set('locals', {
   _: require('underscore'),

@@ -1,17 +1,18 @@
-import React from "react";
-import { Route } from "react-router";
+import React from 'react';
+import { Router, Route, IndexRoute } from 'react-router';
+import createBrowserHistory from 'history/lib/createBrowserHistory'
 
-import App from "./containers/App";
-import Home from "./containers/Home";
-import Blog from "./containers/Blog";
-import Post from "./containers/Post";
-import Contact from "./containers/Contact";
+import App from './containers/App';
+import Home from './containers/Home';
+import Blog from './containers/Blog';
+import BlogPost from './containers/BlogPost';
+import Contact from './containers/Contact';
 
 export default (
-  <Route component={App} name="app">
-    <Route path="/" component={Home} />
+  <Route path="/" component={App} name="app">
+    <IndexRoute component={Home} />
     <Route path="blog(/:category)" component={Blog} />
-    <Route path="blog/post/:post" component={Post} />
+    <Route path="blog/post/:post" component={BlogPost} />
     <Route path="contact" component={Contact} />
   </Route>
 );
