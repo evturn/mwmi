@@ -47,13 +47,15 @@ export default class Post extends React.Component {
       <div className="wrapper">
         <p className="navigate-link"><Link to={{pathname: `/blog` }}><i className="fa fa-long-arrow-left"></i> back to the blog</Link></p>
         <div className="entry">
-          <div className="title-container">
-            <h1 className="text-header">{this.state.post.title}</h1>
-            <h5 className="meta">{this.state.post.author.name.first}</h5>
-            <div className="meta">{moment(this.state.post.publishedDate).format('MMM Do YY')}</div>
+          <div className="post-item" data-ks-editable="if-user-blah-blah-blah">
+            <Link to={ {pathname: `/blog/post/${this.state.post.slug}` }}>{this.state.post.title}</Link>
+            <div className="post-item__caption">By: {this.state.post.author.name.first} | {moment(this.state.post.publishedDate).format('MMM Do YY')}</div>
             <img className="post-item__image" src={this.state.post.image.url} />
+            <div className="post-item__body" dangerouslySetInnerHTML={ {__html: this.state.post.content.extended} } />
+            <div className="post-item__categories">Posted in | {this.state.post.categories.map((category, i) => {
+              return <Link key={i} to={{ pathname: `/blog/${category.key}` }}>{category.name}</Link>;
+            })}</div>
           </div>
-          <div className="body-container" dangerouslySetInnerHTML={ {__html: this.state.post.content.extended} } />
         </div>
       </div>
     );
