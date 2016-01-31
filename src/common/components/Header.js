@@ -8,7 +8,6 @@ export default class Header extends React.Component {
     this.navLinks = [
       { label: 'Home',      key: 'home',      href: '/',        parent: 'home' },
       { label: 'Blog',      key: 'blog',      href: '/blog',    parent: 'blog' },
-      { label: 'Gallery',   key: 'gallery',   href: '/gallery', parent: 'gall' },
       { label: 'Contact',   key: 'contact',   href: '/contact', parent: 'cont' }
     ];
   }
