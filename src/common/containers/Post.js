@@ -1,7 +1,7 @@
 import React from 'react';
 import xhr from '../../client/xhr';
 import { Link } from 'react-router';
-import moment from 'moment';
+import Entry from '../components/Entry'
 
 export default class Post extends React.Component {
   constructor(props){
@@ -44,19 +44,21 @@ export default class Post extends React.Component {
   }
   renderPost() {
     return (
-      <div className="wrapper">
-        <p className="navigate-link"><Link to={{pathname: `/blog` }}><i className="fa fa-long-arrow-left"></i> back to the blog</Link></p>
-        <div className="entry">
-          <div className="post-item" data-ks-editable="if-user-blah-blah-blah">
-            <Link to={ {pathname: `/blog/post/${this.state.post.slug}` }}>{this.state.post.title}</Link>
-            <div className="post-item__caption">By: {this.state.post.author.name.first} | {moment(this.state.post.publishedDate).format('MMM Do YY')}</div>
-            <img className="post-item__image" src={this.state.post.image.url} />
-            <div className="post-item__body" dangerouslySetInnerHTML={ {__html: this.state.post.content.extended} } />
-            <div className="post-item__categories">Posted in | {this.state.post.categories.map((category, i) => {
-              return <Link key={i} to={{ pathname: `/blog/${category.key}` }}>{category.name}</Link>;
-            })}</div>
+      <div className="post">
+        <div className="post__header">
+          <div className="post__header-back">
+            <Link to={{pathname: `/blog` }}><i className="fa fa-long-arrow-left"></i> back to the blog</Link>
           </div>
         </div>
+        <Entry
+          slug={this.state.post.slug}
+          title={this.state.post.title}
+          author={this.state.post.author}
+          publishedDate={this.state.post.publishedDate}
+          image={this.state.post.image}
+          content={this.state.post.content}
+          categories={this.state.post.categories}
+        />
       </div>
     );
   }

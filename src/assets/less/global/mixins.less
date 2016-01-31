@@ -1,3 +1,15 @@
+.hyperlink() {
+  a {
+    color: @tx-dark;
+    transition: ease 0.2s all;
+  }
+  &:hover {
+    a {
+      color: @tx-secondary;
+    }
+  }
+}
+
 .scale() {
   -webkit-transform: scale(1.05);
   -moz-transform: scale(1.05);
