@@ -7,15 +7,25 @@ const post = require('./controllers/post');
 
 const init = (req, res, next) => {
   res.locals.navLinks = [
-    { label: 'Home',      key: 'home',      href: '/' },
-    { label: 'Blog',      key: 'blog',      href: '/blog' },
-    { label: 'Gallery',   key: 'gallery',   href: '/gallery' },
-    { label: 'Contact',   key: 'contact',   href: '/contact' }
+    { label: 'Home',      key: 'home',      href: '/',        parent: 'home' },
+    { label: 'Blog',      key: 'blog',      href: '/blog',    parent: 'blog' },
+    { label: 'Gallery',   key: 'gallery',   href: '/gallery', parent: 'gall' },
+    { label: 'Contact',   key: 'contact',   href: '/contact', parent: 'cont' }
   ];
 
   res.locals.user = req.user;
   next();
 };
+
+const homeSection = (req, res, next) => {
+  res.locals.section = 'home';
+  next();
+};
+
+const blogSection = (req, res, next) => {
+  res.locals.section = 'blog';
+  next();
+}
 
 const send = (req, res, next) => {
   res.json(res.locals);
@@ -25,9 +35,9 @@ module.exports = function(app) {
   devMiddleware(app);
   app.use(init);
 
-  app.get('/api/locals', send);
-  app.get('/api/blog/:category?', blog.setSection, blog.currentCategoryFilter, blog.loadCategories, blog.loadPosts, blog.send);
-  app.get('/api/blog/post/:post', blog.setSection, post.loadCurrentPost, post.loadOtherPosts, send);
+  app.get('/api/locals', homeSection, send);
+  app.get('/api/blog/:category?', blogSection, blog.currentCategoryFilter, blog.loadCategories, blog.loadPosts, send);
+  app.get('/api/blog/post/:post', blogSection, post.loadCurrentPost, post.loadOtherPosts, send);
 
   app.get('*', (req, res) => server(req, res));
 };

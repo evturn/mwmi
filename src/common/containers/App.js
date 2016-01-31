@@ -14,32 +14,22 @@ export default class App extends React.Component {
       .then(json => this.setState(json))
       .catch(err => console.log(err));
   }
+  componentWillReceiveProps(nextProps) {
+    let page = nextProps.location.pathname.substr(1, 4)
+    if (page === '') {
+      page = 'home'
+    }
+    this.setState({
+      section: page
+    });
+  }
   render() {
     return (
       <div className='site-content'>
-        {this.state ? <Header navLinks={this.state.navLinks} /> : null }
+        {this.state ? <Header section={this.state.section} navLinks={this.state.navLinks} /> : null }
         {this.props.children}
         <Footer />
       </div>
     );
   }
 }
-
-App.propTypes = {
-  children: PropTypes.object,
-  navLinks: PropTypes.array,
-  section: PropTypes.string,
-  user: PropTypes.object,
-  posts: PropTypes.object,
-  categories: PropTypes.array,
-  filters: PropTypes.object,
-  post: PropTypes.object,
-  category: PropTypes.object
-}
-
-App.contextTypes = {
-  router: React.PropTypes.object.isRequired
-};
-
-
-//
