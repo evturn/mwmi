@@ -10,8 +10,6 @@ keystone.init({
   'less': 'public',
   'static': 'assets',
   'favicon': 'assets/images/logo.png',
-  'views': 'templates/views',
-  'view engine': 'jade',
   'mongo': 'mongodb://localhost/mwmi',
 
   'auto update': true,

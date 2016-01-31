@@ -19,42 +19,42 @@ Enquiry.add({
   createdAt: { type: Date, default: Date.now }
 });
 
-Enquiry.schema.pre('save', function(next) {
-  this.wasNew = this.isNew;
-  next();
-});
+// Enquiry.schema.pre('save', function(next) {
+//   this.wasNew = this.isNew;
+//   next();
+// });
 
-Enquiry.schema.post('save', function() {
-  if (this.wasNew) {
-    this.sendNotificationEmail();
-  }
-});
+// Enquiry.schema.post('save', function() {
+//   if (this.wasNew) {
+//     this.sendNotificationEmail();
+//   }
+// });
 
-Enquiry.schema.methods.sendNotificationEmail = function(callback) {
+// Enquiry.schema.methods.sendNotificationEmail = function(callback) {
 
-  if ('function' !== typeof callback) {
-    callback = function() {};
-  }
+//   if ('function' !== typeof callback) {
+//     callback = function() {};
+//   }
 
-  var enquiry = this;
+//   var enquiry = this;
 
-  keystone.list('User').model.find().where('isAdmin', true).exec(function(err, admins) {
+//   keystone.list('User').model.find().where('isAdmin', true).exec(function(err, admins) {
 
-    if (err) return callback(err);
+//     if (err) return callback(err);
 
-    new keystone.Email('enquiry-notification').send({
-      to: admins,
-      from: {
-        name: 'mwmi',
-        email: 'contact@mwmi.com'
-      },
-      subject: 'New Enquiry for mwmi',
-      enquiry: enquiry
-    }, callback);
+//     new keystone.Email('enquiry-notification').send({
+//       to: admins,
+//       from: {
+//         name: 'mwmi',
+//         email: 'contact@mwmi.com'
+//       },
+//       subject: 'New Enquiry for mwmi',
+//       enquiry: enquiry
+//     }, callback);
 
-  });
+//   });
 
-};
+// };
 
 Enquiry.defaultSort = '-createdAt';
 Enquiry.defaultColumns = 'name, email, enquiryType, createdAt';
