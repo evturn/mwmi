@@ -7,11 +7,11 @@ const WriteFilePlugin = require('write-file-webpack-plugin');
 const WebpackNotifierPlugin = require('webpack-notifier');
 
 const TARGET = process.env.npm_lifecycle_event;
-const PORT = 5000;
+const PORT = 3000;
 const PATHS = {
   src: path.join(__dirname, 'src/client'),
   dist: path.join(__dirname, 'src/assets'),
-  publicPath: '/assets/',
+  publicPath: 'src/assets/',
   assetsPath: path.join(__dirname, 'src', 'assets')
 };
 const LOADERS = [
@@ -58,19 +58,23 @@ if (TARGET === 'dev' || !TARGET) {
     devtool: 'eval-source-map',
     entry : {
       app: [
-        `webpack-dev-server/client?http://127.0.0.1:${PORT}`,
-        'webpack-hot-middleware/client',
+        'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000&reload=true',
         PATHS.src
       ]
     },
+    context: path.join(__dirname, 'src/assets'),
     devServer: {
       outputPath: PATHS.dist,
       historyApiFallback: true,
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+      },
       hot: true,
       inline: true,
       progress: true,
       stats: 'errors-only',
-      host: process.env.HOST
+      port: PORT,
+      host: 'localhost'
     },
     module: {
       loaders: LOADERS.concat([
@@ -113,6 +117,7 @@ if (TARGET === 'dev' || !TARGET) {
     },
     plugins: [
       new webpack.HotModuleReplacementPlugin(),
+      new webpack.NoErrorsPlugin(),
       new WriteFilePlugin(),
       new ExtractTextPlugin('css/app.css'),
       new WebpackNotifierPlugin()
