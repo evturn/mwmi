@@ -52,6 +52,7 @@
     "less-loader": "^2.2.2",
     "merge": "1.2.0",
     "model-transform": "^2.0.0",
+    "open": "0.0.5",
     "react-transform-catch-errors": "1.0.0",
     "react-transform-hmr": "1.0.0",
     "redbox-react": "1.1.0",
@@ -60,7 +61,9 @@
     "warning": "^2.0.0",
     "webpack": "1.11.0",
     "webpack-dev-middleware": "1.2.0",
+    "webpack-dev-server": "^1.14.1",
     "webpack-hot-middleware": "2.2.0",
+    "webpack-notifier": "^1.2.1",
     "write-file-webpack-plugin": "^2.1.2"
   }
 }

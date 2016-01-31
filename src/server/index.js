@@ -1,19 +1,12 @@
 require('babel-core/register');
 const server = require('./server');
-const devMiddleware = require('./dev/middleware');
 const home = require('./controllers/home');
 const blog = require('./controllers/blog');
 const post = require('./controllers/post');
 const contact = require('./controllers/contact');
 
-const init = (req, res, next) => {
-  res.locals.navLinks = [
-    { label: 'Home',      key: 'home',      href: '/',        parent: 'home' },
-    { label: 'Blog',      key: 'blog',      href: '/blog',    parent: 'blog' },
-    { label: 'Gallery',   key: 'gallery',   href: '/gallery', parent: 'gall' },
-    { label: 'Contact',   key: 'contact',   href: '/contact', parent: 'cont' }
-  ];
 
+const init = (req, res, next) => {
   res.locals.user = req.user;
   next();
 };
@@ -33,7 +26,18 @@ const send = (req, res, next) => {
 };
 
 module.exports = function(app) {
-  devMiddleware(app);
+
+  if (process.env.NODE_ENV === 'development') {
+    const webpack = require('webpack');
+    const webpackDevMiddleware = require('webpack-dev-middleware');
+    const webpackHotMiddleware = require('webpack-hot-middleware');
+    const config = require('../../webpack.config');
+    const compiler = webpack(config);
+
+    app.use(webpackDevMiddleware(compiler));
+    app.use(webpackHotMiddleware(compiler));
+  }
+
   app.use(init);
 
   app.get('/api/locals', homeSection, send);
@@ -43,4 +47,5 @@ module.exports = function(app) {
   app.post('/api/contact', contact.post, send);
 
   app.get('*', (req, res) => server(req, res));
+
 };

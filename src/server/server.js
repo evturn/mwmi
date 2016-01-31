@@ -18,7 +18,7 @@ const renderFullPage = (html, initialState) => {
       <link rel="stylesheet", href="http://fonts.googleapis.com/css?family=Raleway:600,700,400,300" type="stylesheet">
       <link rel="stylesheet", href="http://fonts.googleapis.com/css?family=Dosis:400,500,300,200,600,700,800" type="stylesheet">
       <link rel="stylesheet", href="http://fonts.googleapis.com/css?family=Lato:400,300,300italic,400italic,700,700italic,900,900italic,100,100italic" type="stylesheet">
-      <link rel="stylesheet" type="text/css" href="/assets/app.css">
+      <link rel="stylesheet" type="text/css" href="css/app.css">
 
     </head>
     <body>
@@ -26,7 +26,7 @@ const renderFullPage = (html, initialState) => {
       <div id="root">${html}</div>
 
       <script>window.__INITIAL_STATE__ = ${JSON.stringify(initialState)};</script>
-      <script src="/assets/bundle.js"></script>
+      <script src="app.js"></script>
 
     </body>
     </html>

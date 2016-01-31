@@ -1,8 +1,4 @@
 node_modules
-*.log
-lib
 .DS_Store
-dist
-test
+*.log
 .env
-.travis.yml

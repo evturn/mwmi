@@ -1,14 +1,13 @@
+'use strict';
 require('dotenv').load();
-
-var keystone = require('keystone');
+const keystone = require('keystone');
 
 keystone.init({
 
   'name': 'mwmi',
   'brand': 'mwmi',
 
-  'less': 'public',
-  'static': 'assets',
+  'static': './src/assets',
   'favicon': 'assets/images/logo.png',
   'mongo': 'mongodb://localhost/mwmi',
 
