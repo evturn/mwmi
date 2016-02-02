@@ -1,12 +1,13 @@
 'use strict';
 const keystone = require('keystone');
+const path = require('path');
 
 keystone.init({
 
   'name': 'mwmi',
   'brand': 'mwmi',
 
-  'static': './src/assets',
+  'static': 'public',
   'favicon': 'assets/images/logo.png',
   'mongo': 'mongodb://localhost/mwmi',
 

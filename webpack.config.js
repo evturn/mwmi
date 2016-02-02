@@ -10,7 +10,7 @@ const TARGET = process.env.npm_lifecycle_event;
 const PORT = 3000;
 const PATHS = {
   src: path.join(__dirname, 'src/client'),
-  dist: path.join(__dirname, 'src/assets'),
+  dist: path.join(__dirname, 'public'),
   publicPath: 'src/assets/',
   assetsPath: path.join(__dirname, 'src', 'assets')
 };
@@ -37,13 +37,14 @@ const common = {
   port: PORT,
   output: {
     path: PATHS.dist,
-    filename: '[name].js',
+    filename: 'js/[name].js',
     publicPath: PATHS.publicPath
   },
   resolve: {
     extensions: ['', '.js', '.jsx', '.less'],
     modulesDirectories: ['src', 'node_modules'],
     alias: {
+      img: path.join(__dirname, 'public/img'),
       images: path.join(__dirname, 'src/assets/images'),
       style: path.join(__dirname, 'src/assets/less')
     }
