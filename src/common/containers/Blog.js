@@ -4,6 +4,9 @@ import { Link } from 'react-router';
 import Posts from '../components/Posts';
 import Categories from '../components/Categories';
 import Pagination from '../components/Pagination';
+import store from '../store';
+
+const initialState = store.init();
 
 export default class Blog extends React.Component {
   constructor(props){
@@ -11,18 +14,17 @@ export default class Blog extends React.Component {
 
     this.state = {
       fetching: false,
-      completed: false,
-      posts: null,
-      categories: null,
-      category: null
-    }
+      completed: false
+    };
   }
   componentDidMount() {
-    const noParams = '/api/blog';
-    const withParams = `/api/blog/${this.props.params.category}`;
-    const endpoint = this.props.params.category !== undefined ? withParams : noParams;
+    const endpoint = `/api/blog/${this.props.params.category}`;
 
-    this.fetchPosts(endpoint);
+    if (this.props.params.category !== undefined) {
+      this.fetchPosts(endpoint);
+    }
+
+    initialState.then(data => this.setState(data));
   }
   componentDidUpdate(prevProps) {
     const prev = prevProps.params.category;
@@ -37,14 +39,15 @@ export default class Blog extends React.Component {
     }
   }
   render() {
-    let content;
-    if (!this.state.fetching && this.state.completed) {
+    const {fetching, completed} = this.state;
+    let content = null;
+    if (!fetching && completed) {
       content = this.renderPosts();
-    } else if (this.state.fetching && !this.state.completed) {
+    } else if (fetching && !completed) {
       content = null;
     }
     return (
-      <div >
+      <div>
         {content}
       </div>
     );

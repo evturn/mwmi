@@ -5,17 +5,20 @@ import { RouterContext, match } from 'react-router';
 import routes from '../common/routes';
 import createLocation from 'history/lib/createLocation';
 
-const render = (html) => {
+const render = (html, initialState, head={
+  meta: `<meta name="viewport" content="width=device-width, initial-scale=1" />`,
+  link: `<link rel="stylesheet" type="text/css" href="css/app.css" />`
+}) => {
   return `
     <!doctype html>
-    <html>
+    <html lang="en">
     <head>
-      <meta charset="utf-8">
+      ${head.meta}
       <title>MWMI</title>
       <link rel="stylesheet", href="http://fonts.googleapis.com/css?family=Raleway:600,700,400,300" type="stylesheet">
       <link rel="stylesheet", href="http://fonts.googleapis.com/css?family=Dosis:400,500,300,200,600,700,800" type="stylesheet">
       <link rel="stylesheet", href="http://fonts.googleapis.com/css?family=Lato:400,300,300italic,400italic,700,700italic,900,900italic,100,100italic" type="stylesheet">
-      <link rel="stylesheet" type="text/css" href="css/app.css">
+      ${head.link}
     </head>
     <body>
 

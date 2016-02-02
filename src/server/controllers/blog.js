@@ -2,12 +2,7 @@
 const keystone = require('keystone');
 const async = require('async');
 
-exports.setSection = function setSection(req, res, next) {
-  res.locals.section = 'blog'
-  next();
-};
-
-exports.loadCategories = function loadCategories(req, res, next) {
+exports.loadCategories = (req, res, next) => {
   keystone.list('PostCategory')
     .model
     .find()
@@ -32,7 +27,7 @@ exports.loadCategories = function loadCategories(req, res, next) {
     });
 };
 
-exports.currentCategoryFilter = function currentCategoryFilter(req, res, next) {
+exports.currentCategoryFilter = (req, res, next) => {
   if (req.params.category) {
     res.locals.filters = {
       category: req.params.category
@@ -53,7 +48,7 @@ exports.currentCategoryFilter = function currentCategoryFilter(req, res, next) {
   }
 };
 
-exports.loadPosts = function loadPosts(req, res, next) {
+exports.loadPosts = (req, res, next) => {
   const dbQuery = keystone.list('Post')
     .paginate({
       page: req.query.page || 1,
@@ -76,9 +71,4 @@ exports.loadPosts = function loadPosts(req, res, next) {
 
       next();
     });
-};
-
-exports.send = function send(req, res, next) {
-  console.log(res.locals);
-  res.json(res.locals);
 };

@@ -1,7 +1,7 @@
 'use strict';
 const keystone = require('keystone');
 
-exports.loadCurrentPost = function(req, res, next) {
+exports.loadCurrentPost = (req, res, next) => {
   res.locals.filters = {
     post: req.params.post
   };
@@ -20,7 +20,7 @@ exports.loadCurrentPost = function(req, res, next) {
   });
 };
 
-exports.loadOtherPosts = function(req, res, next) {
+exports.loadOtherPosts = (req, res, next) => {
   const dbQuery = keystone.list('Post')
     .model
     .find()
@@ -35,8 +35,4 @@ exports.loadOtherPosts = function(req, res, next) {
 
       next();
     });
-};
-
-exports.send = function(req, res, next) {
-  res.json(res.locals);
 };

@@ -10,10 +10,27 @@ const TARGET = process.env.npm_lifecycle_event;
 const PORT = 3000;
 const PATHS = {
   src: path.join(__dirname, 'src/client'),
-  dist: path.join(__dirname, 'public'),
-  publicPath: 'src/assets/',
-  assetsPath: path.join(__dirname, 'src', 'assets')
+  output: path.join(__dirname, 'public'),
+  publicPath: '/'
 };
+
+const common = {
+  port: PORT,
+  output: {
+    path: PATHS.output,
+    filename: 'js/[name].js',
+    publicPath: PATHS.publicPath
+  },
+  resolve: {
+    extensions: ['', '.js', '.jsx', '.less'],
+    modulesDirectories: ['src', 'node_modules'],
+    alias: {
+      public: path.join(__dirname, 'public/'),
+      style: path.join(__dirname, 'src/assets/less')
+    }
+  }
+};
+
 const LOADERS = [
   {
     test: /\.json$/,
@@ -33,24 +50,6 @@ const LOADERS = [
   },
 ];
 
-const common = {
-  port: PORT,
-  output: {
-    path: PATHS.dist,
-    filename: 'js/[name].js',
-    publicPath: PATHS.publicPath
-  },
-  resolve: {
-    extensions: ['', '.js', '.jsx', '.less'],
-    modulesDirectories: ['src', 'node_modules'],
-    alias: {
-      img: path.join(__dirname, 'public/img'),
-      images: path.join(__dirname, 'src/assets/images'),
-      style: path.join(__dirname, 'src/assets/less')
-    }
-  }
-};
-
 if (TARGET === 'dev' || !TARGET) {
 
   module.exports = merge(common, {
@@ -63,9 +62,9 @@ if (TARGET === 'dev' || !TARGET) {
         PATHS.src
       ]
     },
-    context: path.join(__dirname, 'src/assets'),
+    context: PATHS.src,
     devServer: {
-      outputPath: PATHS.dist,
+      outputPath: PATHS.output,
       historyApiFallback: true,
       headers: {
         'Access-Control-Allow-Origin': '*',
@@ -83,15 +82,12 @@ if (TARGET === 'dev' || !TARGET) {
           test: /\.js$/,
           loader: 'babel',
           exclude: /node_modules/,
-          include: __dirname,
           query: {
             optional: ['runtime'],
-            stage: 2,
+            stage: 0,
             env: {
               development: {
-                plugins: [
-                  'react-transform'
-                ],
+                plugins: ['react-transform'],
                 extra: {
                   'react-transform': {
                     transforms: [{

@@ -7,7 +7,7 @@ keystone.init({
   'name': 'mwmi',
   'brand': 'mwmi',
 
-  'static': 'public',
+  'static': path.join(__dirname, 'public'),
   'favicon': 'assets/images/logo.png',
   'mongo': 'mongodb://localhost/mwmi',
 
