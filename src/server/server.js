@@ -7,7 +7,7 @@ import createLocation from 'history/lib/createLocation';
 
 const render = (html, initialState, head={
   meta: `<meta name="viewport" content="width=device-width, initial-scale=1" />`,
-  link: `<link rel="stylesheet" type="text/css" href="css/app.css" />`
+  link: `<link rel="stylesheet" type="text/css" href="/css/app.css" />`
 }) => {
   return `
     <!doctype html>
@@ -24,7 +24,7 @@ const render = (html, initialState, head={
 
       <div id="root">${html}</div>
 
-      <script src="js/app.js"></script>
+      <script src="/js/app.js"></script>
     </body>
     </html>
   `;
