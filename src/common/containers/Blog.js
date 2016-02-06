@@ -4,7 +4,6 @@ import { Link } from 'react-router';
 import Posts from '../components/Posts';
 import Categories from '../components/Categories';
 import Pagination from '../components/Pagination';
-import store from '../store';
 
 const initialState = store.init();
 
@@ -24,7 +23,7 @@ export default class Blog extends React.Component {
       this.fetchPosts(endpoint);
     }
 
-    initialState.then(data => this.setState(data));
+
   }
   componentDidUpdate(prevProps) {
     const prev = prevProps.params.category;

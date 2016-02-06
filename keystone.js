@@ -8,10 +8,12 @@ keystone.init({
   'brand': 'mwmi',
 
   'static': path.join(__dirname, 'public'),
-  'favicon': 'public/favicon/logo.png',
+  'favicon': 'public/img/favicon.png',
   'mongo': 'mongodb://localhost/mwmi',
   'auto update': true,
   'cloudinary config': process.env.CLOUDINARY_URL,
+  'mandrill api key': process.env.MANDRILL_API_KEY,
+  'mandrill username': process.env.MANDRILL_USERNAME,
   'admin path': 'admin',
   'session': true,
   'auth': true,
@@ -22,11 +24,8 @@ keystone.init({
 
 keystone.import('./src/server/models');
 
-keystone.set('cloudinary config', process.env.CLOUDINARY_URL);
-keystone.set('mandrill api key', process.env.MANDRILL_API_KEY);
-keystone.set('mandrill username', process.env.MANDRILL_USERNAME);
-
 keystone.set('locals', {
+  _: require('underscore'),
   env: keystone.get('env'),
   utils: keystone.utils,
   editable: keystone.content.editable
