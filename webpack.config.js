@@ -26,7 +26,7 @@ const common = {
     modulesDirectories: ['src', 'node_modules'],
     alias: {
       public: path.join(__dirname, 'public/'),
-      style: path.join(__dirname, 'src/assets/less')
+      style: path.join(__dirname, 'src/client/assets/less')
     }
   }
 };
@@ -108,7 +108,7 @@ if (TARGET === 'dev' || !TARGET) {
           test: /\.less$/,
           loader: ExtractTextPlugin.extract('style-loader', 'css-loader?module&localIdentName=[local]__[hash:base64:5]' +
             '&sourceMap!autoprefixer-loader!less?sourceMap&outputStyle=expanded' +
-            '&includePaths[]=' + encodeURIComponent(path.resolve(__dirname, 'src', 'assets', 'less')))
+            '&includePaths[]=' + encodeURIComponent(path.resolve(__dirname, 'src', 'client', 'assets', 'less')))
         }
       ])
     },
@@ -138,7 +138,7 @@ if (TARGET === 'build' || !TARGET) {
         }, {
           test: /\.less$/,
           loader: ExtractTextPlugin.extract('style-loader', 'css-loader?module&localIdentName=[local]__[hash:base64:5]!autoprefixer-loader!less?includePaths[]='
-            + encodeURIComponent(path.resolve(__dirname, 'src', 'assets', 'less')))
+            + encodeURIComponent(path.resolve(__dirname, 'src', 'client', 'assets', 'less')))
         }
       ])
     },
