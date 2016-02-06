@@ -1,8 +1,7 @@
-'use strict';
-const keystone = require('keystone');
+import keystone from 'keystone';
 const Enquiry = keystone.list('Enquiry');
 
-exports.get = (req, res, next) => {
+export const get = (req, res, next) => {
   res.locals.section = 'contact';
   res.locals.enquiryTypes = Enquiry.fields.enquiryType.ops;
   res.locals.formData = req.body || {};
@@ -11,7 +10,7 @@ exports.get = (req, res, next) => {
   next();
 };
 
-exports.post = (req, res, next) => {
+export const post = (req, res, next) => {
   const newEnquiry = new Enquiry.model();
   const updater = newEnquiry.getUpdateHandler(req);
 

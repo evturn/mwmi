@@ -1,8 +1,7 @@
-'use strict';
-const keystone = require('keystone');
-const async = require('async');
+import keystone from 'keystone';
+import async from 'async';
 
-exports.loadCategories = (req, res, next) => {
+export const loadCategories = (req, res, next) => {
   keystone.list('PostCategory')
     .model
     .find()
@@ -27,7 +26,7 @@ exports.loadCategories = (req, res, next) => {
     });
 };
 
-exports.currentCategoryFilter = (req, res, next) => {
+export const currentCategoryFilter = (req, res, next) => {
   if (req.params.category) {
     res.locals.filters = {
       category: req.params.category
@@ -48,7 +47,7 @@ exports.currentCategoryFilter = (req, res, next) => {
   }
 };
 
-exports.loadPosts = (req, res, next) => {
+export const loadPosts = (req, res, next) => {
   const dbQuery = keystone.list('Post')
     .paginate({
       page: req.query.page || 1,

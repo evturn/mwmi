@@ -1,7 +1,6 @@
-'use strict';
-const keystone = require('keystone');
+import keystone from 'keystone';
 
-exports.loadCurrentPost = (req, res, next) => {
+export const loadCurrentPost = (req, res, next) => {
   res.locals.filters = {
     post: req.params.post
   };
@@ -20,7 +19,7 @@ exports.loadCurrentPost = (req, res, next) => {
   });
 };
 
-exports.loadOtherPosts = (req, res, next) => {
+export const loadOtherPosts = (req, res, next) => {
   const dbQuery = keystone.list('Post')
     .model
     .find()

@@ -2,7 +2,7 @@ import 'babel-core/polyfill';
 import React from 'react';
 import { renderToString } from 'react-dom/server';
 import { RouterContext, match } from 'react-router';
-import { Provider } from 'react-redux'
+import { Provider } from 'react-redux';
 import configureStore from '../common/configureStore';
 import routes from '../common/routes';
 import createLocation from 'history/lib/createLocation';
