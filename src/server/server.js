@@ -2,8 +2,8 @@ import 'babel-core/polyfill';
 import React from 'react';
 import { renderToString } from 'react-dom/server';
 import { RouterContext, match } from 'react-router';
-import { createStore } from 'redux'
 import { Provider } from 'react-redux'
+import configureStore from '../common/configureStore';
 import routes from '../common/routes';
 import createLocation from 'history/lib/createLocation';
 
@@ -47,7 +47,12 @@ const serve = (req, res) => {
       if (typeof(req.user) !== undefined && req.user.isAdmin) {
         isAdmin = true;
       }
-      res.status(200).send(render(renderToString(<RouterContext {...renderProps} />)));
+
+      const store = configureStore();
+      res.status(200).send(render(renderToString(
+        <Provider store={store}>
+          <RouterContext {...renderProps} />
+        </Provider>)));
     } else {
       res.status(404).send('Not found');
     }

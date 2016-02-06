@@ -4,7 +4,7 @@ import Entry from './Entry';
 
 export default ({posts}) => {
   return (
-    <div className="posts">{posts.results.map((post, i) => {
+    <div className="posts">{posts.map((post, i) => {
       return (
         <Entry
           key={i}
