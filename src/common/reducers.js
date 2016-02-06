@@ -4,6 +4,7 @@ function blog(state = {
   isFetching: false,
   isCompleted: false,
   posts: {},
+  post: {},
   results: [],
   categories: [],
   category: null
@@ -19,7 +20,7 @@ function blog(state = {
         isFetching: false,
         isCompleted: true,
         posts: action.posts,
-        results: action.posts.results,
+        results: action.results,
         categories: action.categories,
         category: action.category,
         lastUpdated: action.receivedAt

@@ -35,10 +35,7 @@ class Blog extends Component {
         <div className="blog-content">
           <div className="blog-content__header">Showing {this.props.posts.first} - {this.props.posts.last} of {this.props.results.length}</div>
           <Posts posts={this.props.results} />
-          <div className="categories">
-            <div className="categories-header">Categories</div>
-            <Categories categories={this.props.categories} />
-          </div>
+          <Categories categories={this.props.categories} />
         </div>
         <Pagination posts={this.props.posts}/>
       </div>
@@ -48,6 +45,7 @@ class Blog extends Component {
 
 Blog.propTypes = {
   posts: PropTypes.object,
+  post: PropTypes.object,
   categories: PropTypes.array,
   category: PropTypes.object,
   results: PropTypes.array,
@@ -60,6 +58,7 @@ Blog.propTypes = {
 function mapStateToProps(state) {
   return {
     posts: state.blog.posts,
+    post: state.blog.post,
     categories: state.blog.categories,
     category: state.blog.category,
     results: state.blog.results,

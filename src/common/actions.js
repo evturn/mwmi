@@ -12,23 +12,22 @@ function requestPosts() {
 function receivePosts(json) {
   return {
     type: RECEIVE_POSTS,
-    category: json.category || null,
-    categories: json.categories,
     posts: json.posts,
+    post: json.post,
+    categories: json.categories,
+    category: json.category || null,
+    results: json.posts.results,
     receivedAt: Date.now()
   }
 }
 
 export function fetchPosts(params) {
-  let endpoint = '/api/blog';
-  if (params.category !== undefined) {
-    endpoint = `/api/blog/${params.category}`;
-  }
+  const url = params.category !== undefined ? `/api/blog/${params.category}` : '/api/blog';
 
   return function(dispatch) {
     dispatch(requestPosts());
 
-    return fetch(endpoint)
+    return fetch(url)
       .then(response => response.json())
       .then(json => dispatch(receivePosts(json)))
       .catch(error => console.log(error))
