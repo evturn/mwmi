@@ -5,8 +5,6 @@ import Posts from '../components/Posts';
 import Categories from '../components/Categories';
 import Pagination from '../components/Pagination';
 
-const initialState = store.init();
-
 export default class Blog extends React.Component {
   constructor(props){
     super(props);

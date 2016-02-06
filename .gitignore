@@ -3,4 +3,4 @@ node_modules
 *.log
 .env
 *.hot-update.js
-src/redux
+__redux__
