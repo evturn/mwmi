@@ -24,23 +24,17 @@ class Blog extends Component {
   }
   render() {
     const { isFetching, isCompleted } = this.props;
-    let content = null;
-    if (!isFetching && isCompleted) {
-      console.log(this.props);
-      content = this.renderContent();
-    } else if (isFetching && !isCompleted) {
-      content = null;
-    }
+
     return (
-      <div>{content}</div>
+      <div>{!isFetching && isCompleted ? this.renderContent() : null}</div>
     );
   }
   renderContent() {
     return (
       <div className="blog">
         <div className="blog-content">
-          <div className="blog-content__header">Showing {this.props.posts.first} - {this.props.posts.last} of {this.props.posts.results.length}</div>
-          <Posts posts={this.props.posts.results} />
+          <div className="blog-content__header">Showing {this.props.posts.first} - {this.props.posts.last} of {this.props.results.length}</div>
+          <Posts posts={this.props.results} />
           <div className="categories">
             <div className="categories-header">Categories</div>
             <Categories categories={this.props.categories} />
@@ -55,7 +49,8 @@ class Blog extends Component {
 Blog.propTypes = {
   posts: PropTypes.object,
   categories: PropTypes.array,
-  category: PropTypes.string,
+  category: PropTypes.object,
+  results: PropTypes.array,
   isFetching: PropTypes.bool,
   isCompleted: PropTypes.bool,
   lastUpdated: PropTypes.number,
@@ -67,6 +62,7 @@ function mapStateToProps(state) {
     posts: state.blog.posts,
     categories: state.blog.categories,
     category: state.blog.category,
+    results: state.blog.results,
     isFetching: state.blog.isFetching,
     isCompleted: state.blog.isCompleted,
     lastUpdated: state.blog.lastUpdated

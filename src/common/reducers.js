@@ -1,42 +1,31 @@
-import { combineReducers } from 'redux'
-import {
-  // SELECT_CATEGORY, INVALIDATE_CATEGORY,
-  REQUEST_POSTS, RECEIVE_POSTS
-} from './actions'
-
-// function selectedCategory(state, action) {
-//   switch (action.type) {
-//     case SELECT_CATEGORY:
-//       return action.category
-//     default:
-//       return state
-//   }
-// }
+import { combineReducers } from 'redux';
 
 function blog(state = {
   isFetching: false,
   isCompleted: false,
   posts: {},
+  results: [],
   categories: [],
   category: null
 }, action) {
   switch (action.type) {
-    case REQUEST_POSTS:
+    case 'REQUEST_POSTS':
       return Object.assign({}, state, {
         isFetching: true,
         isCompleted: false
-      })
-    case RECEIVE_POSTS:
+      });
+    case 'RECEIVE_POSTS':
       return Object.assign({}, state, {
         isFetching: false,
         isCompleted: true,
         posts: action.posts,
+        results: action.posts.results,
         categories: action.categories,
         category: action.category,
         lastUpdated: action.receivedAt
-      })
+      });
     default:
-      return state
+      return state;
   }
 }
 
