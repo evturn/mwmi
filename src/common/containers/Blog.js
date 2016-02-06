@@ -33,10 +33,10 @@ class Blog extends Component {
     return (
       <div className="blog">
         <div className="blog-content">
-          <div className="blog-content__header">Showing {this.props.posts.first} - {this.props.posts.last} of {this.props.posts.total}</div>
           <Posts posts={this.props.results} />
           <Categories categories={this.props.categories} />
         </div>
+        <div className="blog-content__header">Showing {this.props.posts.first} - {this.props.posts.last} of {this.props.results.length}</div>
         <Pagination posts={this.props.posts}/>
       </div>
     );

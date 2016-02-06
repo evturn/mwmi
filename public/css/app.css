@@ -2492,14 +2492,15 @@ button:focus {
 .pagination .pagination-button:hover a {
   color: #46758E;
 }
-.pagination .pagination-button.active {
-  font-weight: 400;
-  cursor: default;
-}
-.pagination .pagination-button.disabled {
+.pagination .pagination-button a.disabled {
+  -webkit-transition: initial;
+  transition: initial;
   color: #CDCDCD;
   font-weight: 400;
   cursor: default;
+}
+.pagination .pagination-button a.disabled:hover {
+  color: #CDCDCD;
 }
 .contact .contact__header {
   margin-top: 15px;

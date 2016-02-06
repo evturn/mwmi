@@ -14,6 +14,7 @@
     margin: 0 auto;
     width: 100%;
   }
+
   .pagination-button {
     display: inline-block;
     font-size: 26px;
@@ -23,15 +24,18 @@
     font-weight: 600;
     .hyperlink();
 
-    &.active {
-      font-weight: 400;
-      cursor: default;
-    }
-
-    &.disabled {
+    a.disabled {
+      transition: initial;
       color: @tx-grey;
       font-weight: 400;
       cursor: default;
+
+      &:hover {
+        color: @tx-grey;
+      }
     }
   }
+
+
+
 }

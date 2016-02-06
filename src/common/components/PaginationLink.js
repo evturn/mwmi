@@ -1,13 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router';
 
-export default ({ pageNumber, child, classname }) => {
-  const pathname = pageNumber === false ? null : { pathname: '/blog', query: { page: pageNumber } };
-  const onClick = pageNumber === false ? (e => e.preventDefault()) : null;
+export default ({ pageNumber, child, active }) => {
+  const on = <Link to={{ pathname: window.location.pathname, query: { page: pageNumber }}}>{child}</Link>;
+  const off = <a className="disabled">{child}</a>;
+  const content = pageNumber === false || active ? off : on;
 
-  return (
-    <li className={classname}>
-      <Link onClick={onClick} to={pathname}>{child}</Link>
-    </li>
-  );
+  return <li className="pagination-button">{content}</li>;
 }
