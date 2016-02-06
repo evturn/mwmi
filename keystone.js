@@ -8,10 +8,11 @@ keystone.init({
   'brand': 'mwmi',
 
   'static': path.join(__dirname, 'public'),
-  'favicon': 'assets/images/logo.png',
+  'favicon': 'public/favicon/logo.png',
   'mongo': 'mongodb://localhost/mwmi',
-
   'auto update': true,
+  'cloudinary config': process.env.CLOUDINARY_URL,
+  'admin path': 'admin',
   'session': true,
   'auth': true,
   'user model': 'User',
@@ -26,7 +27,6 @@ keystone.set('mandrill api key', process.env.MANDRILL_API_KEY);
 keystone.set('mandrill username', process.env.MANDRILL_USERNAME);
 
 keystone.set('locals', {
-  _: require('underscore'),
   env: keystone.get('env'),
   utils: keystone.utils,
   editable: keystone.content.editable

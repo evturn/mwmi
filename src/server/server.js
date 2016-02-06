@@ -5,20 +5,23 @@ import { RouterContext, match } from 'react-router';
 import routes from '../common/routes';
 import createLocation from 'history/lib/createLocation';
 
-const render = (html, initialState, head={
-  meta: `<meta name="viewport" content="width=device-width, initial-scale=1" />`,
-  link: `<link rel="stylesheet" type="text/css" href="/css/app.css" />`
-}) => {
+let isAdmin = false;
+const admin = {
+  link: `<link rel="stylesheet" href="/keystone/styles/content/editor.min.css">`,
+  script: `<script src="/keystone/js/content/editor.js"></script>`
+};
+
+const render = (html, initialState) => {
   return `
     <!doctype html>
     <html lang="en">
     <head>
-      ${head.meta}
+      <meta name="viewport" content="width=device-width, initial-scale=1" />
       <title>MWMI</title>
       <link rel="stylesheet", href="http://fonts.googleapis.com/css?family=Raleway:600,700,400,300" type="stylesheet">
       <link rel="stylesheet", href="http://fonts.googleapis.com/css?family=Dosis:400,500,300,200,600,700,800" type="stylesheet">
       <link rel="stylesheet", href="http://fonts.googleapis.com/css?family=Lato:400,300,300italic,400italic,700,700italic,900,900italic,100,100italic" type="stylesheet">
-      ${head.link}
+      <link rel="stylesheet" type="text/css" href="/css/app.css" />
     </head>
     <body>
 
@@ -39,6 +42,9 @@ const serve = (req, res) => {
     } else if (redirectLocation) {
       res.redirect(302, redirectLocation.pathname + redirectLocation.search);
     } else if (renderProps) {
+      if (typeof(req.user) !== undefined && req.user.isAdmin) {
+        isAdmin = true;
+      }
       res.status(200).send(render(renderToString(<RouterContext {...renderProps} />)));
     } else {
       res.status(404).send('Not found');
@@ -47,8 +53,3 @@ const serve = (req, res) => {
 };
 
 export default serve;
-
-// if (typeof(req.user) !== 'undefined' && req.user.isAdmin) {
-//   adminCSS = `<link rel="stylesheet" href="/keystone/styles/content/editor.min.css">`;
-//   adminJS = `<script src="/keystone/js/content/editor.js"></script>`;
-// }
