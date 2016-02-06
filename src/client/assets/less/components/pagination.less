@@ -1,12 +1,12 @@
 .pagination {
+  .clearfix();
   position: relative;
   display: block;
-  .clearfix();
-  width: 100%;
   margin: 0 auto;
-  color: @tx-dark;
-  .disabled {
-    color: @tx-grey;
+  width: 100%;
+  height: 150px;
+  a {
+    color: @tx-dark;
   }
 
   .pagination-buttons {
@@ -16,9 +16,22 @@
   }
   .pagination-button {
     display: inline-block;
-    font-size: 20px;
-    width: 80px;
-    height: 80px;
-    line-height: 80px;
+    font-size: 26px;
+    width: 50px;
+    height: 50px;
+    line-height: 50px;
+    font-weight: 600;
+    .hyperlink();
+
+    &.active {
+      font-weight: 400;
+      cursor: default;
+    }
+
+    &.disabled {
+      color: @tx-grey;
+      font-weight: 400;
+      cursor: default;
+    }
   }
 }

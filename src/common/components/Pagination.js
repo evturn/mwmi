@@ -1,52 +1,61 @@
 import React, { PropTypes } from 'react';
-import {Link} from 'react-router';
+import { Link } from 'react-router';
+import PaginationLink from './PaginationLink';
+
 
 export default class Pagination extends React.Component {
   constructor(props) {
     super(props);
-
   }
   render() {
-    const previousClass = !this.props.posts.previous ? 'disabled': '';
-    const nextClass = !this.props.posts.next ? 'disabled': '';
     return (
       <div className="pagination">
         <ul className="pagination-buttons">
-          <li className="pagination-button">
-            <Link to={this.previousUrl()}><i className={`${previousClass} fa fa-chevron-left`}></i></Link>
-          </li>
+          {this.prevPage()}
           {this.navigation()}
-          <li className="pagination-button">
-            <Link to={this.nextUrl()}><i className={`${nextClass} fa fa-chevron-right`}></i></Link>
-          </li>
+          {this.nextPage()}
         </ul>
       </div>
     );
   }
-  pageUrl(pageNumber) {
-    return `/blog?page=${pageNumber}`;
+  nextPage() {
+    const { next } = this.props.posts;
+
+    return (
+      <PaginationLink
+        pageNumber={next}
+        child={<i className="fa fa-chevron-right"></i>}
+        classname={next === false ? 'pagination-button disabled' : 'pagination-button'}
+      />
+    );
   }
-  previousUrl() {
-    if (this.props.posts.previous === false) {
-      return this.pageUrl(1)
-    }
-    return this.pageUrl(this.props.posts.previous);
-  }
-  nextUrl() {
-    if (this.props.posts.next === false) {
-      return this.pageUrl(this.props.posts.totalPages);
-    }
-    return this.pageUrl(this.props.posts.next);
+  prevPage() {
+    const { previous } = this.props.posts;
+
+    return (
+      <PaginationLink
+        pageNumber={previous}
+        child={<i className="fa fa-chevron-left"></i>}
+        classname={previous === false ? 'pagination-button disabled' : 'pagination-button'}
+      />
+    );
   }
   navigation() {
-    return this.props.posts.pages.map((page, i) => {
-      const pageText = page;
-      const liClass = page === this.props.posts.currentPage ? 'active' : '';
+    const { pages, currentPage, totalPages } = this.props.posts;
 
+    return pages.map((page, i) => {
       if (page === '...') {
-        page = i ? this.props.posts.totalPages : 1;
+        page = i ? totalPages : 1;
       }
-      return <li key={i} className={`pagination-button ${liClass}`}><Link to={this.pageUrl(page)}>{pageText}</Link></li>;
+
+      return (
+        <PaginationLink
+          key={i}
+          pageNumber={page}
+          child={page}
+          classname={page === currentPage ? 'pagination-button active' : 'pagination-button'}
+        />
+      );
     });
   }
 }

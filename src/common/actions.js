@@ -21,8 +21,9 @@ function receivePosts(json) {
   }
 }
 
-export function fetchPosts(params) {
-  const url = params.category !== undefined ? `/api/blog/${params.category}` : '/api/blog';
+export function fetchPosts(params, query) {
+  const route = params.category !== undefined ? `/api/blog/${params.category}` : '/api/blog';
+  const url = query !== undefined ? `${route}?page=${query.page}` : route;
 
   return function(dispatch) {
     dispatch(requestPosts());

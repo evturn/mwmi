@@ -2453,12 +2453,12 @@ button:focus {
   color: #46758E;
 }
 .pagination {
+  zoom: 1;
   position: relative;
   display: block;
-  zoom: 1;
-  width: 100%;
   margin: 0 auto;
-  color: #000000;
+  width: 100%;
+  height: 150px;
 }
 .pagination:before,
 .pagination:after {
@@ -2468,8 +2468,8 @@ button:focus {
 .pagination:after {
   clear: both;
 }
-.pagination .disabled {
-  color: #CDCDCD;
+.pagination a {
+  color: #000000;
 }
 .pagination .pagination-buttons {
   text-align: center;
@@ -2478,10 +2478,28 @@ button:focus {
 }
 .pagination .pagination-button {
   display: inline-block;
-  font-size: 20px;
-  width: 80px;
-  height: 80px;
-  line-height: 80px;
+  font-size: 26px;
+  width: 50px;
+  height: 50px;
+  line-height: 50px;
+  font-weight: 600;
+}
+.pagination .pagination-button a {
+  color: #000000;
+  -webkit-transition: ease 0.2s all;
+  transition: ease 0.2s all;
+}
+.pagination .pagination-button:hover a {
+  color: #46758E;
+}
+.pagination .pagination-button.active {
+  font-weight: 400;
+  cursor: default;
+}
+.pagination .pagination-button.disabled {
+  color: #CDCDCD;
+  font-weight: 400;
+  cursor: default;
 }
 .contact .contact__header {
   margin-top: 15px;

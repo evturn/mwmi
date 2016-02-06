@@ -16,10 +16,10 @@ class Blog extends Component {
     dispatch(fetchPosts(params));
   }
   componentDidUpdate(prevProps) {
-    const { dispatch, params } = this.props
+    const { dispatch, params, location } = this.props
 
     if (params !== prevProps.params) {
-      dispatch(fetchPosts(params));
+      dispatch(fetchPosts(params, location.query))
     }
   }
   render() {
@@ -33,7 +33,7 @@ class Blog extends Component {
     return (
       <div className="blog">
         <div className="blog-content">
-          <div className="blog-content__header">Showing {this.props.posts.first} - {this.props.posts.last} of {this.props.results.length}</div>
+          <div className="blog-content__header">Showing {this.props.posts.first} - {this.props.posts.last} of {this.props.posts.total}</div>
           <Posts posts={this.props.results} />
           <Categories categories={this.props.categories} />
         </div>
