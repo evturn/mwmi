@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import 'css/style.css';
 
 export default class App extends Component {
   constructor(props){

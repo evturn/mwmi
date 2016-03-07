@@ -4,7 +4,7 @@ import path from 'path';
 const init = {
   'name': 'mwmi',
   'brand': 'mwmi',
-  'static': path.join(__dirname, '..', '..' '..', 'dist'),
+  'static': path.join(__dirname, '..', '..', '..', 'dist'),
   'favicon': 'public/img/favicon.png',
   'mongo': 'mongodb://localhost/mwmi',
   'auto update': true,

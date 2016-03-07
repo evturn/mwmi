@@ -1,17 +1,10 @@
-import 'babel-core/polyfill';
 import React from 'react';
 import { renderToString } from 'react-dom/server';
-import { RouterContext, match } from 'react-router';
+import { match, RouterContext } from 'react-router';
 import { Provider } from 'react-redux';
-import configureStore from '../common/configureStore';
-import routes from '../common/routes';
-import createLocation from 'history/lib/createLocation';
-
-let isAdmin = false;
-const admin = {
-  link: `<link rel="stylesheet" href="/keystone/styles/content/editor.min.css">`,
-  script: `<script src="/keystone/js/content/editor.js"></script>`
-};
+import fetch from 'isomorphic-fetch';
+import configureStore from '../app/store';
+import routes from '../app/routes';
 
 const render = (html, initialState) => {
   return `
@@ -20,15 +13,13 @@ const render = (html, initialState) => {
     <head>
       <meta name="viewport" content="width=device-width, initial-scale=1" />
       <title>MWMI</title>
-      <link rel="stylesheet", href="http://fonts.googleapis.com/css?family=Raleway:600,700,400,300" type="stylesheet">
-      <link rel="stylesheet", href="http://fonts.googleapis.com/css?family=Dosis:400,500,300,200,600,700,800" type="stylesheet">
-      <link rel="stylesheet", href="http://fonts.googleapis.com/css?family=Lato:400,300,300italic,400italic,700,700italic,900,900italic,100,100italic" type="stylesheet">
       <link rel="stylesheet" type="text/css" href="/css/app.css" />
     </head>
     <body>
 
       <div id="root">${html}</div>
 
+      <script> window.__INITIAL_STATE__ = ${JSON.stringify(initialState)}; </script>
       <script src="/js/app.js"></script>
     </body>
     </html>
@@ -36,23 +27,30 @@ const render = (html, initialState) => {
 };
 
 const serve = (req, res) => {
-  const location = createLocation(req.url);
-
-  match({routes, location}, (err, redirectLocation, renderProps) => {
+  match({routes, location: req.url}, (err, redirectLocation, renderProps) => {
     if (err) {
-      return res.status(500).send(err.message);
+      res.status(500).send(err.message);
     } else if (redirectLocation) {
       res.redirect(302, redirectLocation.pathname + redirectLocation.search);
     } else if (renderProps) {
-      if (typeof(req.user) !== undefined && req.user.isAdmin) {
-        isAdmin = true;
-      }
-
-      const store = configureStore();
-      res.status(200).send(render(renderToString(
+      const store = configureStore({
+        blog: {
+          isFetching: false,
+          isCompleted: false,
+          posts: {},
+          post: {},
+          results: [],
+          categories: [],
+          category: null
+        }
+      });
+      const initialState = store.getState();
+      const virtualDOM = renderToString(
         <Provider store={store}>
           <RouterContext {...renderProps} />
-        </Provider>)));
+        </Provider>)
+
+      res.status(200).send(render(virtualDOM));
     } else {
       res.status(404).send('Not found');
     }

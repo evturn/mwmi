@@ -1,4 +1,4 @@
-import server from '../server';
+import server from '../../../dist/js/app.server';
 import express from 'express';
 import * as blog from '../controllers/blog';
 import * as post from '../controllers/post';
@@ -6,7 +6,7 @@ import * as contact from '../controllers/contact';
 import webpack from 'webpack';
 import webpackDevMiddleware from 'webpack-dev-middleware';
 import webpackHotMiddleware from 'webpack-hot-middleware';
-import webpackConfig from '../webpack.config.dev.js';
+import webpackConfig from '../../webpack.config.dev.js';
 
 const ENV = process.env.NODE_ENV;
 
