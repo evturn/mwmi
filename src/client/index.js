@@ -3,11 +3,11 @@ import React from 'react';
 import { render } from 'react-dom';
 import { Router, browserHistory } from 'react-router';
 import { Provider } from 'react-redux';
-import configureStore from '../common/configureStore';
+import createStore from 'store';
 import routes from '../common/routes';
 import 'style/main.less';
 
-const store = configureStore();
+const store = createStore();
 
 render(
   <Provider store={store}>

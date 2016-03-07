@@ -1,15 +1,31 @@
 import server from '../server';
-import devServer from './devServer';
-import path from 'path';
 import express from 'express';
-import { init, send } from './middleware';
 import * as blog from '../controllers/blog';
 import * as post from '../controllers/post';
 import * as contact from '../controllers/contact';
+import webpack from 'webpack';
+import webpackDevMiddleware from 'webpack-dev-middleware';
+import webpackHotMiddleware from 'webpack-hot-middleware';
+import webpackConfig from '../webpack.config.dev.js';
+
+const ENV = process.env.NODE_ENV;
+
+const init = (req, res, next) => {
+  res.locals.user = req.user;
+  next();
+};
+
+const send = (req, res, next) => res.json(res.locals);
 
 export default function(app) {
-  if (process.env.NODE_ENV === 'development') {
-    devServer(app);
+  if (ENV === 'development') {
+    const compiler = webpack(webpackConfig);
+
+    app.use(webpackDevMiddleware(compiler, {
+      noInfo: true,
+      publicPath: webpackConfig.output.publicPath
+    }));
+    app.use(webpackHotMiddleware(compiler));
   }
 
   app.use(init);
