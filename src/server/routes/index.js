@@ -19,7 +19,6 @@ const init = (req, res, next) => {
 
 const send = (req, res, next) => res.json(res.locals);
 
-
 export default function(app) {
   if (ENV === 'development') {
     console.log(ENV);
@@ -44,9 +43,3 @@ export default function(app) {
 
   app.get('*', (req, res) => server(req, res));
 }
-
-
-// app.listen(PORT, () => {
-//   console.log(`\x1b[44m%s\x1b[0m`,`🌐`, ` NODE_ENV: ${ENV}`);
-//   console.log(`\x1b[44m%s\x1b[0m`, `💻`, ` PORT: ${PORT}`);
-// });

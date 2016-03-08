@@ -10,6 +10,18 @@ class Blog extends Component {
   constructor(props){
     super(props);
   }
+  componentDidMount() {
+    const { dispatch, params } = this.props;
+
+    dispatch(fetchPosts(params));
+  }
+  componentDidUpdate(prevProps) {
+    const { dispatch, params, location } = this.props
+
+    if (params !== prevProps.params) {
+      dispatch(fetchPosts(params, location.query))
+    }
+  }
   render() {
     const { posts, categories, pagination } = this.props
 
@@ -19,7 +31,7 @@ class Blog extends Component {
           <Posts posts={posts} />
           <Categories categories={categories} />
         </div>
-        <div className="blog-content__header">Showing {pagination.first} - {pagination.last} of {posts.length}</div>
+        <div className="blog-content__header">Showing {pagination.first} - {pagination.last} of {pagination.total}</div>
         <Pagination {...pagination} />
       </div>
     );

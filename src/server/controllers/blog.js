@@ -51,7 +51,7 @@ export const loadPosts = (req, res, next) => {
   const dbQuery = keystone.list('Post')
     .paginate({
       page: req.query.page || 1,
-      perPage: 10,
+      perPage: 2,
       maxPages: 10
     })
     .where('state', 'published')
