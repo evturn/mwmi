@@ -1,4 +1,3 @@
-import 'babel-polyfill';
 import React from 'react';
 import { renderToString } from 'react-dom/server';
 import { match, RouterContext } from 'react-router';
@@ -46,12 +45,12 @@ const serve = (req, res) => {
         }
       });
       const initialState = store.getState();
-      const virtualDOM = renderToString(
+      const html = renderToString(
         <Provider store={store}>
           <RouterContext {...renderProps} />
         </Provider>)
 
-      res.status(200).send(render(virtualDOM, initialState));
+      res.status(200).send(render(html, initialState));
     } else {
       res.status(404).send('Not found');
     }

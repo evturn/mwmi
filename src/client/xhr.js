@@ -1,4 +1,7 @@
 import fetch from 'isomorphic-fetch';
+import { polyfill } from 'es6-promise';
+
+polyfill();
 
 const xhr = {
   get(endpoint, data) {

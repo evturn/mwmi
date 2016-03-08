@@ -3,11 +3,11 @@ import path from 'path';
 // import * as blog from '../controllers/blog';
 // import * as post from '../controllers/post';
 // import * as contact from '../controllers/contact';
-import server from '../server';
 import webpack from 'webpack';
 import webpackDevMiddleware from 'webpack-dev-middleware';
 import webpackHotMiddleware from 'webpack-hot-middleware';
 import webpackConfig from '../../webpack.config.dev.js';
+import server from '../../../dist/js/ser';
 
 const PORT = 3000;
 const HOST = process.env.HOST || '127.0.0.1';
@@ -26,7 +26,6 @@ app.use(express.static(STATIC));
 
 if (ENV === 'development') {
   const compiler = webpack(webpackConfig);
-
   app.use(webpackDevMiddleware(compiler, {
     noInfo: true,
     publicPath: webpackConfig.output.publicPath

@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router';
+import img from 'images/logo-720x800.png';
 
 export default class Home extends React.Component {
   constructor(props) {
@@ -12,7 +13,7 @@ export default class Home extends React.Component {
     return (
       <div className="home">
         <div className="home__logo">
-          <img className="home__logo-image" src={require('images/logo-720x800.png')} />
+          <img className="home__logo-image" src={img} />
           <div className="home__logo-title">{this.title}</div>
         </div>
         <div className="home__details">

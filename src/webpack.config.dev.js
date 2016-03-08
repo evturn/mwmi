@@ -43,21 +43,28 @@ module.exports = {
           loader: 'babel',
           exclude: /node_modules/,
           include: PATHS.app
-        },{
+        },,{
           test: /\.json$/,
           loader: 'json-loader'
         },{
-          test: /\.(gif|png|jpe?g|svg|eot|ttf|woff|otf)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+          test: /\.(eot|ttf|woff|otf)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
           loader: 'url-loader'
         },{
           test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
           loader: 'file-loader'
         },{
+          test: /.*\.(gif|png|jpe?g|svg)$/i,
+          loaders: [
+            `file?hash=sha512&digest=hex&name=${PATHS.static.img}`,
+            'image-webpack?bypassOnDebug&optimizationLevel=7&interlaced=false',
+          ],
+          exclude: /less/
+        },{
           test: /\.woff2(\?\S*)?$/,
           loader: 'url-loader?limit=100000'
         },{
           test: /\.less$/,
-          loader: ExtractTextPlugin.extract('style-loader', 'css-loader!less-loader')
+          loader: ExtractTextPlugin.extract('style-loader', 'css-loader!less-loader?sourceMap')
         }
       ]
     },
