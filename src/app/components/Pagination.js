@@ -7,7 +7,9 @@ export default class Pagination extends React.Component {
     super(props);
   }
   render() {
-    const { next, previous, pages, currentPage, totalPages } = this.props.posts;
+    const {
+      next, previous, pages,
+      currentPage, totalPages, total } = this.props;
 
     return (
       <div className="pagination">

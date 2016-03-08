@@ -3,8 +3,8 @@ import { renderToString } from 'react-dom/server';
 import { match, RouterContext } from 'react-router';
 import { Provider } from 'react-redux';
 import fetch from 'isomorphic-fetch';
-import configureStore from '../app/store';
-import routes from '../app/routes';
+import configureStore from 'store';
+import routes from 'routes';
 
 const render = (html, initialState) => {
   return `
@@ -35,13 +35,22 @@ const serve = (req, res) => {
     } else if (renderProps) {
       const store = configureStore({
         blog: {
-          isFetching: false,
-          isCompleted: false,
-          posts: {},
           post: {},
-          results: [],
+          posts: [],
           categories: [],
-          category: null
+          category: {},
+          pagination: {
+            pages: [],
+            currentPage: 1,
+            first: 1,
+            last: 1,
+            next: false,
+            previous: false,
+            total: 0,
+            totalPages: 0
+          },
+          isFetching: false,
+          isCompleted: false
         }
       });
       const initialState = store.getState();

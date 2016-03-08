@@ -10,12 +10,7 @@ import webpackHotMiddleware from 'webpack-hot-middleware';
 import webpackConfig from '../../webpack.config.dev.js';
 import server from '../../../dist/js/ser';
 
-// const PORT = 3000;
-// const HOST = process.env.HOST || '127.0.0.1';
 const ENV = process.env.NODE_ENV;
-// const STATIC = path.join(__dirname, '..', '..', '..');
-// const app = express();
-// app.use(express.static(STATIC));
 
 const init = (req, res, next) => {
   res.locals.user = req.user;

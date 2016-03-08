@@ -9,15 +9,10 @@ function requestPosts() {
   }
 }
 
-function receivePosts(json) {
+function receivePosts(payload) {
   return {
     type: RECEIVE_POSTS,
-    posts: json.posts,
-    post: json.post,
-    categories: json.categories,
-    category: json.category || null,
-    results: json.posts.results,
-    receivedAt: Date.now()
+    payload
   }
 }
 

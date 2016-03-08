@@ -30,28 +30,29 @@ class Blog extends Component {
     );
   }
   renderContent() {
+    const { posts, categories, pagination } = this.props
+
     return (
       <div className="blog">
         <div className="blog-content">
-          <Posts posts={this.props.results} />
-          <Categories categories={this.props.categories} />
+          <Posts posts={posts} />
+          <Categories categories={categories} />
         </div>
-        <div className="blog-content__header">Showing {this.props.posts.first} - {this.props.posts.last} of {this.props.results.length}</div>
-        <Pagination posts={this.props.posts}/>
+        <div className="blog-content__header">Showing {posts.first} - {posts.last} of {posts.length}</div>
+        <Pagination {...pagination}/>
       </div>
     );
   }
 }
 
 Blog.propTypes = {
-  posts: PropTypes.object,
+  posts: PropTypes.array,
   post: PropTypes.object,
   categories: PropTypes.array,
   category: PropTypes.object,
-  results: PropTypes.array,
+  pagination: PropTypes.object,
   isFetching: PropTypes.bool,
   isCompleted: PropTypes.bool,
-  lastUpdated: PropTypes.number,
   dispatch: PropTypes.func.isRequired
 };
 
@@ -61,10 +62,9 @@ function mapStateToProps(state) {
     post: state.blog.post,
     categories: state.blog.categories,
     category: state.blog.category,
-    results: state.blog.results,
+    pagination: state.blog.pagination,
     isFetching: state.blog.isFetching,
-    isCompleted: state.blog.isCompleted,
-    lastUpdated: state.blog.lastUpdated
+    isCompleted: state.blog.isCompleted
   };
 };
 
