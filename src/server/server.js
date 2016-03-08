@@ -1,3 +1,4 @@
+import 'babel-polyfill';
 import React from 'react';
 import { renderToString } from 'react-dom/server';
 import { match, RouterContext } from 'react-router';
@@ -13,14 +14,14 @@ const render = (html, initialState) => {
     <head>
       <meta name="viewport" content="width=device-width, initial-scale=1" />
       <title>MWMI</title>
-      <link rel="stylesheet" type="text/css" href="/css/app.css" />
+      <link rel="stylesheet" type="text/css" href="dist/css/app.css" />
     </head>
     <body>
 
       <div id="root">${html}</div>
 
       <script> window.__INITIAL_STATE__ = ${JSON.stringify(initialState)}; </script>
-      <script src="/js/app.js"></script>
+      <script src="/dist/js/app.js"></script>
     </body>
     </html>
   `;
@@ -50,7 +51,7 @@ const serve = (req, res) => {
           <RouterContext {...renderProps} />
         </Provider>)
 
-      res.status(200).send(render(virtualDOM));
+      res.status(200).send(render(virtualDOM, initialState));
     } else {
       res.status(404).send('Not found');
     }

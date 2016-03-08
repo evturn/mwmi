@@ -44,9 +44,6 @@ module.exports = {
           exclude: /node_modules/,
           include: PATHS.app
         },{
-          test: /\.css$/,
-          loaders: ['style', 'css']
-        },{
           test: /\.json$/,
           loader: 'json-loader'
         },{
@@ -60,9 +57,7 @@ module.exports = {
           loader: 'url-loader?limit=100000'
         },{
           test: /\.less$/,
-          loader: 'style!css?module&localIdentName=[local]__[hash:base64:5]' +
-            '&sourceMap!less?sourceMap&outputStyle=expanded' +
-            '&includePaths[]=' + encodeURIComponent(PATHS.less)
+          loader: ExtractTextPlugin.extract('style-loader', 'css-loader!less-loader')
         }
       ]
     },
@@ -78,7 +73,9 @@ module.exports = {
       new ExtractTextPlugin(PATHS.static.css),
       new webpack.DefinePlugin({
         'process.env.NODE_ENV': '"development"',
-        'window.__DEV__': true
+        __DEV__: true,
+        __CLIENT__: true,
+        __SERVER__: false
       }),
     ]
 };

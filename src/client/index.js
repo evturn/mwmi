@@ -5,7 +5,7 @@ import { Provider } from 'react-redux';
 import configureStore from 'store';
 import routes from 'routes';
 
-const initialState = typeof window === 'object' ? window.__INITIAL_STATE__ : {};
+const initialState = window.__INITIAL_STATE__;
 const store = configureStore(initialState);
 
 render(
