@@ -1,11 +1,13 @@
 import keystone from 'keystone';
 import path from 'path';
+import routes from '../routes';
 
 const init = {
   'name': 'mwmi',
   'brand': 'mwmi',
+  'env': process.env.NODE_ENV || 'development',
   'static': path.join(__dirname, '..', '..', '..'),
-  'favicon': 'public/img/favicon.png',
+  'favicon': '',
   'mongo': 'mongodb://localhost/mwmi',
   'auto update': true,
   'cloudinary config': process.env.CLOUDINARY_URL,
@@ -36,6 +38,6 @@ const nav = {
 keystone.init(init);
 keystone.import('../models');
 keystone.set('locals', locals);
-keystone.set('routes', require('../routes'));
+keystone.set('routes', routes);
 keystone.set('nav', nav);
 keystone.start();

@@ -1,4 +1,4 @@
 require('babel-register')({
   only: /server/
 });
-require('./src/server/routes');
+require('./src/server/admin');

@@ -1,9 +1,8 @@
 import keystone from 'keystone';
-const Enquiry = keystone.list('Enquiry');
 
 export const get = (req, res, next) => {
   res.locals.section = 'contact';
-  res.locals.enquiryTypes = Enquiry.fields.enquiryType.ops;
+  res.locals.enquiryTypes = keystone.list('Enquiry').fields.enquiryType.ops;
   res.locals.formData = req.body || {};
   res.locals.validationErrors = {};
   res.locals.enquirySubmitted = false;
@@ -11,11 +10,12 @@ export const get = (req, res, next) => {
 };
 
 export const post = (req, res, next) => {
+  const Enquiry = keystone.list('Enquiry');
   const newEnquiry = new Enquiry.model();
   const updater = newEnquiry.getUpdateHandler(req);
 
   res.locals.section = 'contact';
-  res.locals.enquiryTypes = Enquiry.fields.enquiryType.ops;
+  res.locals.enquiryTypes = keystone.list('Enquiry').fields.enquiryType.ops;
   res.locals.formData = req.body || {};
   res.locals.validationErrors = {};
   res.locals.enquirySubmitted = false;
