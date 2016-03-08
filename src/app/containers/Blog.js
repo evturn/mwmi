@@ -10,26 +10,7 @@ class Blog extends Component {
   constructor(props){
     super(props);
   }
-  componentDidMount() {
-    const { dispatch, params } = this.props;
-
-    dispatch(fetchPosts(params));
-  }
-  componentDidUpdate(prevProps) {
-    const { dispatch, params, location } = this.props
-
-    if (params !== prevProps.params) {
-      dispatch(fetchPosts(params, location.query))
-    }
-  }
   render() {
-    const { isFetching, isCompleted } = this.props;
-
-    return (
-      <div>{!isFetching && isCompleted ? this.renderContent() : null}</div>
-    );
-  }
-  renderContent() {
     const { posts, categories, pagination } = this.props
 
     return (
@@ -38,8 +19,8 @@ class Blog extends Component {
           <Posts posts={posts} />
           <Categories categories={categories} />
         </div>
-        <div className="blog-content__header">Showing {posts.first} - {posts.last} of {posts.length}</div>
-        <Pagination {...pagination}/>
+        <div className="blog-content__header">Showing {pagination.first} - {pagination.last} of {posts.length}</div>
+        <Pagination {...pagination} />
       </div>
     );
   }

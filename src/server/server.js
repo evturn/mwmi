@@ -6,6 +6,13 @@ import fetch from 'isomorphic-fetch';
 import configureStore from 'store';
 import routes from 'routes';
 
+const hydrate = (callback) => {
+  return fetch('http://localhost:3000/api/blog')
+    .then(response => response.json())
+    .then(json => callback(json))
+    .catch(error => console.log(error))
+};
+
 const render = (html, initialState) => {
   return `
     <!doctype html>
@@ -33,33 +40,40 @@ const serve = (req, res) => {
     } else if (redirectLocation) {
       res.redirect(302, redirectLocation.pathname + redirectLocation.search);
     } else if (renderProps) {
-      const store = configureStore({
-        blog: {
-          post: {},
-          posts: [],
-          categories: [],
-          category: {},
-          pagination: {
-            pages: [],
-            currentPage: 1,
-            first: 1,
-            last: 1,
-            next: false,
-            previous: false,
-            total: 0,
-            totalPages: 0
-          },
-          isFetching: false,
-          isCompleted: false
-        }
-      });
-      const initialState = store.getState();
-      const html = renderToString(
-        <Provider store={store}>
-          <RouterContext {...renderProps} />
-        </Provider>)
+      hydrate(data => {
+        const { posts, post, categories, category } = data;
 
-      res.status(200).send(render(html, initialState));
+        return configureStore({
+          blog: {
+            posts: posts.results || [],
+            post: post || {},
+            categories: categories || [],
+            category: category || {},
+            pagination: {
+              pages: posts.pages || [],
+              currentPage: posts.currentPage || 1,
+              first: posts.first || 1,
+              last: posts.last || 1,
+              next: posts.next || false,
+              previous: posts.previous || false,
+              total: posts.total || 0,
+              totalPages: posts.totalPages || 0
+            },
+            isFetching: false,
+            isCompleted: false
+          }
+        });
+      })
+      .then(store => {
+        const initialState = store.getState();
+        const html = renderToString(
+          <Provider store={store}>
+            <RouterContext {...renderProps} />
+          </Provider>)
+
+        res.status(200).send(render(html, initialState));
+      });
+
     } else {
       res.status(404).send('Not found');
     }
