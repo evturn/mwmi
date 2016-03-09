@@ -16,7 +16,7 @@ module.exports = {
     context: PATHS.root,
     contentBase: PATHS.root,
     entry: {
-      app: ['./src/client', 'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000&reload=true']
+      app: ['./src/app/client', 'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000&reload=true']
     },
     output: {
       path: PATHS.output,              // The output directory as absolute path

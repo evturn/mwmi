@@ -4,7 +4,7 @@ import { Router, browserHistory } from 'react-router';
 import { Provider } from 'react-redux';
 import configureStore from 'store';
 import routes from 'routes';
-import css from './less/style.less';
+import css from 'less/style.less';
 
 const initialState = window.__INITIAL_STATE__;
 const store = configureStore(initialState);

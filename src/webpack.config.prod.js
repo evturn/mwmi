@@ -47,7 +47,7 @@ module.exports = [
     target: 'web',
     context: PATHS.root,
     entry: {
-      app: './src/client'
+      app: './src/app/client'
     },
     output: {
       path: PATHS.output,                // The output directory as absolute path
