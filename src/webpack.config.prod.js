@@ -84,7 +84,7 @@ module.exports = [
     target: 'node',
     context: PATHS.root,
     entry: {
-      ser: './src/server/server'
+      ser: './src/app/server'
     },
     output: {
       path: PATHS.output,                 // The output directory as absolute path

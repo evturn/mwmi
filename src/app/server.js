@@ -2,15 +2,16 @@ import React from 'react';
 import { renderToString } from 'react-dom/server';
 import { match, RouterContext } from 'react-router';
 import { Provider } from 'react-redux';
-import fetch from 'isomorphic-fetch';
 import configureStore from 'store';
 import routes from 'routes';
+import fetch from 'isomorphic-fetch';
+import renderLayout from './layout';
 
 const hydrate = (callback) => {
   return fetch('http://localhost:3000/api/blog')
     .then(response => response.json())
     .then(json => callback(json))
-    .catch(error => console.log(error))
+    .catch(error => console.log(error));
 };
 
 const serve = (req, res) => {
@@ -51,7 +52,7 @@ const serve = (req, res) => {
             <RouterContext {...renderProps} />
           </Provider>)
 
-        res.status(200).send(render(html, initialState));
+        res.status(200).send(renderLayout(html, initialState));
       });
 
     } else {
