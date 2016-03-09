@@ -8,7 +8,7 @@ import fetch from 'isomorphic-fetch';
 import renderLayout from './layout';
 
 const hydrate = (callback) => {
-  return fetch('http://localhost:3000/api/blog')
+  return fetch('http://localhost:3000/api/locals')
     .then(response => response.json())
     .then(json => callback(json))
     .catch(error => console.log(error));
