@@ -1,18 +1,23 @@
-import React, { PropTypes } from 'react';
+import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
-
 import cx from 'classnames';
 
-export default props => {
+export default class Pagination extends Component {
+  constructor(props) {
+    super(props);
+  }
+  render() {
     const {
-      next, previous, pages,
-      currentPage, totalPages, total } = props;
+      next, previous, pages, location,
+      currentPage, totalPages, total } = this.props;
 
     return (
       <div className="pagination">
         <ul className="pagination-buttons">
           <li className="pagination-button">
-            <Link className={cx({'disabled': !previous})} to={{ pathname: window.location.pathname, query: { page: previous } }}>
+            <Link
+              className={cx({'disabled': !previous})}
+              to={{ pathname: location.pathname, query: { page: previous } }}>
               <span className="fa fa-chevron-left" />
             </Link>
           </li>
@@ -24,17 +29,22 @@ export default props => {
 
             return (
               <li key={i} className="pagination-button">
-                <Link to={{ pathname: window.location.pathname, query: { page: page } }} className={cx({'disabled': page === currentPage})}>{page}</Link>
+                <Link
+                  className={cx({'disabled': page === currentPage})}
+                  to={{ pathname: location.pathname, query: { page: page } }}>{page}</Link>
               </li>
             );
           })}
 
           <li className="pagination-button">
-            <Link className={cx({'disabled': !next})} to={{ pathname: window.location.pathname, query: { page: next } }}>
+            <Link
+              className={cx({'disabled': !next})}
+              to={{ pathname: location.pathname, query: { page: next } }}>
               <span className="fa fa-chevron-right" />
             </Link>
           </li>
         </ul>
       </div>
     );
+  }
 }
