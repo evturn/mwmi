@@ -7,7 +7,7 @@ import * as contact from '../controllers/contact';
 import webpack from 'webpack';
 import webpackDevMiddleware from 'webpack-dev-middleware';
 import webpackHotMiddleware from 'webpack-hot-middleware';
-import webpackConfig from '../../webpack.config.dev.js';
+import webpackConfig from '../../webpack/dev';
 import server from '../../../dist/js/ser';
 
 const ENV = process.env.NODE_ENV;

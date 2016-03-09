@@ -3,11 +3,11 @@ const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const CleanPlugin = require('clean-webpack-plugin');
 
-const PATHS = require('../wp').PATHS;
-const extensions = require('../wp').extensions;
-const modulesDirectories = require('../wp').modulesDirectories;
-const alias = require('../wp').alias;
-const plugin = require('../wp').plugin;
+const PATHS = require('./base').PATHS;
+const extensions = require('./base').extensions;
+const modulesDirectories = require('./base').modulesDirectories;
+const alias = require('./base').alias;
+const plugin = require('./base').plugin;
 const LOADERS = [
   {
     test: /\.js$|\.jsx$/,
@@ -47,7 +47,7 @@ module.exports = [
     target: 'web',
     context: PATHS.root,
     entry: {
-      app: './src/app/client'
+      app: '../app/client'
     },
     output: {
       path: PATHS.output,                // The output directory as absolute path
@@ -84,7 +84,7 @@ module.exports = [
     target: 'node',
     context: PATHS.root,
     entry: {
-      ser: './src/app/server'
+      ser: '../app/server'
     },
     output: {
       path: PATHS.output,                 // The output directory as absolute path

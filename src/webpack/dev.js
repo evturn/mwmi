@@ -2,11 +2,12 @@ const path = require('path');
 const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const WriteFilePlugin = require('write-file-webpack-plugin');
-const PATHS = require('../wp').PATHS;
-const extensions = require('../wp').extensions;
-const modulesDirectories = require('../wp').modulesDirectories;
-const alias = require('../wp').alias;
-const plugin = require('../wp').plugin;
+
+const PATHS = require('./base').PATHS;
+const extensions = require('./base').extensions;
+const modulesDirectories = require('./base').modulesDirectories;
+const alias = require('./base').alias;
+const plugin = require('./base').plugin;
 
 module.exports = {
     debug: true,
@@ -16,7 +17,7 @@ module.exports = {
     context: PATHS.root,
     contentBase: PATHS.root,
     entry: {
-      app: ['./src/app/client', 'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000&reload=true']
+      app: ['../app/client', 'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000&reload=true']
     },
     output: {
       path: PATHS.output,              // The output directory as absolute path
