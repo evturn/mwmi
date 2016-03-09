@@ -1,4 +1,4 @@
 require('babel-register')({
-  only: /server/
+  only: [/server/, /webpack/]
 });
 require('./src/server/admin');
