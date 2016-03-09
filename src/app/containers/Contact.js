@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { Component } from 'react';
 import xhr from '../../client/xhr';
 
-export default class Contact extends React.Component {
+export default class Contact extends Component {
   constructor(props){
     super(props);
 

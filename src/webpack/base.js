@@ -1,6 +1,6 @@
-import path from 'path';
+const path = require('path');
 
-export const PATHS = {
+exports.PATHS = {
   app: path.join(__dirname, '..', '..', 'src'),
   output: path.join(__dirname, '..', '..', 'dist'),
   publicPath: {
@@ -17,7 +17,7 @@ export const PATHS = {
   root: __dirname
 };
 
-export const alias = {
+exports.alias = {
   actions:       path.join(__dirname, '../app/actions/'),
   containers:    path.join(__dirname, '../app/containers/'),
   components:    path.join(__dirname, '../app/components/'),
@@ -29,12 +29,12 @@ export const alias = {
   less:          path.join(__dirname, '../client/less/')
 };
 
-export const plugin = {
+exports.plugin = {
   clean: {
     root: __dirname,
     verbose: true
   }
 };
 
-export const extensions = ['', '.js', '.jsx', '.less'];
-export const modulesDirectories = ['app', 'node_modules'];
+exports.extensions = ['', '.js', '.jsx', '.less'];
+exports.modulesDirectories = ['app', 'node_modules'];

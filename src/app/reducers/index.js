@@ -16,26 +16,24 @@ function blog(state = {
     totalPages: 0
   },
   isFetching: false,
-  isCompleted: false
+  isCompleted: false,
+  hasOne: false
 }, action) {
   switch (action.type) {
-    case 'REQUEST_POSTS':
+    case 'FETCHING_ALL':
       return Object.assign({}, state, {
         isFetching: true,
         isCompleted: false
       });
-    case 'RECEIVE_POSTS':
+    case 'FETCH_ALL_SUCCESS': {
       const {
         posts, post,
         categories, category } = action.payload;
 
       return Object.assign({}, state, {
-        isFetching: false,
-        isCompleted: true,
         posts: posts.results,
-        post: post,
         categories: categories,
-        category: category || null,
+        category: category,
         pagination: {
           pages: posts.pages,
           currentPage: posts.currentPage,
@@ -45,13 +43,61 @@ function blog(state = {
           previous: posts.previous,
           total: posts.total,
           totalPages: posts.totalPages
-        }
+        },
+        isFetching: false,
+        isCompleted: true
+      });
+    }
+    case 'FETCHING_ONE':
+      return Object.assign({}, state, {
+        hasOne: false
+      });
+    case 'FETCH_ONE_SUCCESS': {
+      const { post } = action.payload;
+
+      return Object.assign({}, state, {
+        post: {
+          slug: post.slug,
+          title: post.title,
+          image: post.image,
+          content: post.content,
+          author: post.author,
+          categories: post.categories,
+          publishedDate: post.publishedDate
+        },
+        hasOne: true
+      });
+    }
+    case 'UNMOUNT_ONE':
+      return Object.assign({}, state, {
+        hasOne: false
+      });
+    case 'FETCH_ERROR':
+      return Object.assign({}, state, {
+        message: action.message,
+        isFetching: false,
+        isCompleted: true
       });
     default:
       return state;
   }
 }
 
-const rootReducer = combineReducers({blog})
+function enquiry(state = {}, action) {
+  switch (action.type) {
+    case 'ENQUIRY_SUCCESS':
+      return Object.assign({}, state, {
+        message: action.message
+      });
+    case 'ENQUIRY_ERROR':
+      return Object.assign({}, state, {
+        message: action.message
+      });
+    default:
+      return state;
+  }
+}
 
-export default rootReducer
+const rootReducer = combineReducers({ blog, enquiry });
+
+export default rootReducer;

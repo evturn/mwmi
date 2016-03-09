@@ -42,7 +42,8 @@ const serve = (req, res) => {
             },
             isFetching: false,
             isCompleted: false
-          }
+          },
+          enquiry: {}
         });
       })
       .then(store => {
