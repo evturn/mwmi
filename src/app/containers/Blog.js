@@ -23,7 +23,9 @@ class Blog extends Component {
     }
   }
   render() {
-    const { posts, categories, pagination } = this.props
+    const {
+      posts, categories,
+      pagination, location } = this.props
 
     return (
       <div className="blog">
@@ -32,7 +34,7 @@ class Blog extends Component {
           <Categories categories={categories} />
         </div>
         <div className="blog-content__header">Showing {pagination.first} - {pagination.last} of {pagination.total}</div>
-        <Pagination {...pagination} />
+        <Pagination {...pagination} pathname={location.pathname} />
       </div>
     );
   }

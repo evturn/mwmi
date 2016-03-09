@@ -1,7 +1,7 @@
 import React from 'react';
 import xhr from '../../client/xhr';
 import { Link } from 'react-router';
-import Entry from '../components/Entry'
+import Post from '../components/Post'
 
 export default class BlogPost extends React.Component {
   constructor(props){
@@ -36,7 +36,7 @@ export default class BlogPost extends React.Component {
   }
   renderPost() {
     return (
-      <Entry
+      <Post
         slug={this.state.post.slug}
         title={this.state.post.title}
         author={this.state.post.author}
