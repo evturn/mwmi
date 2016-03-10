@@ -1,7 +1,5 @@
 import fetch from 'isomorphic-fetch'
 
-export const RECEIVE_POSTS = 'RECEIVE_POSTS'
-
 const actions = {
   fetchingAll() {
     return {
