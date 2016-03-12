@@ -17,9 +17,9 @@ export default class Header extends React.Component {
         <div className="wrapper">
           <ul className="navbar-links">{this.navLinks.map((link, i) => {
             if (link.key === 'home') {
-              return <li key={link.key}><IndexLink to={link.href}>{link.label}</IndexLink></li>;
+              return <li key={i}><IndexLink to={link.href}>{link.label}</IndexLink></li>;
             } else {
-              return <li key={link.key}><Link to={link.href}>{link.label}</Link></li>;
+              return <li key={i}><Link to={link.href}>{link.label}</Link></li>;
             }
           })}</ul>
         </div>
