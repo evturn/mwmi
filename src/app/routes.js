@@ -10,7 +10,7 @@ export default (
   <Route path="/" component={App} name="app">
     <IndexRoute component={Home} />
     <Route path="blog(/:category)" component={Blog} />
-    <Route path="blog/post/:slug" component={BlogPost} />
+    <Route path="blog/post/:post" component={BlogPost} />
     <Route path="contact" component={Contact} />
   </Route>
 );

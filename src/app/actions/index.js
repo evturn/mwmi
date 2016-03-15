@@ -12,7 +12,6 @@ const actions = {
     };
   },
   fetchAllSuccess(payload) {
-    console.log(payload);
     return {
       type: 'FETCH_ALL_SUCCESS',
       payload
@@ -46,12 +45,6 @@ const actions = {
       type: 'ENQUIRY_ERROR',
       message
     };
-  },
-  filterBlog(payload) {
-    return {
-      type: 'FILTER_BLOG',
-      payload
-    }
   }
 };
 
@@ -64,10 +57,7 @@ export function fetchPosts(params, query) {
 
     return fetch(url)
       .then(res => res.json())
-      .then(json => {
-        dispatch(actions.filterBlog(json));
-        dispatch(actions.fetchAllSuccess(json));
-      })
+      .then(json => dispatch(actions.fetchAllSuccess(json)))
       .catch(error => dispatch(actions.fetchError(error)));
   }
 }
@@ -80,10 +70,7 @@ export function fetchPost(slug) {
 
     return fetch(url)
       .then(res => res.json())
-      .then(json => {
-        dispatch(actions.filterBlog(json));
-        dispatch(actions.fetchOneSuccess(json));
-      })
+      .then(json => dispatch(actions.fetchOneSuccess(json)))
       .catch(error => dispatch(actions.fetchError(error)));
   }
 }

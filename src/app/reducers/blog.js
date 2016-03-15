@@ -1,9 +1,20 @@
 export default function blog(state = {
-  post: {},
-  posts: [],
-  categories: [],
-  category: {},
+  section: '',
   filters: {},
+  data: {
+    posts: {
+      total: 0,
+      results: [],
+      currentPage: 1,
+      totalPages: 1,
+      pages: [],
+      previous: false,
+      next: false,
+      first: 1,
+      last: 1
+    },
+    categories: []
+  },
   isFetching: false,
   isCompleted: false,
   hasOne: false
@@ -15,13 +26,6 @@ export default function blog(state = {
         isCompleted: false
       });
     case 'FETCH_ALL_SUCCESS': {
-      return Object.assign({}, state, {
-        ...action.payload,
-        isFetching: false,
-        isCompleted: true
-      });
-    }
-    case 'FILTER_BLOG': {
       return Object.assign({}, state, {
         ...action.payload,
         isFetching: false,

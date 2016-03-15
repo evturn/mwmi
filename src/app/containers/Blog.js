@@ -23,41 +23,39 @@ class Blog extends Component {
     }
   }
   render() {
-    const { posts, categories, location } = this.props
+    const { data, location } = this.props;
 
     return (
       <div className="blog">
         <div className="blog-content">
-          <Posts posts={posts.results} />
-          <Categories categories={categories} />
+          <Posts posts={data.posts.results} />
+          <Categories categories={data.categories} />
         </div>
-        <div className="blog-content__header">Showing {posts.first} - {posts.last} of {posts.total}</div>
-        <Pagination pathname={location.pathname} />
+        <div className="blog-content__header">Showing {data.posts.first} - {data.posts.last} of {data.posts.total}</div>
+        <Pagination pathname={location.pathname} {...data} />
       </div>
     );
   }
 }
 
 Blog.propTypes = {
-  posts: PropTypes.object,
-  post: PropTypes.object,
-  categories: PropTypes.array,
-  category: PropTypes.object,
+  section: PropTypes.string,
   filters: PropTypes.object,
+  data: PropTypes.object,
   isFetching: PropTypes.bool,
   isCompleted: PropTypes.bool,
+  hasOne: PropTypes.bool,
   dispatch: PropTypes.func.isRequired
 };
 
 function mapStateToProps(state) {
   return {
-    posts: state.blog.posts,
-    post: state.blog.post,
-    categories: state.blog.categories,
-    category: state.blog.category,
+    section: state.blog.section,
     filters: state.blog.filters,
+    data: state.blog.data,
     isFetching: state.blog.isFetching,
-    isCompleted: state.blog.isCompleted
+    isCompleted: state.blog.isCompleted,
+    hasOne: state.blog.hasOne
   };
 };
 

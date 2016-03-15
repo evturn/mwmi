@@ -11,7 +11,7 @@ class BlogPost extends Component {
   componentDidMount() {
     const { dispatch, params } = this.props;
 
-    dispatch(fetchPost(params.slug));
+    dispatch(fetchPost(params.post));
   }
   componentWillUnmount() {
     const { dispatch } = this.props;
@@ -32,22 +32,17 @@ class BlogPost extends Component {
       </div>
     );
   }
-  renderPost() {
-    return (
-      <Post {...this.props.post}/>
-    );
-  }
 }
 
 BlogPost.propTypes = {
-  post: PropTypes.object,
+  post: PropTypes.array,
   hasOne: PropTypes.bool,
   dispatch: PropTypes.func
 };
 
 function mapStateToProps(state) {
   return {
-    post: state.blog.post,
+    post: state.blog.data.posts.results,
     hasOne: state.blog.hasOne
   };
 }

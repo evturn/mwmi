@@ -1,37 +1,38 @@
-import keystone from 'keystone';
+const keystone = require('keystone');
 
-export const loadCurrentPost = (req, res, next) => {
-  res.locals.filters = {
-    post: req.params.slug
+let locals;
+
+export const init = (req, res, next) => {
+
+  locals = res.locals;
+
+  // Set locals
+  locals.section = 'blog';
+  locals.filters = {
+    post: req.params.post
   };
-  res.locals.section = 'blog';
-  const dbQuery = keystone.list('Post')
-    .model
-    .findOne({
-      state: 'published',
-      slug: res.locals.filters.post
-    })
-    .populate('author categories');
+  locals.data = {
+    posts: []
+  };
 
-  dbQuery.exec((err, result) => {
-    res.locals.post = result;
-    next();
+  // Load the current post
+  const q = keystone.list('Post').model.findOne({
+    state: 'published',
+    slug: locals.filters.post
+  }).populate('author categories');
+
+  q.exec(function(err, result) {
+    locals.data.post = result;
+    next(err);
   });
 };
 
-export const loadOtherPosts = (req, res, next) => {
-  const dbQuery = keystone.list('Post')
-    .model
-    .find()
-    .where('state', 'published')
-    .sort('-publishedDate')
-    .populate('author')
-    .limit('4');
+  // Load other posts
+export const others = (req, res, next) => {
+  const q = keystone.list('Post').model.find().where('state', 'published').sort('-publishedDate').populate('author').limit('4');
 
-  dbQuery
-    .exec((err, results) => {
-      res.locals.posts = results;
-
-      next();
-    });
+  q.exec(function(err, results) {
+    locals.data.posts = results;
+    res.json(locals);
+  });
 };

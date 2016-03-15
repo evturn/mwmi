@@ -21,22 +21,13 @@ const serve = (req, res) => {
     } else if (redirectLocation) {
       res.redirect(302, redirectLocation.pathname + redirectLocation.search);
     } else if (renderProps) {
-      hydrate(data => {
-        const {
-          posts, post, category,
-          categories, filters } = data;
-
-          console.log(data);
-
+      hydrate(res => {
+        console.log(res);
         return configureStore({
           blog: {
-            posts,
-            post,
-            categories,
-            category,
-            filters,
-            isFetching: false,
-            isCompleted: false
+            section: res.section,
+            filters: res.filters,
+            data: res.data
           },
           enquiry: {}
         });
