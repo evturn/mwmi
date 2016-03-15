@@ -35,14 +35,14 @@ class BlogPost extends Component {
 }
 
 BlogPost.propTypes = {
-  post: PropTypes.array,
+  post: PropTypes.object,
   hasOne: PropTypes.bool,
   dispatch: PropTypes.func
 };
 
 function mapStateToProps(state) {
   return {
-    post: state.blog.data.posts.results,
+    post: state.blog.data.post,
     hasOne: state.blog.hasOne
   };
 }

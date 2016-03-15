@@ -22,7 +22,6 @@ const serve = (req, res) => {
       res.redirect(302, redirectLocation.pathname + redirectLocation.search);
     } else if (renderProps) {
       hydrate(res => {
-        console.log(res);
         return configureStore({
           blog: {
             section: res.section,
