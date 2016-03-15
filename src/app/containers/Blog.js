@@ -39,7 +39,7 @@ class Blog extends Component {
 }
 
 Blog.propTypes = {
-  posts: PropTypes.array,
+  posts: PropTypes.object,
   post: PropTypes.object,
   categories: PropTypes.array,
   category: PropTypes.object,

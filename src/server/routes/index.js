@@ -35,11 +35,10 @@ export default function(app) {
   app.use(init);
 
   app.get('/api/locals',          blog.loadCategories, blog.loadPosts, send);
-  app.get('/api/blog/:category?', blog.loadCategories, blog.currentCategoryFilter, blog.loadPosts, send);
+  app.get('/api/blog/:category?', blog.currentCategoryFilter, blog.loadPosts, send);
   app.get('/api/blog/post/:slug', post.loadCurrentPost, post.loadOtherPosts, send);
   app.get('/api/contact',         contact.get, send);
   app.post('/api/contact',        contact.post, send);
-  console.log('hello');
 
   app.get('*', (req, res) => server(req, res));
 }

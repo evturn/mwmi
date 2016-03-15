@@ -21,11 +21,11 @@ class App extends Component {
 }
 
 App.propTypes = {
-  posts: PropTypes.array,
+  posts: PropTypes.object,
   post: PropTypes.object,
   categories: PropTypes.array,
   category: PropTypes.object,
-  pagination: PropTypes.object,
+  filters: PropTypes.object,
   isFetching: PropTypes.bool,
   isCompleted: PropTypes.bool,
   dispatch: PropTypes.func.isRequired
@@ -37,6 +37,7 @@ function mapStateToProps(state) {
     post: state.blog.post,
     categories: state.blog.categories,
     category: state.blog.category,
+    filters: state.blog.filters,
     isFetching: state.blog.isFetching,
     isCompleted: state.blog.isCompleted
   };

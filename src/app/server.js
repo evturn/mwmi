@@ -26,6 +26,8 @@ const serve = (req, res) => {
           posts, post, category,
           categories, filters } = data;
 
+          console.log(data);
+
         return configureStore({
           blog: {
             posts,

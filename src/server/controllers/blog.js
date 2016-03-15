@@ -103,7 +103,6 @@ export const loadPosts = (req, res, next) => {
 
   dbQuery
     .exec((err, results) => {
-
       res.locals.posts = results;
       next();
     });

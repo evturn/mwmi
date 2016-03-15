@@ -15,28 +15,15 @@ export default function blog(state = {
         isCompleted: false
       });
     case 'FETCH_ALL_SUCCESS': {
-      const {
-        posts, post,
-        categories, category } = action.payload;
-
       return Object.assign({}, state, {
-        posts: posts,
-        categories: categories,
-        category: category,
+        ...action.payload,
         isFetching: false,
         isCompleted: true
       });
     }
-
     case 'FILTER_BLOG': {
-      const {
-        posts, post,
-        categories, category } = action.payload;
-
       return Object.assign({}, state, {
-        posts: posts,
-        categories: categories,
-        category: category,
+        ...action.payload,
         isFetching: false,
         isCompleted: true
       });
@@ -46,18 +33,8 @@ export default function blog(state = {
         hasOne: false
       });
     case 'FETCH_ONE_SUCCESS': {
-      const { post } = action.payload;
-
       return Object.assign({}, state, {
-        post: {
-          slug: post.slug,
-          title: post.title,
-          image: post.image,
-          content: post.content,
-          author: post.author,
-          categories: post.categories,
-          publishedDate: post.publishedDate
-        },
+        ...action.payload,
         hasOne: true
       });
     }
