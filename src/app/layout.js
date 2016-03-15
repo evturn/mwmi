@@ -5,7 +5,7 @@ export default (html, initialState) => {
     <head>
       <meta name="viewport" content="width=device-width, initial-scale=1" />
       <title>MWMI</title>
-      <link rel="stylesheet" type="text/css" href="dist/css/app.css" />
+      <link rel="stylesheet" type="text/css" href="/dist/css/app.css" />
     </head>
     <body>
 

@@ -11,7 +11,8 @@ export default function pagination(state={
 }, action) {
   switch (action.type) {
     case 'FILTER_BLOG': {
-      const { posts } = action.payload
+      const { posts } = action.payload;
+      console.log(posts);
       return Object.assign({}, state, {
         ...posts
       });

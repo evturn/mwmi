@@ -5,7 +5,7 @@ exports.PATHS = {
   output: path.join(__dirname, '..', '..', 'dist'),
   publicPath: {
     dev: '/build/',
-    prod: 'dist/'
+    prod: '/dist/'
   },
   less: path.resolve(__dirname, '..', 'client', 'less'),
   static: {

@@ -1,5 +1,4 @@
 import keystone from 'keystone';
-import async from 'async';
 
 function getCategoriesData(results) {
   const categories = results.map(category => {
@@ -89,7 +88,6 @@ export const loadPosts = (req, res, next) => {
   dbQuery
     .exec((err, results) => {
       res.locals.posts = results;
-
       next();
     });
 };
