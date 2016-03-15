@@ -54,13 +54,29 @@ export const currentCategoryFilter = (req, res, next) => {
     keystone.list('PostCategory')
       .model
       .findOne({ key: res.locals.filters.category })
-      .exec((err, result) => {
+      .exec((err, category) => {
         if (err) {
           console.log(err);
         }
 
-        res.locals.category = result;
-        next();
+        keystone.list('Post')
+        .model
+        .count()
+        .where('categories')
+        .in([category.id])
+        .exec((err, count) => {
+          if (err) {
+            console.log(err);
+          }
+
+          res.locals.category = {
+            postCount: count,
+            _id: category._id,
+            key: category.key,
+            name: category.name
+          };
+          next();
+        });
       });
   } else {
     res.locals.category = null;
@@ -87,6 +103,7 @@ export const loadPosts = (req, res, next) => {
 
   dbQuery
     .exec((err, results) => {
+
       res.locals.posts = results;
       next();
     });

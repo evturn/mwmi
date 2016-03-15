@@ -9,8 +9,10 @@ class Pagination extends Component {
   }
   render() {
     const {
-      next, previous, pages, pathname,
-      currentPage, totalPages, total } = this.props;
+      next, last, previous, pages,
+      currentPage, totalPages, total } = this.props.posts;
+
+    const { pathname } = this.props;
 
     return (
       <div className="pagination">
@@ -47,26 +49,13 @@ class Pagination extends Component {
 }
 
 Pagination.propTypes = {
-  currentPage: PropTypes.number,
-  first: PropTypes.number,
-  last: PropTypes.number,
-  next: PropTypes.number,
-  pages: PropTypes.array,
-  previous: PropTypes.number,
-  results: PropTypes.array,
-  totalPages: PropTypes.number
+  posts: PropTypes.object,
+
 };
 
 function mapStateToProps(state) {
   return {
-    currentPage: state.pagination.currentPage,
-    first: state.pagination.first,
-    last: state.pagination.last,
-    next: state.pagination.next,
-    pages: state.pagination.pages,
-    previous: state.pagination.previous,
-    results: state.pagination.results,
-    totalPages: state.pagination.totalPages
+    posts: state.blog.posts
   };
 }
 

@@ -23,17 +23,15 @@ class Blog extends Component {
     }
   }
   render() {
-    const {
-      posts, categories,
-      pagination, location } = this.props
+    const { posts, categories, location } = this.props
 
     return (
       <div className="blog">
         <div className="blog-content">
-          <Posts posts={posts} />
+          <Posts posts={posts.results} />
           <Categories categories={categories} />
         </div>
-        <div className="blog-content__header">Showing {pagination.first} - {pagination.last} of {pagination.total}</div>
+        <div className="blog-content__header">Showing {posts.first} - {posts.last} of {posts.total}</div>
         <Pagination pathname={location.pathname} />
       </div>
     );
@@ -45,7 +43,7 @@ Blog.propTypes = {
   post: PropTypes.object,
   categories: PropTypes.array,
   category: PropTypes.object,
-  pagination: PropTypes.object,
+  filters: PropTypes.object,
   isFetching: PropTypes.bool,
   isCompleted: PropTypes.bool,
   dispatch: PropTypes.func.isRequired
@@ -57,7 +55,7 @@ function mapStateToProps(state) {
     post: state.blog.post,
     categories: state.blog.categories,
     category: state.blog.category,
-    pagination: state.pagination,
+    filters: state.blog.filters,
     isFetching: state.blog.isFetching,
     isCompleted: state.blog.isCompleted
   };

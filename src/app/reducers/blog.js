@@ -3,6 +3,7 @@ export default function blog(state = {
   posts: [],
   categories: [],
   category: {},
+  filters: {},
   isFetching: false,
   isCompleted: false,
   hasOne: false
@@ -19,7 +20,21 @@ export default function blog(state = {
         categories, category } = action.payload;
 
       return Object.assign({}, state, {
-        posts: posts.results,
+        posts: posts,
+        categories: categories,
+        category: category,
+        isFetching: false,
+        isCompleted: true
+      });
+    }
+
+    case 'FILTER_BLOG': {
+      const {
+        posts, post,
+        categories, category } = action.payload;
+
+      return Object.assign({}, state, {
+        posts: posts,
         categories: categories,
         category: category,
         isFetching: false,
