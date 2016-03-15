@@ -34,7 +34,7 @@ class Blog extends Component {
           <Categories categories={categories} />
         </div>
         <div className="blog-content__header">Showing {pagination.first} - {pagination.last} of {pagination.total}</div>
-        <Pagination {...pagination} pathname={location.pathname} />
+        <Pagination pathname={location.pathname} />
       </div>
     );
   }
@@ -57,7 +57,7 @@ function mapStateToProps(state) {
     post: state.blog.post,
     categories: state.blog.categories,
     category: state.blog.category,
-    pagination: state.blog.pagination,
+    pagination: state.pagination,
     isFetching: state.blog.isFetching,
     isCompleted: state.blog.isCompleted
   };

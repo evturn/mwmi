@@ -37,7 +37,6 @@ function mapStateToProps(state) {
     post: state.blog.post,
     categories: state.blog.categories,
     category: state.blog.category,
-    pagination: state.blog.pagination,
     isFetching: state.blog.isFetching,
     isCompleted: state.blog.isCompleted
   };

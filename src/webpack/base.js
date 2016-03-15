@@ -13,7 +13,7 @@ exports.PATHS = {
     css: 'css/app.css',
     img: 'img/[hash].[ext]'
   },
-  clean: ['dist'],
+  clean: ['../../dist'],
   root: __dirname
 };
 

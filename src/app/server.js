@@ -23,25 +23,25 @@ const serve = (req, res) => {
     } else if (renderProps) {
       hydrate(data => {
         const { posts, post, categories, category } = data;
-
+        console.log(data);
         return configureStore({
           blog: {
             posts: posts.results || [],
             post: post || {},
             categories: categories || [],
             category: category || {},
-            pagination: {
-              pages: posts.pages || [],
-              currentPage: posts.currentPage || 1,
-              first: posts.first || 1,
-              last: posts.last || 1,
-              next: posts.next || false,
-              previous: posts.previous || false,
-              total: posts.total || 0,
-              totalPages: posts.totalPages || 0
-            },
             isFetching: false,
             isCompleted: false
+          },
+          pagination: {
+            pages: posts.pages || [],
+            currentPage: posts.currentPage || 1,
+            first: posts.first || 1,
+            last: posts.last || 1,
+            next: posts.next || false,
+            previous: posts.previous || false,
+            total: posts.total || 0,
+            totalPages: posts.totalPages || 0
           },
           enquiry: {}
         });
