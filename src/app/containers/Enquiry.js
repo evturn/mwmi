@@ -1,7 +1,9 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
+import { connect } from 'react-redux';
+import { isTyping } from 'actions/enquiry';
 import xhr from '../../client/xhr';
 
-export default class Enquiry extends Component {
+class Enquiry extends Component {
   constructor(props){
     super(props);
 
@@ -9,17 +11,11 @@ export default class Enquiry extends Component {
       fetching: false,
       completed: false,
       section: null,
-      enquiryType: 'message',
       validationErrors: null,
-      enquirySubmitted: false,
-      nameField: null,
-      emailField: null,
-      phoneField: null,
-      messageField: null
     }
   }
   render() {
-    const content = this.state.enquirySubmitted ? this.renderMessage() : this.renderForm();
+    const content = this.props.enquirySubmitted ? this.renderMessage() : this.renderForm();
 
     return (
       <div className="contact">
@@ -54,28 +50,7 @@ export default class Enquiry extends Component {
     );
   }
   isTyping(e) {
-    switch (e.target.name) {
-      case 'name':
-        this.setState({
-          nameField: e.target.value
-        });
-        break;
-      case 'email':
-        this.setState({
-          emailField: e.target.value
-        });
-        break;
-      case 'phone':
-        this.setState({
-          phoneField: e.target.value
-        });
-        break;
-      case 'message':
-        this.setState({
-          messageField: e.target.value
-        });
-        break;
-    }
+    this.props.dispatch(isTyping(e.target));
   }
   renderMessage() {
     return <h3>Thanks for getting in touch.</h3>;
@@ -83,11 +58,11 @@ export default class Enquiry extends Component {
   onSubmit(e) {
     e.preventDefault();
     xhr.post('/api/contact', {
-        name: { full: this.state.nameField },
-        email: this.state.emailField,
-        phone: this.state.phoneField,
-        message: this.state.messageField,
-        enquiryType: this.state.enquiryType
+        name: { full: this.props.nameField },
+        email: this.props.emailField,
+        phone: this.props.phoneField,
+        message: this.props.messageField,
+        enquiryType: this.props.enquiryType
       })
       .then(res => res.json())
       .then(json => {
@@ -99,3 +74,27 @@ export default class Enquiry extends Component {
       .catch(err => console.log(err));
   }
 }
+
+Enquiry.PropTypes = {
+  nameField: PropTypes.string,
+  emailField: PropTypes.string,
+  phoneField: PropTypes.string,
+  messageField: PropTypes.string,
+  enquiryType: PropTypes.string,
+  enquirySubmitted: PropTypes.bool,
+  dispatch: PropTypes.func
+};
+
+function mapStateToProps(state) {
+  return {
+    nameField: state.enquiry.nameField,
+    emailField: state.enquiry.emailField,
+    phoneField: state.enquiry.phoneField,
+    messageField: state.enquiry.messageField,
+    enquiryType: state.enquiry.enquiryType,
+    enquirySubmitted: state.enquiry.enquirySubmitted,
+    validationErrors: state.enquiry.validationErrors
+  };
+}
+
+export default connect(mapStateToProps)(Enquiry);

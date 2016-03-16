@@ -16,7 +16,6 @@ class Blog extends Component {
     }
   }
   render() {
-    console.log(this.props);
     return (
       <div className="blog">
         {this.props.children}
