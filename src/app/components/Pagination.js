@@ -6,7 +6,6 @@ export default props => {
   const {
     next, last, previous, pages,
     currentPage, totalPages, total } = props.posts;
-    console.log(props);
 
   const { pathname } = props;
 

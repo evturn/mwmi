@@ -23,11 +23,6 @@ const actions = {
       payload
     };
   },
-  unmountOne() {
-    return {
-      type: 'UNMOUNT_ONE'
-    };
-  },
   fetchError(message) {
     return {
       type: 'FETCH_ERROR',
@@ -72,11 +67,5 @@ export function fetchPost(slug) {
       .then(res => res.json())
       .then(json => dispatch(actions.fetchOneSuccess(json)))
       .catch(error => dispatch(actions.fetchError(error)));
-  }
-}
-
-export function unmountPost() {
-  return function(dispatch) {
-    dispatch(actions.unmountOne());
   }
 }

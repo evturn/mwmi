@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
-import { fetchPost, unmountPost } from 'actions';
+import { fetchPost } from 'actions';
 import Post from 'components/Post';
 
 class BlogPost extends Component {
@@ -13,13 +13,8 @@ class BlogPost extends Component {
 
     dispatch(fetchPost(params.post));
   }
-  componentWillUnmount() {
-    const { dispatch } = this.props;
-
-    dispatch(unmountPost());
-  }
   render() {
-    const { hasOne, post } = this.props;
+    const { hasOne, data } = this.props;
 
     return (
       <div className="post">
@@ -28,21 +23,21 @@ class BlogPost extends Component {
             <Link to={{ pathname: `/blog` }}><span className="fa fa-long-arrow-left" /> back to the blog</Link>
           </div>
         </div>
-        {hasOne ? <Post {...post}/> : null}
+        {hasOne ? <Post {...data.post}/> : null}
       </div>
     );
   }
 }
 
 BlogPost.propTypes = {
-  post: PropTypes.object,
+  data: PropTypes.object,
   hasOne: PropTypes.bool,
   dispatch: PropTypes.func
 };
 
 function mapStateToProps(state) {
   return {
-    post: state.blog.data.post,
+    data: state.blog.data,
     hasOne: state.blog.hasOne
   };
 }

@@ -13,6 +13,7 @@ export default function blog(state = {
       first: 1,
       last: 1
     },
+    post: {},
     categories: []
   },
   isFetching: false,
@@ -27,9 +28,9 @@ export default function blog(state = {
       });
     case 'FETCH_ALL_SUCCESS': {
       return Object.assign({}, state, {
-        ...action.payload,
         isFetching: false,
-        isCompleted: true
+        isCompleted: true,
+        ...action.payload
       });
     }
     case 'FETCHING_ONE':
@@ -37,15 +38,19 @@ export default function blog(state = {
         hasOne: false
       });
     case 'FETCH_ONE_SUCCESS': {
+      console.log(action.payload);
       return Object.assign({}, state, {
-        ...action.payload,
-        hasOne: true
+        hasOne: true,
+        isFetching: false,
+        isCompleted: true,
+        data: {
+          posts: state.data.posts,
+          categories: state.data.categories,
+          post: action.payload.data.post
+        },
+        filters: action.payload.filters
       });
     }
-    case 'UNMOUNT_ONE':
-      return Object.assign({}, state, {
-        hasOne: false
-      });
     case 'FETCH_ERROR':
       return Object.assign({}, state, {
         message: action.message,

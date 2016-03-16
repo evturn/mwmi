@@ -6,7 +6,6 @@ export const init = (req, res, next) => {
 
   locals = res.locals;
 
-  // Set locals
   locals.section = 'blog';
   locals.filters = {
     post: req.params.post
@@ -23,7 +22,7 @@ export const init = (req, res, next) => {
 
   q.exec(function(err, result) {
     locals.data.post = result;
-    next(err);
+    res.json(locals);
   });
 };
 
