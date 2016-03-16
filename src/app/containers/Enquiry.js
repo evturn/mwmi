@@ -18,12 +18,12 @@ class Enquiry extends Component {
             <div className="enquiry__header">Leave us a message</div>
             <div className="enquiry__form-field">
               <input name="name" type="text" placeholder="Name" onChange={this.isTyping.bind(this)} />
-              <div className="enquiry__form-error">{hasErrors ? validationErrors.name : null}</div>
+              <div className="enquiry__form-error">{hasErrors && validationErrors.name ? validationErrors.name : null}</div>
             </div>
 
             <div className="enquiry__form-field">
               <input name="email" type="email" placeholder="Email" onChange={this.isTyping.bind(this)} />
-              <div className="enquiry__form-error">{hasErrors ? validationErrors.email : null}</div>
+              <div className="enquiry__form-error">{hasErrors && validationErrors.email ? validationErrors.email : null}</div>
             </div>
 
             <div className="enquiry__form-field">
@@ -32,7 +32,7 @@ class Enquiry extends Component {
 
             <div className="enquiry__form-field">
               <textarea name="message" rows="4" placeholder="Message" onChange={this.isTyping.bind(this)} />
-              <div className="enquiry__form-error">{hasErrors ? validationErrors.message : null}</div>
+              <div className="enquiry__form-error">{hasErrors && validationErrors.message ? validationErrors.message : null}</div>
             </div>
 
             <div className="enquiry__form-submit">
@@ -66,7 +66,12 @@ Enquiry.PropTypes = {
   messageField: PropTypes.string,
   enquiryType: PropTypes.string,
   enquirySubmitted: PropTypes.bool,
-  validationErrors: PropTypes.object,
+  validationErrors: {
+    name: PropTypes.string,
+    email: PropTypes.string,
+    message: PropTypes.string
+  },
+  error: PropTypes.string,
   hasErrors: PropTypes.bool,
   dispatch: PropTypes.func
 };
@@ -80,7 +85,8 @@ function mapStateToProps(state) {
     enquiryType: state.enquiry.enquiryType,
     enquirySubmitted: state.enquiry.enquirySubmitted,
     validationErrors: state.enquiry.validationErrors,
-    hasErrors: state.enquiry.hasErrors
+    hasErrors: state.enquiry.hasErrors,
+    errors: state.enquiry.errors
   };
 }
 

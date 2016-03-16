@@ -10,7 +10,7 @@ const actions = {
   enquiryError(error) {
     return {
       type: 'ENQUIRY_ERROR',
-      message: error
+      error
     };
   },
   userIsTyping(value) {
@@ -85,15 +85,18 @@ export const enquirySubmit = payload => {
         const {name, email, message } = data.validationErrors;
 
         if (name || email || message) {
+
+          let messages = {};
+          if (name) { messages.name = name.message; }
+          if (email) { messages.email = email.message; }
+          if (message) { messages.message = message.message; }
+
           dispatch(actions.validationErrors({
             hasErrors: true,
             enquirySubmitted:false,
-            validationErrors: {
-              name: name.message,
-              email: email.message,
-              message: message.message
-            }
+            validationErrors: messages
           }));
+
         } else {
           dispatch(actions.enquiryReceived({ enquirySubmitted: true }));
         }

@@ -6,7 +6,12 @@
   enquiryType: 'message',
   enquirySubmitted: false,
   hasErrors: false,
-  validationErrors: {}
+  error: null,
+  validationErrors: {
+    name: null,
+    email: null,
+    message: null
+  }
 }, action) {
   switch (action.type) {
     case 'ENQUIRY_RECEIVED':
@@ -23,7 +28,7 @@
       });
     case 'ENQUIRY_ERROR':
       return Object.assign({}, state, {
-        ...action.message
+        error: action.error
       });
     case 'VALIDATION_ERRORS':
       return Object.assign({}, state, {
