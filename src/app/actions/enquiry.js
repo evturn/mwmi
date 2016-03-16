@@ -1,13 +1,10 @@
 import fetch from 'isomorphic-fetch'
 
 const actions = {
-  enquirySuccess(errors) {
+  enquiryReceived(payload) {
     return {
       type: 'ENQUIRY_RECEIVED',
-      payload: {
-        enquirySubmitted: true,
-        validationErrors: errors
-      }
+      payload
     };
   },
   enquiryError(message) {
@@ -54,4 +51,10 @@ export const isTyping = e => {
     dispatch(actions.userIsTyping(inputValue));
   };
 
+};
+
+export const enquiryReceived = payload => {
+  return dispatch => {
+    dispatch(actions.enquiryReceived(payload));
+  };
 };

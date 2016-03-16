@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { isTyping } from 'actions/enquiry';
+import { isTyping, enquiryReceived } from 'actions/enquiry';
 import xhr from '../../client/xhr';
 
 class Enquiry extends Component {
@@ -66,10 +66,10 @@ class Enquiry extends Component {
       })
       .then(res => res.json())
       .then(json => {
-        this.setState({
+        this.props.dispatch(enquiryReceived({
           enquirySubmitted: true,
           validationErrors: json.validationErrors
-        })
+        }));
       })
       .catch(err => console.log(err));
   }
