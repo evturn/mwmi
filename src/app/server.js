@@ -28,7 +28,8 @@ const serve = (req, res) => {
             filters: res.filters,
             data: res.data
           },
-          enquiry: {}
+          enquiry: {},
+          pagination: {}
         });
       })
       .then(store => {

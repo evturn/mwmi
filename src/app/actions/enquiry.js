@@ -45,7 +45,6 @@ const xhrpost = (endpoint, data) => {
   });
 }
 
-
 export const isTyping = e => {
 
   return dispatch => {

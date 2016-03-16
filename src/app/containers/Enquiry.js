@@ -1,7 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { isTyping, enquiryReceived, enquirySubmit } from 'actions/enquiry';
-import xhr from '../../client/xhr';
 
 class Enquiry extends Component {
   constructor(props){

@@ -57,6 +57,30 @@ export const filters = (req, res, next) => {
 };
 
 export const posts = (req, res, next) => {
+  keystone.list('Post')
+    .model
+    .find()
+    .where('state', 'published')
+    .sort('-publishedDate')
+    .populate('author categories')
+    .exec((err, results) => {
+      locals.data.posts = {
+        first: 1,
+        last: 1,
+        pages: [1],
+        totalPages: 1,
+        currentPage: 1,
+        previous: false,
+        next: false,
+        total: results.length,
+        results
+      };
+      res.json(locals);
+    });
+};
+
+
+export const postsWithPaginate = (req, res, next) => {
 
   const q = keystone.list('Post').paginate({
       page: req.query.page || 1,
