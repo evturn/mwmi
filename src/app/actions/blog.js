@@ -28,18 +28,6 @@ const actions = {
       type: 'FETCH_ERROR',
       message
     };
-  },
-  enquirySuccess(message) {
-    return {
-      type: 'ENQUIRY_SUCCESS',
-      message
-    };
-  },
-  enquiryError(message) {
-    return {
-      type: 'ENQUIRY_ERROR',
-      message
-    };
   }
 };
 

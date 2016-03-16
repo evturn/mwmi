@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import xhr from '../../client/xhr';
 
-export default class Contact extends Component {
+export default class Enquiry extends Component {
   constructor(props){
     super(props);
 

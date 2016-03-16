@@ -3,11 +3,11 @@ import { Link } from 'react-router';
 import cx from 'classnames';
 
 export default props => {
+  const { pathname, category } = props;
   const {
-    next, last, previous, pages, results,
-    currentPage, totalPages, total } = props.data.posts;
-  const { category } = props.data;
-  const { pathname } = props;
+    next, last, previous,
+    pages, results, total,
+    totalPages, currentPage } = props.posts;
 
   return (
     <div className="pagination">
@@ -20,7 +20,7 @@ export default props => {
           </Link>
         </li>
 
-        {!category ? pages.map((num, i) => {
+        {pages.map((num, i) => {
           num = (num === '...') ? i ? totalPages : 1 : num;
 
           return (
@@ -29,7 +29,7 @@ export default props => {
                 className={cx({'off': num === currentPage})}
                 to={{ pathname, query: { page: num } }}>{num}</Link>
             </li>);
-        }) : null}
+        })}
 
         <li className="page">
           <Link
