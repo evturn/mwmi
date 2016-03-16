@@ -32,7 +32,7 @@ class Blog extends Component {
           <Categories categories={data.categories} />
         </div>
         <div className="blog-content__header">Showing {data.posts.first} - {data.posts.last} of {data.posts.total}</div>
-        <Pagination pathname={location.pathname} {...data} />
+        <Pagination pathname={location.pathname} data={data} />
       </div>
     );
   }

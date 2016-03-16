@@ -1,4 +1,4 @@
-const keystone = require('keystone');
+import keystone from 'keystone';
 
 let locals;
 
@@ -14,7 +14,7 @@ export const init = (req, res, next) => {
     posts: []
   };
 
-  // Load the current post
+
   const q = keystone.list('Post').model.findOne({
     state: 'published',
     slug: locals.filters.post
@@ -26,7 +26,7 @@ export const init = (req, res, next) => {
   });
 };
 
-  // Load other posts
+
 export const others = (req, res, next) => {
   const q = keystone.list('Post').model.find().where('state', 'published').sort('-publishedDate').populate('author').limit('4');
 

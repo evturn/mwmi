@@ -44,10 +44,12 @@ export const categories = (req, res, next) => {
 export const filters = (req, res, next) => {
 
   if (req.params.category) {
-    keystone.list('PostCategory').model.findOne({ key: locals.filters.category }).exec((err, result) => {
-      locals.data.category = result;
-      next(err);
-    });
+    keystone.list('PostCategory')
+      .model.findOne({ key: locals.filters.category })
+      .exec((err, result) => {
+        locals.data.category = result;
+        next(err);
+      });
   } else {
     next();
   }

@@ -4,9 +4,9 @@ import cx from 'classnames';
 
 export default props => {
   const {
-    next, last, previous, pages,
-    currentPage, totalPages, total } = props.posts;
-
+    next, last, previous, pages, results,
+    currentPage, totalPages, total } = props.data.posts;
+  const { category } = props.data;
   const { pathname } = props;
 
   return (
@@ -20,15 +20,16 @@ export default props => {
           </Link>
         </li>
 
-        {pages.map((num, i) => {
+        {!category ? pages.map((num, i) => {
           num = (num === '...') ? i ? totalPages : 1 : num;
 
-          return (<li key={i} className="page">
+          return (
+            <li key={i} className="page">
               <Link
                 className={cx({'off': num === currentPage})}
                 to={{ pathname, query: { page: num } }}>{num}</Link>
             </li>);
-        })}
+        }) : null}
 
         <li className="page">
           <Link
