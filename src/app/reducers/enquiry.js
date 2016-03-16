@@ -5,7 +5,8 @@
   messageField: '',
   enquiryType: 'message',
   enquirySubmitted: false,
-  validationErrors: null
+  hasErrors: false,
+  validationErrors: {}
 }, action) {
   switch (action.type) {
     case 'ENQUIRY_RECEIVED':
@@ -17,7 +18,17 @@
         ...action.value
       });
     case 'ENQUIRY_SUBMIT':
-      return state;
+      return Object.assign({}, state, {
+        ...action.payload
+      });
+    case 'ENQUIRY_ERROR':
+      return Object.assign({}, state, {
+        ...action.message
+      });
+    case 'VALIDATION_ERRORS':
+      return Object.assign({}, state, {
+        ...action.payload
+      });
     default:
       return state;
   }

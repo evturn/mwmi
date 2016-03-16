@@ -7,10 +7,10 @@ const actions = {
       payload
     };
   },
-  enquiryError(message) {
+  enquiryError(error) {
     return {
       type: 'ENQUIRY_ERROR',
-      message
+      message: error
     };
   },
   userIsTyping(value) {
@@ -19,13 +19,31 @@ const actions = {
       value
     };
   },
-  enquirySubmit() {
+  enquirySubmit(payload) {
     return {
-      type: 'ENQUIRY_SUBMIT'
+      type: 'ENQUIRY_SUBMIT',
+      payload
     }
+  },
+  validationErrors(payload) {
+    return {
+      type: 'VALIDATION_ERRORS',
+      payload
+    };
   }
-
 };
+
+const xhrpost = (endpoint, data) => {
+  return fetch(endpoint, {
+    method: 'post',
+    credentials: 'same-origin',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(data)
+  });
+}
 
 
 export const isTyping = e => {
@@ -57,4 +75,29 @@ export const enquiryReceived = payload => {
   return dispatch => {
     dispatch(actions.enquiryReceived(payload));
   };
+};
+
+export const enquirySubmit = payload => {
+  return dispatch => {
+    xhrpost('/api/contact', payload)
+      .then(res => res.json())
+      .then(data => {
+        const {name, email, message } = data.validationErrors;
+
+        if (name || email || message) {
+          dispatch(actions.validationErrors({
+            hasErrors: true,
+            enquirySubmitted:false,
+            validationErrors: {
+              name: name.message,
+              email: email.message,
+              message: message.message
+            }
+          }));
+        } else {
+          dispatch(actions.enquiryReceived({ enquirySubmitted: true }));
+        }
+      })
+      .catch(err => dispatch(actions.enquiryError(err)));
+  }
 };
