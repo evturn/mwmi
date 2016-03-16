@@ -9,36 +9,37 @@ class Enquiry extends Component {
 
   }
   render() {
+    const { validationErrors, hasErrors, enquirySubmitted } = this.props;
 
     return (
-      <div className="contact">
-          {this.props.enquirySubmitted ? <h3>Thanks for getting in touch.</h3> : (
-            <form className="form">
-              <div className="contact__header">Leave us a message</div>
-              <div className="form__field">
-                <input name="name" type="text" placeholder="Name" onChange={this.isTyping.bind(this)} />
-                {this.props.hasErrors ? <div>{this.props.validationErrors.name}</div> : null}
-              </div>
+      <div className="enquiry">
+        {enquirySubmitted ? <div className="enquiry__success">Thanks for getting in touch.</div> : (
+          <form className="enquiry__form">
+            <div className="enquiry__header">Leave us a message</div>
+            <div className="enquiry__form-field">
+              <input name="name" type="text" placeholder="Name" onChange={this.isTyping.bind(this)} />
+              <div className="enquiry__form-error">{hasErrors ? validationErrors.name : null}</div>
+            </div>
 
-              <div className="form__field">
-                <input name="email" type="email" placeholder="Email" onChange={this.isTyping.bind(this)} />
-                {this.props.hasErrors ? <div>{this.props.validationErrors.email}</div> : null}
-              </div>
+            <div className="enquiry__form-field">
+              <input name="email" type="email" placeholder="Email" onChange={this.isTyping.bind(this)} />
+              <div className="enquiry__form-error">{hasErrors ? validationErrors.email : null}</div>
+            </div>
 
-              <div className="form__field">
-                <input name="phone" type="text" placeholder="Phone (optional)" onChange={this.isTyping.bind(this)} />
-              </div>
+            <div className="enquiry__form-field">
+              <input name="phone" type="text" placeholder="Phone (optional)" onChange={this.isTyping.bind(this)} />
+            </div>
 
-              <div className="form__field">
-                <textarea name="message" rows="4" placeholder="Message" onChange={this.isTyping.bind(this)} />
-                {this.props.hasErrors ? <div>{this.props.validationErrors.message}</div> : null}
-              </div>
+            <div className="enquiry__form-field">
+              <textarea name="message" rows="4" placeholder="Message" onChange={this.isTyping.bind(this)} />
+              <div className="enquiry__form-error">{hasErrors ? validationErrors.message : null}</div>
+            </div>
 
-              <div className="form__field">
-                <button className="button__red" onClick={this.onSubmit.bind(this)}>Send</button>
-              </div>
-            </form>
-          )}
+            <div className="enquiry__form-submit">
+              <button className="button__red" onClick={this.onSubmit.bind(this)}>Send</button>
+            </div>
+          </form>
+        )}
       </div>
     );
   }

@@ -1,15 +1,17 @@
-.contact {
+.enquiry {
 
-  .contact__header {
+  .enquiry__header {
     margin-top: 15px;
     margin-bottom: 15px;
     font-size: 24px;
     text-align: center;
   }
 
-  .form {
+  .enquiry__form {
+    position: relative;
     max-width: 500px;
     margin: 0 auto;
+    padding-bottom: 50px;
   }
 
   label {
@@ -25,6 +27,28 @@
     background-color: transparent;
     outline: none;
     border-bottom: 1px solid @grey;
+  }
+
+  .enquiry__form-error {
+    height: 20px;
+    text-align: left;
+    color: @tx-accent;
+  }
+
+  .enquiry__form-field {
     margin-bottom: 20px;
+  }
+
+  .enquiry__form-submit {
+    position: absolute;
+    bottom: 0;
+  }
+
+  .enquiry__success {
+    position: absolute;
+    color: @tx-light;
+    margin: 0 auto;
+    font-size: 25px;
+    top: 15%;
   }
 }
