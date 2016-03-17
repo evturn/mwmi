@@ -1,6 +1,7 @@
 export default function blog(state = {
   section: '',
   filters: {},
+  sort: {},
   data: {
     posts: {
       total: 0,

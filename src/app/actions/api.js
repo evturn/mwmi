@@ -28,6 +28,8 @@ const server = {
   }
 };
 
+
+
 const client = {
   xhrpost(endpoint, data) {
     return fetch(endpoint, {
@@ -42,6 +44,10 @@ const client = {
   }
 };
 
+
+
 export const hydrate = server.hydrate;
 export const renderLayout = server.renderLayout;
+
 export const xhrpost = client.xhrpost;
+export const init = client.init;

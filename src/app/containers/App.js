@@ -9,9 +9,9 @@ class App extends Component {
   }
   render() {
     return (
-      <div className='site-container'>
+      <div className='site'>
         <Header />
-        <div className='site-content'>
+        <div className='content'>
           {this.props.children}
         </div>
         <Footer />

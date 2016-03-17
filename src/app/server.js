@@ -15,11 +15,7 @@ const serve = (req, res) => {
     } else if (renderProps) {
       hydrate(res => {
         return configureStore({
-          blog: {
-            section: 'blog',
-            filters: res.filters,
-            data: res.data
-          },
+          blog: res.blog,
           enquiry: res.enquiry,
           pagination: {},
           user: res.user

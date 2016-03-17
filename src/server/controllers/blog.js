@@ -1,17 +1,21 @@
 import keystone from 'keystone';
 import async from 'async';
 
-let locals;
 export const init = (req, res, next) => {
 
-  locals = res.locals;
-  locals.section = 'blog';
-  locals.filters = {
-    category: req.params.category
-  };
-  locals.data = {
-    posts: [],
-    categories: []
+  res.locals.blog = {
+    section: 'blog',
+    filters: {
+      category: req.params.category
+    },
+    sort: {
+      category: {},
+      author: {}
+    },
+    data: {
+      posts: [],
+      categories: []
+    }
   };
 
   next();
@@ -20,34 +24,39 @@ export const init = (req, res, next) => {
 
 export const categories = (req, res, next) => {
 
-  keystone.list('PostCategory').model.find().sort('name').exec((err, results) => {
+  keystone.list('PostCategory')
+    .model.find()
+    .sort('name')
+    .exec((err, results) => {
 
     if (err || !results.length) {
       return next(err);
     }
 
-    locals.data.categories = results;
+    res.locals.blog.data.categories = results;
 
-    async.each(locals.data.categories, (category, next) => {
+    async.each(res.locals.blog.data.categories, (category, next) => {
 
-      keystone.list('Post').model.count().where('categories').in([category.id]).exec((err, count) => {
-        category.postCount = count;
-        next(err);
-      });
+      keystone.list('Post')
+        .model.count()
+        .where('categories')
+        .in([category.id])
+        .exec((err, count) => {
+          category.postCount = count;
+          next(err);
+        });
 
     }, err => next(err));
-
   });
-
 };
 
 export const filters = (req, res, next) => {
 
   if (req.params.category) {
     keystone.list('PostCategory')
-      .model.findOne({ key: locals.filters.category })
+      .model.findOne({ key: res.locals.blog.filters.category })
       .exec((err, result) => {
-        locals.data.category = result;
+        res.locals.blog.data.category = result;
         next(err);
       });
   } else {
@@ -64,7 +73,7 @@ export const posts = (req, res, next) => {
     .sort('-publishedDate')
     .populate('author categories')
     .exec((err, results) => {
-      locals.data.posts = {
+      res.locals.blog.data.posts = {
         first: 1,
         last: 1,
         pages: [1],
@@ -75,10 +84,28 @@ export const posts = (req, res, next) => {
         total: results.length,
         results
       };
-      res.json(locals);
+
+      res.locals.blog.sort = {
+        category: sortPostsByCategory(results)
+      };
+
+      res.json(res.locals);
     });
 };
 
+function sortPostsByCategory(posts) {
+
+  const sortedByCategory = {};
+
+  posts.map(post => {
+    return post.categories.forEach(category => {
+      sortedByCategory[category.key] = sortedByCategory[category.key] || [];
+      sortedByCategory[category.key].push(post);
+    });
+  });
+
+  return sortedByCategory;
+};
 
 export const postsWithPaginate = (req, res, next) => {
 
@@ -91,12 +118,12 @@ export const postsWithPaginate = (req, res, next) => {
     .sort('-publishedDate')
     .populate('author categories');
 
-  if (locals.data.category) {
-    q.where('categories').in([locals.data.category]);
+  if (res.locals.blog.data.category) {
+    q.where('categories').in([res.locals.blog.data.category]);
   }
 
   q.exec((err, results) => {
-    locals.data.posts = results;
+    res.locals.blog.data.posts = results;
     res.json(locals);
   });
 
