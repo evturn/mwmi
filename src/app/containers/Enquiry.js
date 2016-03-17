@@ -8,47 +8,79 @@ class Enquiry extends Component {
 
   }
   render() {
-    const { validationErrors, hasErrors, enquirySubmitted } = this.props;
+    const {
+      validationErrors, hasErrors,
+      enquirySubmitted, dispatch } = this.props;
+
+    const name = (
+      <div className="enquiry__form-field">
+        <input
+          name="name"
+          type="text"
+          placeholder="Name"
+          onChange={e => dispatch(isTyping(e.target).bind(this))} />
+        <div className="enquiry__form-error">{hasErrors && validationErrors.name ? validationErrors.name : null}</div>
+      </div>
+    );
+
+    const email = (
+      <div className="enquiry__form-field">
+        <input
+          name="email"
+          type="email"
+          placeholder="Email"
+          onChange={e => dispatch(isTyping(e.target).bind(this))} />
+        <div className="enquiry__form-error">{hasErrors && validationErrors.email ? validationErrors.email : null}</div>
+      </div>
+    );
+
+    const phone = (
+      <div className="enquiry__form-field">
+        <input
+          name="phone"
+          type="text"
+          placeholder="Phone (optional)"
+          onChange={e => dispatch(isTyping(e.target).bind(this))} />
+      </div>
+    );
+
+    const message = (
+      <div className="enquiry__form-field">
+        <textarea
+          name="message"
+          rows="4"
+          placeholder="Message"
+          onChange={e => dispatch(isTyping(e.target).bind(this))} />
+        <div className="enquiry__form-error">{hasErrors && validationErrors.message ? validationErrors.message : null}</div>
+      </div>
+    );
+
+    const submitButton = (
+      <div className="enquiry__form-submit">
+        <button className="button__red" onClick={this.onSubmit.bind(this)}>Send</button>
+      </div>
+    );
 
     return (
       <div className="enquiry">
         {enquirySubmitted ? <div className="enquiry__success">Thanks for getting in touch.</div> : (
           <form className="enquiry__form">
             <div className="enquiry__header">Leave us a message</div>
-            <div className="enquiry__form-field">
-              <input name="name" type="text" placeholder="Name" onChange={this.isTyping.bind(this)} />
-              <div className="enquiry__form-error">{hasErrors && validationErrors.name ? validationErrors.name : null}</div>
-            </div>
-
-            <div className="enquiry__form-field">
-              <input name="email" type="email" placeholder="Email" onChange={this.isTyping.bind(this)} />
-              <div className="enquiry__form-error">{hasErrors && validationErrors.email ? validationErrors.email : null}</div>
-            </div>
-
-            <div className="enquiry__form-field">
-              <input name="phone" type="text" placeholder="Phone (optional)" onChange={this.isTyping.bind(this)} />
-            </div>
-
-            <div className="enquiry__form-field">
-              <textarea name="message" rows="4" placeholder="Message" onChange={this.isTyping.bind(this)} />
-              <div className="enquiry__form-error">{hasErrors && validationErrors.message ? validationErrors.message : null}</div>
-            </div>
-
-            <div className="enquiry__form-submit">
-              <button className="button__red" onClick={this.onSubmit.bind(this)}>Send</button>
-            </div>
+            {name}
+            {email}
+            {phone}
+            {message}
+            {submitButton}
           </form>
         )}
       </div>
     );
   }
-  isTyping(e) {
-    this.props.dispatch(isTyping(e.target));
-  }
   onSubmit(e) {
     e.preventDefault();
+    const { formData, dispatch } = this.props;
 
-    this.props.dispatch(enquirySubmit(this.props.formData));
+    dispatch(enquirySubmit(formData));
   }
 }
 
