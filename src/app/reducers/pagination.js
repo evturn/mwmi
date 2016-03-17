@@ -1,4 +1,5 @@
 export default function pagination(state={
+  perPage: 2,
   first: 1,
   last: 1,
   pages: [1],

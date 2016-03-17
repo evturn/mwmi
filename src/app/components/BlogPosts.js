@@ -20,7 +20,7 @@ export default class BlogPosts extends Component {
           </div>
           <Categories categories={categories} />
         </div>
-        <div className="blog-content__header">Showing {posts.first} - {posts.last} of {posts.total}</div>
+        <div className="blog-content__header">Showing {posts.first} - {posts.last} of {showing.length}</div>
         <Pagination
           pathname={pathname}
           posts={posts}

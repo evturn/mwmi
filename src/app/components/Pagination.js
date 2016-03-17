@@ -9,9 +9,13 @@ class Pagination extends Component {
   }
   render() {
     const {
-      next, last, previous,
-      pages, results, total,
-      totalPages, currentPage } = this.props.posts;
+      perPage,
+      posts: {
+        next, last, previous,
+        pages, results, total,
+        totalPages, currentPage
+      }
+    } = this.props;
 
     return (
       <div className="pagination">
@@ -49,6 +53,7 @@ class Pagination extends Component {
 }
 
 Pagination.propTypes = {
+  perPage: PropTypes.number,
   next: PropTypes.number,
   last: PropTypes.number,
   previous: PropTypes.number,
@@ -66,6 +71,7 @@ Pagination.contextTypes = {
 
 function mapStateToProps(state) {
   return {
+    perPage: state.pagination.perPage,
     next: state.pagination.next,
     last: state.pagination.last,
     previous: state.pagination.previous,
