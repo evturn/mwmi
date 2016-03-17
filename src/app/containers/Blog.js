@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
-import { fetchPosts } from 'actions/blog'
+import { filterPosts } from 'actions/blog'
 import BlogPosts from 'components/BlogPosts';
 
 
@@ -9,11 +9,17 @@ class Blog extends Component {
     super(props);
   }
   componentDidUpdate(prevProps) {
-    const { dispatch, params, location } = this.props
+    const { dispatch, params, sort, location: { query } } = this.props;
 
-    if (params !== prevProps.params) {
-      dispatch(fetchPosts(params, location.query))
+    let filter = sort.all;
+
+    if (params) {
+      for (let param in params) {
+        filter = sort[param][params[param]];
+      }
     }
+
+    dispatch(filterPosts(filter));
   }
   render() {
     return (
@@ -25,6 +31,8 @@ class Blog extends Component {
 }
 
 Blog.propTypes = {
+  sort: PropTypes.object,
+  showing: PropTypes.array,
   posts: PropTypes.object,
   categories: PropTypes.array,
   section: PropTypes.string,
@@ -41,6 +49,8 @@ Blog.contextTypes = {
 
 function mapStateToProps(state) {
   return {
+    sort: state.blog.sort,
+    showing: state.blog.showing,
     posts: state.blog.data.posts,
     categories: state.blog.data.categories,
     section: state.blog.section,

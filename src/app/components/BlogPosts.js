@@ -10,13 +10,13 @@ export default class BlogPosts extends Component {
     super(props);
   }
   render() {
-    const { posts, categories, pathname } = this.props;
+    const { posts, categories, pathname, showing } = this.props;
 
     return (
       <div>
         <div className="blog-content">
           <div className="posts">
-            {posts.results.map((item, i) => <Post key={i} {...item} />)}
+            {showing.map((item, i) => <Post key={i} {...item} />)}
           </div>
           <Categories categories={categories} />
         </div>
@@ -32,6 +32,7 @@ export default class BlogPosts extends Component {
 }
 
 BlogPosts.propTypes = {
+  showing: PropTypes.array,
   posts: PropTypes.object,
   categories: PropTypes.array,
   section: PropTypes.string,
@@ -48,6 +49,7 @@ BlogPosts.contextTypes = {
 
 function mapStateToProps(state) {
   return {
+    showing: state.blog.showing,
     posts: state.blog.data.posts,
     categories: state.blog.data.categories,
     section: state.blog.section,

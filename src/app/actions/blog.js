@@ -28,8 +28,16 @@ const actions = {
       type: 'FETCH_ERROR',
       message
     };
+  },
+  filterPosts(payload) {
+    return {
+      type: 'FILTER_POSTS',
+      payload
+    };
   }
 };
+
+export const filterPosts = sortedPosts => dispatch => dispatch(actions.filterPosts(sortedPosts));
 
 export function fetchPosts(params, query) {
   const route = params.category !== undefined ? `/api/blog/${params.category}` : '/api/blog';

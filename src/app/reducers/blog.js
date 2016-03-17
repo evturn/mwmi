@@ -2,6 +2,7 @@ export default function blog(state = {
   section: '',
   filters: {},
   sort: {},
+  showing: [],
   data: {
     posts: {
       total: 0,
@@ -39,7 +40,6 @@ export default function blog(state = {
         hasOne: false
       });
     case 'FETCH_ONE_SUCCESS': {
-      console.log(action.payload);
       return Object.assign({}, state, {
         hasOne: true,
         isFetching: false,
@@ -52,6 +52,10 @@ export default function blog(state = {
         filters: action.payload.filters
       });
     }
+    case 'FILTER_POSTS':
+      return Object.assign({}, state, {
+        showing: action.payload
+      });
     case 'FETCH_ERROR':
       return Object.assign({}, state, {
         message: action.message,

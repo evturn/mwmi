@@ -9,6 +9,7 @@ export const init = (req, res, next) => {
       category: req.params.category
     },
     sort: {
+      all: [],
       category: {},
       author: {}
     },
@@ -86,8 +87,10 @@ export const posts = (req, res, next) => {
       };
 
       res.locals.blog.sort = {
+        all: results,
         category: sortPostsByCategory(results)
       };
+      res.locals.blog.showing = res.locals.blog.sort.all;
 
       res.json(res.locals);
     });
