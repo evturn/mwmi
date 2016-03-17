@@ -33,57 +33,30 @@ const actions = {
   }
 };
 
-export const isTyping = e => {
-
-  return dispatch => {
-    let inputValue;
-
-    switch (e.name) {
-      case 'name':
-        inputValue = { name: e.value };
-        break;
-      case 'email':
-        inputValue = { email: e.value };
-        break;
-      case 'phone':
-        inputValue = { phone: e.value };
-        break;
-      case 'message':
-        inputValue = { message: e.value };
-        break;
-    }
-
-    dispatch(actions.userIsTyping(inputValue));
-  };
-
-};
+export const isTyping = e => dispatch => dispatch(actions.userIsTyping({ [e.name]: e.value }));
 
 export const enquiryReceived = payload => dispatch => dispatch(actions.enquiryReceived(payload));
 
-export const enquirySubmit = formData => {
-
+export const enquirySubmit = formData => dispatch => {
   const payload = parseFormData(formData);
 
-  return dispatch => {
+  xhrpost('/api/contact', payload)
+    .then(res => res.json())
+    .then(data => {
+      const { validationErrors, enquirySubmitted } = data.enquiry;
 
-    xhrpost('/api/contact', payload)
-      .then(res => res.json())
-      .then(data => {
-        const { validationErrors, enquirySubmitted } = data.enquiry;
+      if (enquirySubmitted) {
+        dispatch(actions.enquiryReceived({ enquirySubmitted }));
+      } else {
+        dispatch(actions.validationErrors({
+          enquirySubmitted,
+          hasErrors: true,
+          validationErrors: getFormErrors(validationErrors)
+        }));
+      }
 
-        if (enquirySubmitted) {
-          dispatch(actions.enquiryReceived({ enquirySubmitted }));
-        } else {
-          dispatch(actions.validationErrors({
-            enquirySubmitted,
-            hasErrors: true,
-            validationErrors: getFormErrors(validationErrors)
-          }));
-        }
-
-      })
-      .catch(err => dispatch(actions.enquiryError(err)));
-  }
+    })
+    .catch(err => dispatch(actions.enquiryError(err)));
 };
 
 function getFormErrors(validationErrors) {
