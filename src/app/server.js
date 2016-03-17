@@ -2,7 +2,6 @@ import React from 'react';
 import { renderToString } from 'react-dom/server';
 import { match, RouterContext } from 'react-router';
 import { Provider } from 'react-redux';
-import configureStore from 'store';
 import routes from 'routes';
 import { renderLayout, hydrate } from 'actions/api';
 
@@ -13,15 +12,7 @@ const serve = (req, res) => {
     } else if (redirectLocation) {
       res.redirect(302, redirectLocation.pathname + redirectLocation.search);
     } else if (renderProps) {
-      hydrate(res => {
-        return configureStore({
-          blog: res.blog,
-          enquiry: res.enquiry,
-          pagination: {},
-          user: res.user
-        });
-      })
-      .then(store => {
+      hydrate(store => {
         const initialState = store.getState();
         const html = renderToString(
           <Provider store={store}>
