@@ -69,51 +69,50 @@ export const enquirySubmit = formData => {
     xhrpost('/api/contact', payload)
       .then(res => res.json())
       .then(data => {
-        const {name, email, message } = data.enquiry.validationErrors;
+        const { validationErrors, enquirySubmitted } = data.enquiry;
 
-        if (name || email || message) {
-
-          let messages = {};
-          if (name) { messages.name = name.message; }
-          if (email) { messages.email = email.message; }
-          if (message) { messages.message = message.message; }
-
-          dispatch(actions.validationErrors({
-            hasErrors: true,
-            enquirySubmitted: data.enquiry.enquirySubmitted,
-            validationErrors: messages
-          }));
-
+        if (enquirySubmitted) {
+          dispatch(actions.enquiryReceived({ enquirySubmitted }));
         } else {
-          dispatch(actions.enquiryReceived({ enquirySubmitted: data.enquiry.enquirySubmitted }));
+          dispatch(actions.validationErrors({
+            enquirySubmitted,
+            hasErrors: true,
+            validationErrors: getFormErrors(validationErrors)
+          }));
         }
+
       })
       .catch(err => dispatch(actions.enquiryError(err)));
   }
-
 };
 
+function getFormErrors(validationErrors) {
+  const { name, email, message } = validationErrors;
+
+  let messages = {};
+
+  if (name) { messages.name = name.message; }
+  if (email) { messages.email = email.message; }
+  if (message) { messages.message = message.message; }
+
+  return messages;
+}
+
 function parseFormData(formData) {
-
   const { name, email, phone, message } = formData;
-
-  const firstNameOnly = {
+  const i = name === undefined ? -1 : name.indexOf(' ');
+  const fullname = i !== -1 ? {
+    first: name.substring(0, i),
+    last: name.substring(i, name.length)
+  } : {
     first: name,
     last: ''
   };
 
-  const [ first ] = name.split(' ');
-  const i = name.indexOf(' ');
-  const firstAndLastNames = {
-    first,
-    last: name.substring(i, name.length)
-  };
-
   return {
-    name: i !== -1 ? firstAndLastNames : firstNameOnly,
+    name: fullname,
     email: email,
     phone: phone,
     message: message
   };
-
 }
