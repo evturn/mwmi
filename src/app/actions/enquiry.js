@@ -1,4 +1,4 @@
-import fetch from 'isomorphic-fetch'
+import { xhrpost } from 'actions/api';
 
 const actions = {
   enquiryReceived(payload) {
@@ -33,18 +33,6 @@ const actions = {
   }
 };
 
-const xhrpost = (endpoint, data) => {
-  return fetch(endpoint, {
-    method: 'post',
-    credentials: 'same-origin',
-    headers: {
-      'Accept': 'application/json',
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(data)
-  });
-}
-
 export const isTyping = e => {
 
   return dispatch => {
@@ -52,16 +40,16 @@ export const isTyping = e => {
 
     switch (e.name) {
       case 'name':
-        inputValue = { nameField: e.value };
+        inputValue = { name: e.value };
         break;
       case 'email':
-        inputValue = { emailField: e.value };
+        inputValue = { email: e.value };
         break;
       case 'phone':
-        inputValue = { phoneField: e.value };
+        inputValue = { phone: e.value };
         break;
       case 'message':
-        inputValue = { messageField: e.value };
+        inputValue = { message: e.value };
         break;
     }
 
@@ -70,18 +58,18 @@ export const isTyping = e => {
 
 };
 
-export const enquiryReceived = payload => {
-  return dispatch => {
-    dispatch(actions.enquiryReceived(payload));
-  };
-};
+export const enquiryReceived = payload => dispatch => dispatch(actions.enquiryReceived(payload));
 
-export const enquirySubmit = payload => {
+export const enquirySubmit = formData => {
+
+  const payload = parseFormData(formData);
+
   return dispatch => {
+
     xhrpost('/api/contact', payload)
       .then(res => res.json())
       .then(data => {
-        const {name, email, message } = data.validationErrors;
+        const {name, email, message } = data.enquiry.validationErrors;
 
         if (name || email || message) {
 
@@ -92,14 +80,40 @@ export const enquirySubmit = payload => {
 
           dispatch(actions.validationErrors({
             hasErrors: true,
-            enquirySubmitted:false,
+            enquirySubmitted: data.enquiry.enquirySubmitted,
             validationErrors: messages
           }));
 
         } else {
-          dispatch(actions.enquiryReceived({ enquirySubmitted: true }));
+          dispatch(actions.enquiryReceived({ enquirySubmitted: data.enquiry.enquirySubmitted }));
         }
       })
       .catch(err => dispatch(actions.enquiryError(err)));
   }
+
 };
+
+function parseFormData(formData) {
+
+  const { name, email, phone, message } = formData;
+
+  const firstNameOnly = {
+    first: name,
+    last: ''
+  };
+
+  const [ first ] = name.split(' ');
+  const i = name.indexOf(' ');
+  const firstAndLastNames = {
+    first,
+    last: name.substring(i, name.length)
+  };
+
+  return {
+    name: i !== -1 ? firstAndLastNames : firstNameOnly,
+    email: email,
+    phone: phone,
+    message: message
+  };
+
+}

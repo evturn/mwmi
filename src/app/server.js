@@ -4,15 +4,7 @@ import { match, RouterContext } from 'react-router';
 import { Provider } from 'react-redux';
 import configureStore from 'store';
 import routes from 'routes';
-import fetch from 'isomorphic-fetch';
-import renderLayout from './layout';
-
-const hydrate = (callback) => {
-  return fetch('http://localhost:3000/api/locals')
-    .then(response => response.json())
-    .then(json => callback(json))
-    .catch(error => console.log(error));
-};
+import { renderLayout, hydrate } from 'actions/api';
 
 const serve = (req, res) => {
   match({routes, location: req.url}, (err, redirectLocation, renderProps) => {
@@ -24,12 +16,13 @@ const serve = (req, res) => {
       hydrate(res => {
         return configureStore({
           blog: {
-            section: res.section,
+            section: 'blog',
             filters: res.filters,
             data: res.data
           },
-          enquiry: {},
-          pagination: {}
+          enquiry: res.enquiry,
+          pagination: {},
+          user: res.user
         });
       })
       .then(store => {

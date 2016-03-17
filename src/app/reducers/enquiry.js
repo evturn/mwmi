@@ -1,17 +1,10 @@
  export default function enquiry(state = {
-  nameField: '' ,
-  emailField: '',
-  phoneField: '',
-  messageField: '',
-  enquiryType: 'message',
+  section: 'contact',
   enquirySubmitted: false,
   hasErrors: false,
   error: null,
-  validationErrors: {
-    name: null,
-    email: null,
-    message: null
-  }
+  validationErrors: {},
+  formData: {}
 }, action) {
   switch (action.type) {
     case 'ENQUIRY_RECEIVED':
@@ -20,7 +13,10 @@
       });
     case 'USER_IS_TYPING':
       return Object.assign({}, state, {
-        ...action.value
+        formData: {
+          ...state.formData,
+          ...action.value
+        }
       });
     case 'ENQUIRY_SUBMIT':
       return Object.assign({}, state, {

@@ -48,44 +48,50 @@ class Enquiry extends Component {
   onSubmit(e) {
     e.preventDefault();
 
-    this.props.dispatch(enquirySubmit({
-      name: { full: this.props.nameField },
-      email: this.props.emailField,
-      phone: this.props.phoneField,
-      message: this.props.messageField,
-      enquiryType: this.props.enquiryType
-    }));
+    this.props.dispatch(enquirySubmit(this.props.formData));
   }
 }
 
 Enquiry.PropTypes = {
-  nameField: PropTypes.string,
-  emailField: PropTypes.string,
-  phoneField: PropTypes.string,
-  messageField: PropTypes.string,
-  enquiryType: PropTypes.string,
+  error: PropTypes.string,
+  hasErrors: PropTypes.bool,
+  section: PropTypes.string,
+  enquiryTypes: PropTypes.string,
   enquirySubmitted: PropTypes.bool,
   validationErrors: {
     name: PropTypes.string,
     email: PropTypes.string,
+    message: PropTypes.string,
+    phone: PropTypes.string
+  },
+  formData: {
+    name: PropTypes.string,
+    email: PropTypes.string,
+    phone: PropTypes.string,
     message: PropTypes.string
   },
-  error: PropTypes.string,
-  hasErrors: PropTypes.bool,
   dispatch: PropTypes.func
 };
 
 function mapStateToProps(state) {
   return {
-    nameField: state.enquiry.nameField,
-    emailField: state.enquiry.emailField,
-    phoneField: state.enquiry.phoneField,
-    messageField: state.enquiry.messageField,
-    enquiryType: state.enquiry.enquiryType,
-    enquirySubmitted: state.enquiry.enquirySubmitted,
-    validationErrors: state.enquiry.validationErrors,
+    errors: state.enquiry.errors,
     hasErrors: state.enquiry.hasErrors,
-    errors: state.enquiry.errors
+    section: state.enquiry.section,
+    enquiryTypes: state.enquiry.enquiryTypes,
+    enquirySubmitted: state.enquiry.enquirySubmitted,
+    validationErrors: {
+      name: state.enquiry.validationErrors.name,
+      email: state.enquiry.validationErrors.email,
+      message: state.enquiry.validationErrors.message,
+      phone: state.enquiry.validationErrors.phone
+    },
+    formData: {
+      name: state.enquiry.formData.name,
+      email: state.enquiry.formData.email,
+      phone: state.enquiry.formData.phone,
+      message: state.enquiry.formData.message
+    }
   };
 }
 
