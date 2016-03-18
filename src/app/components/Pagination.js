@@ -1,18 +1,19 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
+import { filterPosts } from 'actions/blog';
 import { Link } from 'react-router';
+import BlogRouter from 'components/BlogRouter';
 import cx from 'classnames';
 
 class Pagination extends Component {
   constructor(props) {
     super(props);
   }
-
   render() {
     const {
       total, pages, buttons,
       currentPage, next, previous,
-      first, last } = this.props;
+      first, last, params, pathname } = this.props;
 
     return (
       <div>
@@ -22,8 +23,10 @@ class Pagination extends Component {
             <li className="page">
               <Link
                 className={cx({'off': !previous})}
-                to={{ pathname: '/blog', query: { page: previous } }}>
-                <span className="fa fa-chevron-left" />
+                to={{ pathname, query: { page: previous } }}>
+                <BlogRouter params={params} query={{ page: previous }}>
+                  <span className="fa fa-chevron-left" />
+                </BlogRouter>
               </Link>
             </li>
 
@@ -32,7 +35,11 @@ class Pagination extends Component {
                   <li key={page} className="page">
                     <Link
                       className={cx({'off': page === currentPage})}
-                      to={{ pathname: '/blog', query: {page} }}>{page}</Link>
+                      to={{ pathname, query: {page} }}>
+                      <BlogRouter params={params} query={{ page }}>
+                        {page}
+                      </BlogRouter>
+                    </Link>
                   </li>
                 );
               })}
@@ -40,8 +47,10 @@ class Pagination extends Component {
             <li className="page">
               <Link
                 className={cx({'off': !next})}
-                to={{ pathname: '/blog', query: { page: next } }}>
-                <span className="fa fa-chevron-right" />
+                to={{ pathname, query: { page: next } }}>
+                <BlogRouter params={params} query={{ page: next }}>
+                  <span className="fa fa-chevron-right" />
+                </BlogRouter>
               </Link>
             </li>
           </ul>

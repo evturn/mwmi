@@ -1,16 +1,10 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
-import { filterPosts } from 'actions/blog'
 import BlogPosts from 'components/BlogPosts';
 
 class Blog extends Component {
   constructor(props){
     super(props);
-  }
-  componentDidMount() {
-    const { dispatch, params, sort, location: { query } } = this.props;
-
-    dispatch(filterPosts({ params, query, sort }));
   }
   render() {
     return (

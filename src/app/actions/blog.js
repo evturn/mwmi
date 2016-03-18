@@ -66,7 +66,10 @@ export const filterPosts = props => dispatch => {
   const first = ((currentPage - 1) * perPage ) + 1;
   const last = currentPage * perPage;
 
-  const showing = posts.map(post => post).filter((post, i) => i >= first && i <= last);
+  const firstWithIndex = first - 1;
+  const lastWithIndex = last - 1;
+
+  const showing = posts.map(post => post).filter((post, i) => i >= firstWithIndex && i <= lastWithIndex);
 
   const blogState = {
     showing,
