@@ -9,14 +9,14 @@ class Pagination extends Component {
   }
 
   render() {
-    const { total, pages, buttons } = this.props;
-
-    const previous = false;
-    const next = false;
+    const {
+      total, pages, buttons,
+      currentPage, next, previous,
+      first, last } = this.props;
 
     return (
       <div>
-        <div className="blog-content__header">Showing 1 - 2 of {total}</div>
+        <div className="blog-content__header">Showing {first} - {last} of {total}</div>
         <div className="pagination">
           <ul className="pages">
             <li className="page">
@@ -30,7 +30,9 @@ class Pagination extends Component {
               {buttons.map(page => {
                 return (
                   <li key={page} className="page">
-                    <Link to={{ pathname: '/blog', query: {page} }}>{page}</Link>
+                    <Link
+                      className={cx({'off': page === currentPage})}
+                      to={{ pathname: '/blog', query: {page} }}>{page}</Link>
                   </li>
                 );
               })}
@@ -54,6 +56,7 @@ Pagination.propTypes = {
   pages: PropTypes.number,
   first: PropTypes.number,
   last: PropTypes.number,
+  currentPage: PropTypes.number,
   buttons: PropTypes.array,
   dispatch: PropTypes.func
 };
@@ -68,6 +71,9 @@ function mapStateToProps(state) {
     pages: state.blog.pagination.pages,
     first: state.blog.pagination.first,
     last: state.blog.pagination.last,
+    previous: state.blog.pagination.previous,
+    next: state.blog.pagination.next,
+    currentPage: state.blog.pagination.currentPage,
     buttons: state.blog.pagination.buttons
   };
 }
