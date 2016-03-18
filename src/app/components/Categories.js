@@ -9,7 +9,7 @@ export default ({ categories }) => {
         <li className="category-item"><Link to={{ pathname: '/blog' }}>All Categories</Link></li>
         {categories.map(item =>
           <li key={item.key} className="category-item">
-            <Link to={{ pathname: `/blog/${item.key}` }}>{item.name}</Link>
+            <Link to={{ pathname: `/blog/categories/${item.key}` }}>{item.name}</Link>
           </li>
         )}</ul>
     </div>

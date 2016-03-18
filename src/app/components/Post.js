@@ -21,7 +21,7 @@ export default props => {
       <div className="entry__footer">
         <div className="entry__footer-author">By: <Link key={author.id} to={{ pathname: `/blog/authors/${author.name.first}` }}>{author.name.first}</Link></div>
         <div className="entry__footer-categories">Posted in | {categories.map(item =>
-          <Link key={item.key} to={{ pathname: `/blog/${item.key}` }}>{item.name}</Link>
+          <Link key={item.key} to={{ pathname: `/blog/categories/${item.key}` }}>{item.name}</Link>
         )}</div>
       </div>
     </div>
