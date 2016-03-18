@@ -15,7 +15,9 @@ class Blog extends Component {
 
     if (params) {
       for (let param in params) {
-        filter = sort[param][params[param]];
+        if (param !== 'post') {
+          filter = sort[param][params[param]];
+        }
       }
     }
 
