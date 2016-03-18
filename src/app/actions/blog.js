@@ -43,20 +43,47 @@ const actions = {
   }
 };
 
-export const filterPosts = sortedPosts => dispatch => {
-  const { params, query, sort } = sortedPosts;
+export const filterPosts = props => dispatch => {
+  const { params, query, sort } = props;
 
-  let filter = sort.all;
+  let posts = sort.all;
 
-    if (params) {
-      for (let param in params) {
-        if (param !== 'post') {
-          filter = sort[param][params[param]];
-        }
+  if (params) {
+    for (let param in params) {
+      if (param !== 'post') {
+        posts = sort[param][params[param]];
       }
     }
+  }
 
-  dispatch(actions.filterPosts(filter));
+  const currentPage = parseInt(query.page) || 1;
+  const perPage = 2;
+  const total = posts.length;
+  const pages = Math.ceil(posts.length / perPage);
+  const buttons = posts.map((item, i) => i + 1).filter(i => i <= pages);
+  const previous = currentPage > 1 ? currentPage - 1 : false;
+  const next = currentPage < pages ? currentPage + 1 : false;
+  const first = ((currentPage - 1) * perPage ) + 1;
+  const last = currentPage * perPage;
+
+  const showing = posts.map(post => post).filter((post, i) => i >= first && i <= last);
+
+  const blogState = {
+    showing,
+    pagination: {
+      perPage,
+      total,
+      pages,
+      buttons,
+      currentPage,
+      previous,
+      next,
+      first,
+      last
+    }
+  };
+
+  dispatch(actions.filterPosts(blogState));
 }
 
 export function fetchPosts(params, query) {

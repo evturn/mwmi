@@ -61,26 +61,14 @@ export default function blog(state = {
       });
     }
     case 'FILTER_POSTS':
-      const pages = Math.ceil(action.payload.length / 2);
-
       return Object.assign({}, state, {
-        showing: action.payload,
-        pagination: {
-          perPage: 2,
-          total: action.payload.length,
-          pages,
-          buttons: action.payload.map((item, i) => i + 1).filter(i => i <= pages)
-        }
+        ...action.payload
       });
     case 'FETCH_ERROR':
       return Object.assign({}, state, {
         message: action.message,
         isFetching: false,
         isCompleted: true
-      });
-    case 'SET_PAGINATION':
-      return Object.assign({}, state, {
-        pagination: action.payload
       });
     default:
       return state;

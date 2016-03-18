@@ -7,7 +7,7 @@ class Blog extends Component {
   constructor(props){
     super(props);
   }
-  componentDidUpdate(prevProps) {
+  componentDidMount() {
     const { dispatch, params, sort, location: { query } } = this.props;
 
     dispatch(filterPosts({ params, query, sort }));
