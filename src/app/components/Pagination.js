@@ -1,6 +1,5 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { setPagination } from 'actions/blog';
 import { Link } from 'react-router';
 import cx from 'classnames';
 
@@ -10,7 +9,7 @@ class Pagination extends Component {
   }
 
   render() {
-    const { total, pages } = this.props;
+    const { total, pages, buttons } = this.props;
 
     const previous = false;
     const next = false;
@@ -28,7 +27,13 @@ class Pagination extends Component {
               </Link>
             </li>
 
-              {pages}
+              {buttons.map(page => {
+                return (
+                  <li key={page} className="page">
+                    <Link to={{ pathname: '/blog', query: {page} }}>{page}</Link>
+                  </li>
+                );
+              })}
 
             <li className="page">
               <Link

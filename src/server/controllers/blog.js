@@ -90,6 +90,7 @@ export const posts = (req, res, next) => {
         total: results.length,
         results
       };
+      const pages = Math.ceil(results.length / 2);
 
       res.locals.blog.sort = {
         all: results,
@@ -97,6 +98,12 @@ export const posts = (req, res, next) => {
         author: sortPostsByAuthor(results)
       };
       res.locals.blog.showing = res.locals.blog.sort.all;
+      res.locals.blog.pagination = {
+        perPage: 2,
+        total: results.length,
+        pages,
+        buttons: results.map((item, i) => i + 1).filter(i => i <= pages)
+      };
 
       res.json(res.locals);
     });

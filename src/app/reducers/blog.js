@@ -9,7 +9,7 @@ export default function blog(state = {
     total: 0,
     first: 1,
     last: 1,
-    buttons: 0
+    buttons: []
   },
   data: {
     posts: {
