@@ -61,7 +61,7 @@ export default function blog(state = {
       });
     }
     case 'FILTER_POSTS':
-    const pages = Math.ceil(action.payload.length / 2);
+      const pages = Math.ceil(action.payload.length / 2);
 
       return Object.assign({}, state, {
         showing: action.payload,

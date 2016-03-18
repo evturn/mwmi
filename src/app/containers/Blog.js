@@ -10,17 +10,7 @@ class Blog extends Component {
   componentDidUpdate(prevProps) {
     const { dispatch, params, sort, location: { query } } = this.props;
 
-    let filter = sort.all;
-
-    if (params) {
-      for (let param in params) {
-        if (param !== 'post') {
-          filter = sort[param][params[param]];
-        }
-      }
-    }
-
-    dispatch(filterPosts(filter));
+    dispatch(filterPosts({ params, query, sort }));
   }
   render() {
     return (

@@ -43,16 +43,21 @@ const actions = {
   }
 };
 
-export const filterPosts = sortedPosts => dispatch => dispatch(actions.filterPosts(sortedPosts));
+export const filterPosts = sortedPosts => dispatch => {
+  const { params, query, sort } = sortedPosts;
 
-export const setPagination = posts => dispatch => {
-  dispatch(actions.setPagination({
-    perPage: 2,
-    total: posts.length,
-    pages: Math.ceil(posts.length / 2)
-  }))
-};
+  let filter = sort.all;
 
+    if (params) {
+      for (let param in params) {
+        if (param !== 'post') {
+          filter = sort[param][params[param]];
+        }
+      }
+    }
+
+  dispatch(actions.filterPosts(filter));
+}
 
 export function fetchPosts(params, query) {
   const route = params.category !== undefined ? `/api/blog/${params.category}` : '/api/blog';
