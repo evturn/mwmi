@@ -10,7 +10,7 @@ class Pagination extends Component {
   }
 
   render() {
-    const { total, pages } = this.props.pagination;
+    const { total, pages } = this.props;
 
     const previous = false;
     const next = false;
@@ -45,7 +45,11 @@ class Pagination extends Component {
 }
 
 Pagination.propTypes = {
-  pagination: PropTypes.object,
+  total: PropTypes.number,
+  pages: PropTypes.number,
+  first: PropTypes.number,
+  last: PropTypes.number,
+  buttons: PropTypes.array,
   dispatch: PropTypes.func
 };
 
@@ -55,7 +59,11 @@ Pagination.contextTypes = {
 
 function mapStateToProps(state) {
   return {
-    pagination: state.blog.pagination
+    total: state.blog.pagination.total,
+    pages: state.blog.pagination.pages,
+    first: state.blog.pagination.first,
+    last: state.blog.pagination.last,
+    buttons: state.blog.pagination.buttons
   };
 }
 

@@ -6,7 +6,10 @@ export default function blog(state = {
   pagination: {
     perPage: 2,
     pages: 0,
-    total: 0
+    total: 0,
+    first: 1,
+    last: 1,
+    buttons: 0
   },
   data: {
     posts: {
@@ -58,12 +61,15 @@ export default function blog(state = {
       });
     }
     case 'FILTER_POSTS':
+    const pages = Math.ceil(action.payload.length / 2);
+
       return Object.assign({}, state, {
         showing: action.payload,
         pagination: {
           perPage: 2,
           total: action.payload.length,
-          pages: Math.ceil(action.payload.length / 2)
+          pages,
+          buttons: action.payload.map((item, i) => i + 1).filter(i => i <= pages)
         }
       });
     case 'FETCH_ERROR':
