@@ -1,5 +1,6 @@
 import React from 'react';
-import {IndexLink, Link} from 'react-router';
+import { IndexLink, Link } from 'react-router';
+import BlogRouter from 'components/BlogRouter';
 
 export default class Header extends React.Component {
   constructor(props) {
@@ -12,16 +13,18 @@ export default class Header extends React.Component {
     ];
   }
   render() {
+    const home = <li><IndexLink to='/'>Home</IndexLink></li>;
+    const blog = <li><Link to='/blog'><BlogRouter>Blog</BlogRouter></Link></li>;
+    const enquiry = <li><Link to='/contact'>Contact</Link></li>;
+
     return (
       <nav className="container navbar">
         <div className="wrapper">
-          <ul className="navbar-links">{this.navLinks.map((link, i) => {
-            if (link.key === 'home') {
-              return <li key={i}><IndexLink to={link.href}>{link.label}</IndexLink></li>;
-            } else {
-              return <li key={i}><Link to={link.href}>{link.label}</Link></li>;
-            }
-          })}</ul>
+          <ul className="navbar-links">
+            {home}
+            {blog}
+            {enquiry}
+          </ul>
         </div>
       </nav>
     );

@@ -1,6 +1,5 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { filterPosts } from 'actions/blog';
 import { Link } from 'react-router';
 import BlogRouter from 'components/BlogRouter';
 import cx from 'classnames';
@@ -68,10 +67,6 @@ Pagination.propTypes = {
   currentPage: PropTypes.number,
   buttons: PropTypes.array,
   dispatch: PropTypes.func
-};
-
-Pagination.contextTypes = {
-  router: PropTypes.object
 };
 
 function mapStateToProps(state) {

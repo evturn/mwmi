@@ -40,10 +40,6 @@ BlogPosts.propTypes = {
   dispatch: PropTypes.func.isRequired
 };
 
-BlogPosts.contextTypes = {
-  router: PropTypes.object
-};
-
 function mapStateToProps(state) {
   return {
     pagination: state.blog.pagination,

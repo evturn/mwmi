@@ -56,7 +56,7 @@ export const filterPosts = props => dispatch => {
     }
   }
 
-  const currentPage = parseInt(query.page) || 1;
+  const currentPage = query.page ? parseInt(query.page) : 1;
   const perPage = 2;
   const total = posts.length;
   const pages = Math.ceil(posts.length / perPage);

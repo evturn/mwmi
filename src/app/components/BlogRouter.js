@@ -7,12 +7,14 @@ class BlogRouter extends Component {
     super(props);
   }
   render() {
-    const { dispatch, sort, params, query } = this.props;
-    console.log(this.props);
+    let { dispatch, sort, params, query } = this.props;
+
+    query = query ? query : { query: { page: 1 } };
+
     return (
-      <div onClick={() => dispatch(filterPosts({ params, query, sort }))}>
+      <span onClick={() => dispatch(filterPosts({ params, query, sort }))}>
         {this.props.children}
-      </div>
+      </span>
     );
   }
 }
