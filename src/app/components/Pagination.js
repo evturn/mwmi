@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
+import { setPagination } from 'actions/blog';
 import { Link } from 'react-router';
 import cx from 'classnames';
 
@@ -7,61 +8,44 @@ class Pagination extends Component {
   constructor(props) {
     super(props);
   }
+
   render() {
-    const {
-      perPage,
-      posts: {
-        next, last, previous,
-        pages, results, total,
-        totalPages, currentPage
-      }
-    } = this.props;
+    const { total, pages } = this.props.pagination;
+
+    const previous = false;
+    const next = false;
 
     return (
-      <div className="pagination">
-        <ul className="pages">
-          <li className="page">
-            <Link
-              className={cx({'off': !previous})}
-              to={{ pathname: '/blog', query: { page: previous } }}>
-              <span className="fa fa-chevron-left" />
-            </Link>
-          </li>
+      <div>
+        <div className="blog-content__header">Showing 1 - 2 of {total}</div>
+        <div className="pagination">
+          <ul className="pages">
+            <li className="page">
+              <Link
+                className={cx({'off': !previous})}
+                to={{ pathname: '/blog', query: { page: previous } }}>
+                <span className="fa fa-chevron-left" />
+              </Link>
+            </li>
 
-          {pages.map((num, i) => {
-            num = (num === '...') ? i ? totalPages : 1 : num;
+              {pages}
 
-            return (
-              <li key={i} className="page">
-                <Link
-                  className={cx({'off': num === currentPage})}
-                  to={{ pathname: '/blog', query: { page: num } }}>{num}</Link>
-              </li>);
-          })}
-
-          <li className="page">
-            <Link
-              className={cx({'off': !next})}
-              to={{ pathname: '/blog', query: { page: next } }}>
-              <span className="fa fa-chevron-right" />
-            </Link>
-          </li>
-        </ul>
+            <li className="page">
+              <Link
+                className={cx({'off': !next})}
+                to={{ pathname: '/blog', query: { page: next } }}>
+                <span className="fa fa-chevron-right" />
+              </Link>
+            </li>
+          </ul>
+        </div>
       </div>
     );
   }
 }
 
 Pagination.propTypes = {
-  perPage: PropTypes.number,
-  next: PropTypes.number,
-  last: PropTypes.number,
-  previous: PropTypes.number,
-  pages: PropTypes.array,
-  results: PropTypes.array,
-  total: PropTypes.number,
-  totalPages: PropTypes.number,
-  currentPage: PropTypes.number,
+  pagination: PropTypes.object,
   dispatch: PropTypes.func
 };
 
@@ -71,16 +55,8 @@ Pagination.contextTypes = {
 
 function mapStateToProps(state) {
   return {
-    perPage: state.pagination.perPage,
-    next: state.pagination.next,
-    last: state.pagination.last,
-    previous: state.pagination.previous,
-    pages: state.pagination.pages,
-    results: state.pagination.results,
-    total: state.pagination.total,
-    totalPages: state.pagination.totalPages,
-    currentPage: state.pagination.currentPage
-  }
+    pagination: state.blog.pagination
+  };
 }
 
 export default connect(mapStateToProps)(Pagination);

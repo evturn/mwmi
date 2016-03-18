@@ -34,10 +34,25 @@ const actions = {
       type: 'FILTER_POSTS',
       payload
     };
+  },
+  setPagination(payload) {
+    return {
+      type: 'SET_PAGINATION',
+      payload
+    };
   }
 };
 
 export const filterPosts = sortedPosts => dispatch => dispatch(actions.filterPosts(sortedPosts));
+
+export const setPagination = posts => dispatch => {
+  dispatch(actions.setPagination({
+    perPage: 2,
+    total: posts.length,
+    pages: Math.ceil(posts.length / 2)
+  }))
+};
+
 
 export function fetchPosts(params, query) {
   const route = params.category !== undefined ? `/api/blog/${params.category}` : '/api/blog';

@@ -3,6 +3,11 @@ export default function blog(state = {
   filters: {},
   sort: {},
   showing: [],
+  pagination: {
+    perPage: 2,
+    pages: 0,
+    total: 0
+  },
   data: {
     posts: {
       total: 0,
@@ -54,13 +59,22 @@ export default function blog(state = {
     }
     case 'FILTER_POSTS':
       return Object.assign({}, state, {
-        showing: action.payload
+        showing: action.payload,
+        pagination: {
+          perPage: 2,
+          total: action.payload.length,
+          pages: Math.ceil(action.payload.length / 2)
+        }
       });
     case 'FETCH_ERROR':
       return Object.assign({}, state, {
         message: action.message,
         isFetching: false,
         isCompleted: true
+      });
+    case 'SET_PAGINATION':
+      return Object.assign({}, state, {
+        pagination: action.payload
       });
     default:
       return state;

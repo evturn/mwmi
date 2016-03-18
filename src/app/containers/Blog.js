@@ -3,7 +3,6 @@ import { connect } from 'react-redux'
 import { filterPosts } from 'actions/blog'
 import BlogPosts from 'components/BlogPosts';
 
-
 class Blog extends Component {
   constructor(props){
     super(props);

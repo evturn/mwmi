@@ -5,12 +5,12 @@ import Categories from 'components/Categories';
 import Pagination from 'components/Pagination';
 import Post from 'components/Post';
 
-export default class BlogPosts extends Component {
+class BlogPosts extends Component {
   constructor(props) {
     super(props);
   }
   render() {
-    const { posts, categories, pathname, showing } = this.props;
+    const { categories, showing, pagination } = this.props;
 
     return (
       <div>
@@ -20,12 +20,7 @@ export default class BlogPosts extends Component {
           </div>
           <Categories categories={categories} />
         </div>
-        <div className="blog-content__header">Showing {posts.first} - {posts.last} of {showing.length}</div>
-        <Pagination
-          pathname={pathname}
-          posts={posts}
-          categories={categories}
-        />
+        <Pagination {...pagination} />
       </div>
     );
   }
@@ -33,13 +28,8 @@ export default class BlogPosts extends Component {
 
 BlogPosts.propTypes = {
   showing: PropTypes.array,
-  posts: PropTypes.object,
   categories: PropTypes.array,
-  section: PropTypes.string,
-  filters: PropTypes.object,
-  isFetching: PropTypes.bool,
-  isCompleted: PropTypes.bool,
-  hasOne: PropTypes.bool,
+  pagination: PropTypes.object,
   dispatch: PropTypes.func.isRequired
 };
 
@@ -49,14 +39,9 @@ BlogPosts.contextTypes = {
 
 function mapStateToProps(state) {
   return {
+    pagination: state.blog.pagination,
     showing: state.blog.showing,
-    posts: state.blog.data.posts,
-    categories: state.blog.data.categories,
-    section: state.blog.section,
-    filters: state.blog.filters,
-    isFetching: state.blog.isFetching,
-    isCompleted: state.blog.isCompleted,
-    hasOne: state.blog.hasOne
+    categories: state.blog.data.categories
   };
 };
 

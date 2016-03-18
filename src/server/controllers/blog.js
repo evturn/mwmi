@@ -13,6 +13,11 @@ export const init = (req, res, next) => {
       category: {},
       author: {}
     },
+    pagination: {
+      perPage: 2,
+      pages: 0,
+      total: 0
+    },
     data: {
       posts: [],
       categories: []
