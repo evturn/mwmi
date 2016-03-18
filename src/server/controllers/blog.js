@@ -88,12 +88,25 @@ export const posts = (req, res, next) => {
 
       res.locals.blog.sort = {
         all: results,
-        category: sortPostsByCategory(results)
+        category: sortPostsByCategory(results),
+        author: sortPostsByAuthor(results)
       };
       res.locals.blog.showing = res.locals.blog.sort.all;
 
       res.json(res.locals);
     });
+};
+
+function sortPostsByAuthor(posts) {
+
+  const sortedByAuthor = {};
+
+  posts.map(post => {
+    sortedByAuthor[post.author.name.first] = sortedByAuthor[post.author.name.first] || [];
+    sortedByAuthor[post.author.name.first].push(post);
+  });
+
+  return sortedByAuthor;
 };
 
 function sortPostsByCategory(posts) {

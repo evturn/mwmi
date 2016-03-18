@@ -19,7 +19,7 @@ export default props => {
       {image !== undefined ? <img className="entry__image" src={image.url} /> : null}
       <div className="entry__body" dangerouslySetInnerHTML={{ __html: content.extended }} />
       <div className="entry__footer">
-        <div className="entry__footer-author">By: {author.name.first}</div>
+        <div className="entry__footer-author">By: <Link key={author.id} to={{ pathname: `/blog/authors/${author.name.first}` }}>{author.name.first}</Link></div>
         <div className="entry__footer-categories">Posted in | {categories.map(item =>
           <Link key={item.key} to={{ pathname: `/blog/${item.key}` }}>{item.name}</Link>
         )}</div>

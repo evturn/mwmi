@@ -13,6 +13,7 @@ export default (
     <Route path="blog" component={Blog}>
       <IndexRoute component={BlogPosts} />
       <Route path=":category" component={BlogPosts} />
+      <Route path="authors/:author" component={BlogPosts} />
       <Route path="post/:post" component={BlogPost} />
     </Route>
     <Route path="contact" component={Enquiry} />
