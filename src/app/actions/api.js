@@ -55,6 +55,12 @@ const client = {
   }
 };
 
+export const hydrate = server.hydrate;
+export const renderLayout = server.renderLayout;
+
+export const syncBlogWithRoutes = client.syncBlogWithRoutes;
+export const xhrpost = client.xhrpost;
+
 export function thunkmasterFlex({ dispatch, getState }) {
   return next => action => {
     if (typeof action === 'function') {
@@ -64,9 +70,3 @@ export function thunkmasterFlex({ dispatch, getState }) {
     return next(action);
   };
 }
-
-export const hydrate = server.hydrate;
-export const renderLayout = server.renderLayout;
-
-export const syncBlogWithRoutes = client.syncBlogWithRoutes;
-export const xhrpost = client.xhrpost;
