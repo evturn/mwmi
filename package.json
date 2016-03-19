@@ -13,7 +13,8 @@
   },
   "scripts": {
     "dev": "NODE_ENV=development babel-node index.js",
-    "build": "NODE_ENV=production webpack --progress --colors --config src/webpack/prod.js"
+    "build": "NODE_ENV=production webpack --progress --colors --config src/webpack/prod.js",
+    "serve": "NODE_ENV=production babel-node index.js"
   },
   "license": "MIT",
   "dependencies": {
