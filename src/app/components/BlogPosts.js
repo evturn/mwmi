@@ -16,28 +16,22 @@ class BlogPosts extends Component {
     dispatch(filterPosts({ params, query, sort }));
   }
   componentWillReceiveProps(nextProps) {
-    const { dispatch, params, query, sort } = this.props;
+    const { dispatch, sort } = this.props;
 
-    if (nextProps.params === params || nextProps.query === query) {
-      return;
+    if (nextProps.params !== this.props.params || nextProps.query !== this.props.query) {
+      const { params, query } = nextProps;
+
+      dispatch(filterPosts({ params, query, sort }));
     }
-
-    dispatch(filterPosts({
-      params: nextProps.params,
-      query: nextProps.query,
-      sort
-    }));
   }
   render() {
-    const {
-      categories, showing, pagination,
-      location: { pathname } } = this.props;
+    const { categories, showing, pagination, pathname } = this.props;
 
     return (
       <div>
         <div className="blog-content">
-          <div className="posts">
-            {showing.map((item, i) => <Post key={i} {...item} />)}
+          <div className="posts">{showing.map((item, i) =>
+            <Post key={i} {...item} />)}
           </div>
           <Categories categories={categories} />
         </div>
@@ -54,7 +48,6 @@ BlogPosts.propTypes = {
   sort: PropTypes.object,
   params: PropTypes.object,
   query: PropTypes.object,
-  routing: PropTypes.object,
   dispatch: PropTypes.func.isRequired
 };
 
