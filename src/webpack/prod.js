@@ -71,7 +71,7 @@ module.exports = [
       alias: alias
     },
     plugins: [
-      new CleanPlugin(PATHS.clean, plugin.clean),
+      new CleanPlugin(plugin.clean.paths, plugin.clean.options),
       new webpack.optimize.OccurenceOrderPlugin(),
       new ExtractTextPlugin(PATHS.static.css),
       new webpack.optimize.UglifyJsPlugin({

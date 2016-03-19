@@ -13,7 +13,6 @@ exports.PATHS = {
     css: 'css/app.css',
     img: 'img/[hash].[ext]'
   },
-  clean: [path.join(__dirname, '..', '..', 'dist')],
   root: __dirname
 };
 
@@ -30,8 +29,10 @@ exports.alias = {
 
 exports.plugin = {
   clean: {
-    root: __dirname,
-    verbose: true
+    paths: ['dist'],
+    options: {
+      root: path.join(__dirname, '..', '..')
+    }
   }
 };
 
