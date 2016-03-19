@@ -11,6 +11,12 @@ export default function blog(state = {
     last: 1,
     buttons: []
   },
+  categories: [],
+  posts: [],
+  post: {},
+  isFetching: false,
+  isCompleted: false,
+  hasOne: false,
   data: {
     posts: {
       total: 0,
@@ -25,10 +31,7 @@ export default function blog(state = {
     },
     post: {},
     categories: []
-  },
-  isFetching: false,
-  isCompleted: false,
-  hasOne: false
+  }
 }, action) {
   switch (action.type) {
     case 'FETCHING_ALL':
@@ -52,12 +55,7 @@ export default function blog(state = {
         hasOne: true,
         isFetching: false,
         isCompleted: true,
-        data: {
-          posts: state.data.posts,
-          categories: state.data.categories,
-          post: action.payload.data.post
-        },
-        filters: action.payload.filters
+        post: action.payload.post
       });
     }
     case 'FILTER_POSTS':

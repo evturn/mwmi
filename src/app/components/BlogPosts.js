@@ -44,7 +44,7 @@ function mapStateToProps(state) {
   return {
     pagination: state.blog.pagination,
     showing: state.blog.showing,
-    categories: state.blog.data.categories,
+    categories: state.blog.categories,
     sort: state.blog.sort
   };
 };

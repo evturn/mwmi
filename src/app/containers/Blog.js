@@ -18,7 +18,7 @@ class Blog extends Component {
 Blog.propTypes = {
   sort: PropTypes.object,
   showing: PropTypes.array,
-  posts: PropTypes.object,
+  posts: PropTypes.array,
   categories: PropTypes.array,
   section: PropTypes.string,
   filters: PropTypes.object,
@@ -36,8 +36,8 @@ function mapStateToProps(state) {
   return {
     sort: state.blog.sort,
     showing: state.blog.showing,
-    posts: state.blog.data.posts,
-    categories: state.blog.data.categories,
+    posts: state.blog.posts,
+    categories: state.blog.categories,
     section: state.blog.section,
     filters: state.blog.filters,
     isFetching: state.blog.isFetching,

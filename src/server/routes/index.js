@@ -1,8 +1,7 @@
 import keystone from 'keystone';
 import express from 'express';
 import path from 'path';
-import * as blog from '../controllers/blog';
-import * as post from '../controllers/post';
+import * as blog from './blog';
 import * as contact from '../controllers/contact';
 import webpack from 'webpack';
 import webpackDevMiddleware from 'webpack-dev-middleware';
@@ -34,9 +33,8 @@ export default function(app) {
 
   app.use(init);
 
-  app.get('/api/locals',          blog.init, blog.categories, blog.filters, blog.posts);
-  app.get('/api/blog/:category?', blog.init, blog.categories, blog.filters, blog.posts);
-  app.get('/api/blog/post/:post', post.init);
+  app.get('/api/locals',          blog.init, blog.populateCategories, blog.findAllPosts);
+  app.get('/api/blog/post/:post', blog.findOnePost);
   app.get('/api/contact',         contact.get, send);
   app.post('/api/contact',        contact.post, send);
 

@@ -9,7 +9,6 @@ const server = {
         return {
           blog: res.blog,
           enquiry: res.enquiry,
-          pagination: {},
           user: res.user
         };
       })

@@ -14,7 +14,7 @@ class BlogPost extends Component {
     dispatch(fetchPost(params.post));
   }
   render() {
-    const { hasOne, data } = this.props;
+    const { hasOne, post} = this.props;
 
     return (
       <div className="post">
@@ -23,21 +23,21 @@ class BlogPost extends Component {
             <Link to={{ pathname: `/blog` }}><span className="fa fa-long-arrow-left" /> back to the blog</Link>
           </div>
         </div>
-        {hasOne ? <Post {...data.post}/> : null}
+        {hasOne ? <Post {...post}/> : null}
       </div>
     );
   }
 }
 
 BlogPost.propTypes = {
-  data: PropTypes.object,
+  post: PropTypes.object,
   hasOne: PropTypes.bool,
   dispatch: PropTypes.func
 };
 
 function mapStateToProps(state) {
   return {
-    data: state.blog.data,
+    post: state.blog.post,
     hasOne: state.blog.hasOne
   };
 }
