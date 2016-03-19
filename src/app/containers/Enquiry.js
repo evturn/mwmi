@@ -1,11 +1,10 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { isTyping, enquiryReceived, enquirySubmit } from 'actions/enquiry';
+import { isTyping, enquirySubmit } from 'actions/enquiry';
 
 class Enquiry extends Component {
   constructor(props){
     super(props);
-
   }
   render() {
     const {
@@ -85,10 +84,7 @@ class Enquiry extends Component {
 }
 
 Enquiry.PropTypes = {
-  error: PropTypes.string,
   hasErrors: PropTypes.bool,
-  section: PropTypes.string,
-  enquiryTypes: PropTypes.string,
   enquirySubmitted: PropTypes.bool,
   validationErrors: {
     name: PropTypes.string,
@@ -107,10 +103,7 @@ Enquiry.PropTypes = {
 
 function mapStateToProps(state) {
   return {
-    errors: state.enquiry.errors,
     hasErrors: state.enquiry.hasErrors,
-    section: state.enquiry.section,
-    enquiryTypes: state.enquiry.enquiryTypes,
     enquirySubmitted: state.enquiry.enquirySubmitted,
     validationErrors: {
       name: state.enquiry.validationErrors.name,

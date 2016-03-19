@@ -1,6 +1,5 @@
-import React, { Component, PropTypes } from 'react'
-import { connect } from 'react-redux'
-import BlogPosts from 'components/BlogPosts';
+import React, { Component, PropTypes } from 'react';
+import { connect } from 'react-redux';
 
 class Blog extends Component {
   constructor(props){
@@ -20,11 +19,6 @@ Blog.propTypes = {
   showing: PropTypes.array,
   posts: PropTypes.array,
   categories: PropTypes.array,
-  section: PropTypes.string,
-  filters: PropTypes.object,
-  isFetching: PropTypes.bool,
-  isCompleted: PropTypes.bool,
-  hasOne: PropTypes.bool,
   dispatch: PropTypes.func.isRequired
 };
 
@@ -32,19 +26,12 @@ Blog.contextTypes = {
   router: PropTypes.object
 };
 
-function mapStateToProps(state, ownProps) {
+function mapStateToProps(state) {
   return {
-    category: ownProps.params.category,
-    author: ownProps.params.author,
-    post: ownProps.params.post,
-    page: ownProps.location.query.page,
     sort: state.blog.sort,
     showing: state.blog.showing,
     posts: state.blog.posts,
-    categories: state.blog.categories,
-    isFetching: state.blog.isFetching,
-    isCompleted: state.blog.isCompleted,
-    hasOne: state.blog.hasOne
+    categories: state.blog.categories
   };
 };
 

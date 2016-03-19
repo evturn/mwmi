@@ -1,7 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
-import BlogRouter from 'components/BlogRouter';
 import cx from 'classnames';
 
 class Pagination extends Component {
@@ -10,48 +9,50 @@ class Pagination extends Component {
   }
   render() {
     const {
-      total, pages, buttons,
-      currentPage, next, previous,
-      first, last, params, pathname } = this.props;
+      total, pages, next, previous, buttons,
+      currentPage, first, last, params, pathname} = this.props;
+
+    const backClass = cx({'off': !previous});
+    const backHref = { pathname, query: { page: previous } };
+    const back = (
+      <li className="page">
+        <Link className={backClass} to={backHref}>
+          <span className="fa fa-chevron-left" />
+        </Link>
+      </li>
+    );
+
+    const forwardClass = cx({'off': !next});
+    const forwardHref = { pathname, query: { page: next } }
+    const forward = (
+      <li className="page">
+        <Link className={forwardClass} to={forwardHref}>
+          <span className="fa fa-chevron-right" />
+        </Link>
+      </li>
+    );
+
+    const skipTo = buttons.map(page =>
+      <li key={page} className="page">
+        <Link
+          className={cx({'off': page === currentPage})}
+          to={{ pathname, query: {page} }}>
+          {page}
+        </Link>
+      </li>
+    );
+
+    const pageResultsText = `Showing ${first} - ${last} of ${total}`;
+    const pageResults = <div className="page-results">{pageResultsText}</div>;
 
     return (
       <div>
-        <div className="blog-content__header">Showing {first} - {last} of {total}</div>
+        {pageResults}
         <div className="pagination">
           <ul className="pages">
-            <li className="page">
-              <Link
-                className={cx({'off': !previous})}
-                to={{ pathname, query: { page: previous } }}>
-                <BlogRouter params={params} query={{ page: previous }}>
-                  <span className="fa fa-chevron-left" />
-                </BlogRouter>
-              </Link>
-            </li>
-
-              {buttons.map(page => {
-                return (
-                  <li key={page} className="page">
-                    <Link
-                      className={cx({'off': page === currentPage})}
-                      to={{ pathname, query: {page} }}>
-                      <BlogRouter params={params} query={{ page }}>
-                        {page}
-                      </BlogRouter>
-                    </Link>
-                  </li>
-                );
-              })}
-
-            <li className="page">
-              <Link
-                className={cx({'off': !next})}
-                to={{ pathname, query: { page: next } }}>
-                <BlogRouter params={params} query={{ page: next }}>
-                  <span className="fa fa-chevron-right" />
-                </BlogRouter>
-              </Link>
-            </li>
+            {back}
+            {skipTo}
+            {forward}
           </ul>
         </div>
       </div>
@@ -62,10 +63,10 @@ class Pagination extends Component {
 Pagination.propTypes = {
   total: PropTypes.number,
   pages: PropTypes.number,
+  buttons: PropTypes.array,
   first: PropTypes.number,
   last: PropTypes.number,
   currentPage: PropTypes.number,
-  buttons: PropTypes.array,
   dispatch: PropTypes.func
 };
 
@@ -73,6 +74,7 @@ function mapStateToProps(state) {
   return {
     total: state.blog.pagination.total,
     pages: state.blog.pagination.pages,
+    buttons: state.blog.pagination.buttons,
     first: state.blog.pagination.first,
     last: state.blog.pagination.last,
     previous: state.blog.pagination.previous,

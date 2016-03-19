@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router';
-import BlogRouter from 'components/BlogRouter';
 import moment from 'moment';
 
 export default props => {
@@ -21,9 +20,7 @@ export default props => {
       <div className="post-author">By: <Link key={author.id} to={{ pathname: `/blog/author/${author.name.first}` }}>{author.name.first}</Link></div>
       <ul className="post-categories">Posted in: {categories.map(item =>
         <li key={item.key} className="post-category">
-          <Link to={{ pathname: `/blog/category/${item.key}` }}>
-            <BlogRouter params={{ category: item.key }}>{item.name}</BlogRouter>
-          </Link>
+          <Link to={{ pathname: `/blog/category/${item.key}` }}>{item.name}</Link>
         </li>
       )}</ul>
       <div className="post-date">{moment(publishedDate).format('MMM Do YYYY')}</div>

@@ -40,8 +40,11 @@ BlogPosts.propTypes = {
   dispatch: PropTypes.func.isRequired
 };
 
-function mapStateToProps(state) {
+function mapStateToProps(state, ownProps) {
   return {
+    category: ownProps.params.category,
+    author: ownProps.params.author,
+    page: ownProps.location.query.page,
     pagination: state.blog.pagination,
     showing: state.blog.showing,
     categories: state.blog.categories,
