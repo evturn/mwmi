@@ -18,23 +18,15 @@ export default function blog(state = {
   hasOne: false
 }, action) {
   switch (action.type) {
-    case 'FETCHING_ALL':
+    case 'FILTER_POSTS':
       return Object.assign({}, state, {
-        isFetching: true,
-        isCompleted: false
-      });
-    case 'FETCH_ALL_SUCCESS': {
-      return Object.assign({}, state, {
-        isFetching: false,
-        isCompleted: true,
         ...action.payload
       });
-    }
-    case 'FETCHING_ONE':
+    case 'FETCH_POST':
       return Object.assign({}, state, {
         hasOne: false
       });
-    case 'FETCH_ONE_SUCCESS': {
+    case 'FETCH_SUCCESS': {
       return Object.assign({}, state, {
         hasOne: true,
         isFetching: false,
@@ -42,10 +34,6 @@ export default function blog(state = {
         post: action.payload
       });
     }
-    case 'FILTER_POSTS':
-      return Object.assign({}, state, {
-        ...action.payload
-      });
     case 'FETCH_ERROR':
       return Object.assign({}, state, {
         message: action.message,

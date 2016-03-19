@@ -1,34 +1,15 @@
 import fetch from 'isomorphic-fetch'
 
 const actions = {
-  fetchingOne() {
-    return {
-      type: 'FETCHING_ONE'
-    };
-  },
-  fetchOneSuccess(payload) {
-    return {
-      type: 'FETCH_ONE_SUCCESS',
-      payload
-    };
-  },
-  fetchError(message) {
-    return {
-      type: 'FETCH_ERROR',
-      message
-    };
-  },
-  filterPosts(payload) {
-    return {
-      type: 'FILTER_POSTS',
-      payload
-    };
-  }
+  fetchPost: ()         => ({ type: 'FETCH_POST' }),
+  fetchSuccess: payload => ({ type: 'FETCH_SUCCESS', payload }),
+  fetchError: message   => ({ type: 'FETCH_ERROR', message }),
+  filterPosts: payload  => ({ type: 'FILTER_POSTS', payload })
 };
 
 export const filterPosts = props => dispatch => {
   const { params, query, sort } = props;
-  const page = query.page ? parseInt(query.page) : 1
+  const page = query.page ? parseInt(query.page) : 1;
   let posts;
 
   if (params.author) {
@@ -44,18 +25,14 @@ export const filterPosts = props => dispatch => {
   dispatch(actions.filterPosts(blogState));
 };
 
-export function fetchPost(slug) {
-  const url = `/api/blog/post/${slug}`;
+export const fetchPost = slug => dispatch => {
+  dispatch(actions.fetchPost());
 
-  return function(dispatch) {
-    dispatch(actions.fetchingOne());
-
-    return fetch(url)
-      .then(res => res.json())
-      .then(json => dispatch(actions.fetchOneSuccess(json.blog.post)))
-      .catch(error => dispatch(actions.fetchError(error)));
-  }
-}
+  return fetch(`/api/blog/post/${slug}`)
+    .then(res => res.json())
+    .then(res => dispatch(actions.fetchSuccess(res.blog.post)))
+    .catch(err => dispatch(actions.fetchError(err)));
+};
 
 function setPagination(posts, page) {
   const currentPage = page;
