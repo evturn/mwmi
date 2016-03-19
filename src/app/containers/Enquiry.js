@@ -1,6 +1,10 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { isTyping, enquirySubmit } from 'actions/enquiry';
+import classNames from 'classnames/bind';
+import css from 'less/components/enquiry.less';
+
+const cx = classNames.bind(css);
 
 class Enquiry extends Component {
   constructor(props){
@@ -12,29 +16,29 @@ class Enquiry extends Component {
       enquirySubmitted, dispatch } = this.props;
 
     const name = (
-      <div className="enquiry__form-field">
+      <div className={cx('enquiry__form-field')}>
         <input
           name="name"
           type="text"
           placeholder="Name"
           onChange={e => dispatch(isTyping(e.target).bind(this))} />
-        <div className="enquiry__form-error">{hasErrors && validationErrors.name ? validationErrors.name : null}</div>
+        <div className={cx('enquiry__form-error')}>{hasErrors && validationErrors.name ? validationErrors.name : null}</div>
       </div>
     );
 
     const email = (
-      <div className="enquiry__form-field">
+      <div className={cx('enquiry__form-field')}>
         <input
           name="email"
           type="email"
           placeholder="Email"
           onChange={e => dispatch(isTyping(e.target).bind(this))} />
-        <div className="enquiry__form-error">{hasErrors && validationErrors.email ? validationErrors.email : null}</div>
+        <div className={cx('enquiry__form-error')}>{hasErrors && validationErrors.email ? validationErrors.email : null}</div>
       </div>
     );
 
     const phone = (
-      <div className="enquiry__form-field">
+      <div className={cx('enquiry__form-field')}>
         <input
           name="phone"
           type="text"
@@ -44,27 +48,27 @@ class Enquiry extends Component {
     );
 
     const message = (
-      <div className="enquiry__form-field">
+      <div className={cx('enquiry__form-field')}>
         <textarea
           name="message"
           rows="4"
           placeholder="Message"
           onChange={e => dispatch(isTyping(e.target).bind(this))} />
-        <div className="enquiry__form-error">{hasErrors && validationErrors.message ? validationErrors.message : null}</div>
+        <div className={cx('enquiry__form-error')}>{hasErrors && validationErrors.message ? validationErrors.message : null}</div>
       </div>
     );
 
     const submitButton = (
-      <div className="enquiry__form-submit">
-        <button className="button__red" onClick={this.onSubmit.bind(this)}>Send</button>
+      <div className={cx('enquiry__form-submit')}>
+        <button className={cx('btn')} onClick={this.onSubmit.bind(this)}>Send</button>
       </div>
     );
 
     return (
-      <div className="enquiry">
-        {enquirySubmitted ? <div className="enquiry__success">Thanks for getting in touch.</div> : (
-          <form className="enquiry__form">
-            <div className="enquiry__header">Leave us a message</div>
+      <div className={cx('enquiry')}>
+        {enquirySubmitted ? <div className={cx('enquiry__success')}>Thanks for getting in touch.</div> : (
+          <form className={cx('enquiry__form')}>
+            <div className={cx('enquiry__header')}>Leave us a message</div>
             {name}
             {email}
             {phone}

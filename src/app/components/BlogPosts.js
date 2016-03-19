@@ -5,6 +5,10 @@ import { filterPosts } from 'actions/blog';
 import Categories from 'components/Categories';
 import Pagination from 'components/Pagination';
 import Post from 'components/Post';
+import classNames from 'classnames/bind';
+import css from 'less/components/blog.less';
+
+const cx = classNames.bind(css);
 
 class BlogPosts extends Component {
   constructor(props) {
@@ -29,8 +33,8 @@ class BlogPosts extends Component {
 
     return (
       <div>
-        <div className="blog-content">
-          <div className="posts">{showing.map((item, i) =>
+        <div className={cx('blog-content')}>
+          <div className={cx('posts')}>{showing.map((item, i) =>
             <Post key={i} {...item} />)}
           </div>
           <Categories categories={categories} />

@@ -34,8 +34,14 @@ const LOADERS = [
     test: /\.woff2(\?\S*)?$/,
     loader: 'url-loader?limit=100000'
   },{
+    test: /\.css$/,
+    loader: ExtractTextPlugin.extract('style-loader', 'css-loader')
+  },{
     test: /\.less$/,
-    loader: ExtractTextPlugin.extract('style-loader', 'css-loader!less-loader?sourceMap')
+    loader: ExtractTextPlugin.extract(
+      'style-loader',
+      'css-loader?module&localIdentName=[local]__[hash:base64:5]' +
+      '!less?includePaths[]=' + encodeURIComponent(PATHS.less))
   }
 ];
 
@@ -103,11 +109,6 @@ module.exports = [
     plugins: [
       new webpack.optimize.OccurenceOrderPlugin(),
       new ExtractTextPlugin(PATHS.static.css),
-      new webpack.optimize.UglifyJsPlugin({
-        compressor: {
-          warnings: false
-        }
-      }),
       new webpack.DefinePlugin({
         'process.env.NODE_ENV': '"production"',
         __DEV__: false,

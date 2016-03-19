@@ -1,5 +1,9 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
+import classNames from 'classnames/bind';
+import css from 'less/components/blog.less';
+
+const cx = classNames.bind(css);
 
 class Blog extends Component {
   constructor(props){
@@ -7,7 +11,7 @@ class Blog extends Component {
   }
   render() {
     return (
-      <div className="blog">
+      <div className={cx('blog')}>
         {this.props.children}
       </div>
     );

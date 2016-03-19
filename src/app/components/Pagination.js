@@ -1,7 +1,10 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
-import cx from 'classnames';
+import classNames from 'classnames/bind';
+import css from 'less/components/pagination.less';
+
+const cx = classNames.bind(css);
 
 class Pagination extends Component {
   constructor(props) {
@@ -15,9 +18,9 @@ class Pagination extends Component {
     const backClass = cx({'off': !previous});
     const backHref = { pathname, query: { page: previous } };
     const back = (
-      <li className="page">
+      <li className={cx('page')}>
         <Link className={backClass} to={backHref}>
-          <span className="fa fa-chevron-left" />
+          <span className={cx('fa fa-chevron-left')} />
         </Link>
       </li>
     );
@@ -25,15 +28,15 @@ class Pagination extends Component {
     const forwardClass = cx({'off': !next});
     const forwardHref = { pathname, query: { page: next } }
     const forward = (
-      <li className="page">
+      <li className={cx('page')}>
         <Link className={forwardClass} to={forwardHref}>
-          <span className="fa fa-chevron-right" />
+          <span className={cx('fa fa-chevron-right')} />
         </Link>
       </li>
     );
 
     const skipTo = buttons.map(page =>
-      <li key={page} className="page">
+      <li key={page} className={cx('page')}>
         <Link
           className={cx({'off': page === currentPage})}
           to={{ pathname, query: {page} }}>
@@ -43,13 +46,13 @@ class Pagination extends Component {
     );
 
     const pageResultsText = `Showing ${first} - ${last} of ${total}`;
-    const pageResults = <div className="page-results">{pageResultsText}</div>;
+    const pageResults = <div className={cx('page-results')}>{pageResultsText}</div>;
 
     return (
       <div>
         {pageResults}
-        <div className="pagination">
-          <ul className="pages">
+        <div className={cx('pagination')}>
+          <ul className={cx('pages')}>
             {back}
             {skipTo}
             {forward}

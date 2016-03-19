@@ -1,5 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router';
+import classNames from 'classnames/bind';
+import css from 'less/components/home.less';
+
+const cx = classNames.bind(css);
 
 export default class Home extends React.Component {
   constructor(props) {
@@ -9,14 +13,14 @@ export default class Home extends React.Component {
   }
   render() {
     return (
-      <div className="home">
-        <div className="home__logo">
-          <img className="home__logo-image" src={require('images/home.png')} />
-          <div className="home__logo-title">MWMI</div>
+      <div className={cx('home')}>
+        <div className={cx('home__logo')}>
+          <img className={cx('home__logo-image')} src={require('images/home.png')} />
+          <div className={cx('home__logo-title')}>MWMI</div>
         </div>
-        <div className="home__details">
-          <div className="home__details-description">{this.subtitle}</div>
-          <Link to={{ pathname: '/blog' }}><button className="home__details-button button__red">Stream Now</button></Link>
+        <div className={cx('home__details')}>
+          <div className={cx('home__details-description')}>{this.subtitle}</div>
+          <Link to={{ pathname: '/blog' }}><button className={cx('btn')}>Stream Now</button></Link>
         </div>
       </div>
     );

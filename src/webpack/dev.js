@@ -60,8 +60,13 @@ export default {
         test: /\.woff2(\?\S*)?$/,
         loader: 'url-loader?limit=100000'
       },{
+        test: /\.css$/,
+        loader: ExtractTextPlugin.extract('style-loader', 'css-loader'),
+      },{
         test: /\.less$/,
-        loader: ExtractTextPlugin.extract('style-loader', 'css-loader!less-loader?sourceMap')
+        loader: 'style!css?module&localIdentName=[local]__[hash:base64:5]' +
+          '&sourceMap!less?sourceMap&outputStyle=expanded' +
+          '&includePaths[]=' + encodeURIComponent(PATHS.less)
       }
     ]
   },

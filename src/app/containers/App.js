@@ -2,6 +2,10 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import Header from 'components/Header';
 import Footer from 'components/Footer';
+import classNames from 'classnames/bind';
+import css from 'less/components/layout.less';
+
+const cx = classNames.bind(css);
 
 class App extends Component {
   constructor(props){
@@ -9,9 +13,9 @@ class App extends Component {
   }
   render() {
     return (
-      <div className='site'>
+      <div className={cx('site')}>
         <Header />
-        <div className='content'>
+        <div className={cx('content')}>
           {this.props.children}
         </div>
         <Footer />

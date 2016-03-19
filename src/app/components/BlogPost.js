@@ -3,6 +3,10 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import { fetchPost } from 'actions/blog';
 import Post from 'components/Post';
+import classNames from 'classnames/bind';
+import css from 'less/components/post.less';
+
+const cx = classNames.bind(css);
 
 class BlogPost extends Component {
   constructor(props){
@@ -17,10 +21,10 @@ class BlogPost extends Component {
     const { hasOne, post} = this.props;
 
     return (
-      <div className="post-detail">
-        <div className="post-detail__header">
-          <div className="post-detail__back">
-            <Link to={{ pathname: `/blog` }}><span className="fa fa-long-arrow-left" /> back to the blog</Link>
+      <div className={cx('post-detail')}>
+        <div className={cx('post-detail__header')}>
+          <div className={cx('post-detail__back')}>
+            <Link to={{ pathname: `/blog` }}><span className={cx('fa fa-long-arrow-left')} /> back to the blog</Link>
           </div>
         </div>
         {hasOne ? <Post {...post}/> : null}

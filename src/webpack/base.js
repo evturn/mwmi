@@ -13,7 +13,7 @@ exports.PATHS = {
     css: 'css/app.css',
     img: 'img/[hash].[ext]'
   },
-  clean: ['../../dist'],
+  clean: [path.join(__dirname, '..', '..', 'dist')],
   root: __dirname
 };
 
@@ -25,8 +25,8 @@ exports.alias = {
   store:         path.join(__dirname, '../app/store/'),
   routes:        path.join(__dirname, '../app/routes'),
   images:        path.join(__dirname, '../client/img/'),
-  css:           path.join(__dirname, '../client/css/'),
-  less:          path.join(__dirname, '../client/less/')
+  less:          path.join(__dirname, '../client/less/'),
+  css:          path.join(__dirname, '../client/css/')
 };
 
 exports.plugin = {
