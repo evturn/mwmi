@@ -9,7 +9,6 @@ export default props => {
     image, author, categories,
     content } = props;
 
-
   const header = (
     <div className="post-title">
       <Link to={{ pathname: `/blog/post/${slug}` }}>{title}</Link>

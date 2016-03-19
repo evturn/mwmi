@@ -55,7 +55,7 @@ export default function blog(state = {
         hasOne: true,
         isFetching: false,
         isCompleted: true,
-        post: action.payload.post
+        post: action.payload
       });
     }
     case 'FILTER_POSTS':

@@ -17,9 +17,9 @@ class BlogPost extends Component {
     const { hasOne, post} = this.props;
 
     return (
-      <div className="post">
-        <div className="post__header">
-          <div className="post__header-back">
+      <div className="post-detail">
+        <div className="post-detail__header">
+          <div className="post-detail__back">
             <Link to={{ pathname: `/blog` }}><span className="fa fa-long-arrow-left" /> back to the blog</Link>
           </div>
         </div>

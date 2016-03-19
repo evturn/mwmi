@@ -111,7 +111,7 @@ export function fetchPost(slug) {
 
     return fetch(url)
       .then(res => res.json())
-      .then(json => dispatch(actions.fetchOneSuccess(json)))
+      .then(json => dispatch(actions.fetchOneSuccess(json.blog.post)))
       .catch(error => dispatch(actions.fetchError(error)));
   }
 }
