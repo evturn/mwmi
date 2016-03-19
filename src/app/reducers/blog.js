@@ -16,22 +16,7 @@ export default function blog(state = {
   post: {},
   isFetching: false,
   isCompleted: false,
-  hasOne: false,
-  data: {
-    posts: {
-      total: 0,
-      results: [],
-      currentPage: 1,
-      totalPages: 1,
-      pages: [],
-      previous: false,
-      next: false,
-      first: 1,
-      last: 1
-    },
-    post: {},
-    categories: []
-  }
+  hasOne: false
 }, action) {
   switch (action.type) {
     case 'FETCHING_ALL':
