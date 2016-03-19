@@ -1,20 +1,9 @@
 import fetch from 'isomorphic-fetch'
 
 const actions = {
-  fetchingAll() {
-    return {
-      type: 'FETCHING_ALL'
-    };
-  },
   fetchingOne() {
     return {
       type: 'FETCHING_ONE'
-    };
-  },
-  fetchAllSuccess(payload) {
-    return {
-      type: 'FETCH_ALL_SUCCESS',
-      payload
     };
   },
   fetchOneSuccess(payload) {
@@ -38,45 +27,22 @@ const actions = {
 };
 
 export const filterPosts = props => dispatch => {
-  console.log(props);
   const { params, query, sort } = props;
-
-  let posts = sort.all;
-
-  if (params) {
-    for (let param in params) {
-      if (param !== 'post') {
-        posts = sort[param][params[param]];
-      }
-    }
-  }
   const page = query.page ? parseInt(query.page) : 1
-  const blogState = setPagination(posts, page);
+  let posts;
 
-  dispatch(actions.filterPosts(blogState));
-}
-
-export const refilterPosts = props => dispatch => {
-  const { posts, page } = props;
-
-  const blogState = setPagination(posts, page);
-
-  dispatch(actions.filterPosts(blogState));
-}
-
-export function fetchPosts(params, query) {
-  const route = params.category !== undefined ? `/api/blog/${params.category}` : '/api/blog';
-  const url = query !== undefined && query.page !== undefined ? `${route}?page=${query.page}` : route;
-
-  return function(dispatch) {
-    dispatch(actions.fetchingAll());
-
-    return fetch(url)
-      .then(res => res.json())
-      .then(json => dispatch(actions.fetchAllSuccess(json)))
-      .catch(error => dispatch(actions.fetchError(error)));
+  if (params.author) {
+    posts = sort.author[params.author];
+  } else if (params.category) {
+    posts = sort.category[params.category];
+  } else {
+    posts = sort.all;
   }
-}
+
+  const blogState = setPagination(posts, page);
+
+  dispatch(actions.filterPosts(blogState));
+};
 
 export function fetchPost(slug) {
   const url = `/api/blog/post/${slug}`;

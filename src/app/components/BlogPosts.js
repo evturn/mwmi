@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
-import { filterPosts, refilterPosts } from 'actions/blog'
+import { filterPosts } from 'actions/blog';
 import Categories from 'components/Categories';
 import Pagination from 'components/Pagination';
 import Post from 'components/Post';
@@ -11,37 +11,25 @@ class BlogPosts extends Component {
     super(props);
   }
   componentWillMount() {
-    const { dispatch, params, sort, query } = this.props;
+    const { dispatch, params, query, sort } = this.props;
 
     dispatch(filterPosts({ params, query, sort }));
   }
-  componentWillUpdate(nextProps) {
-    const { params, query, dispatch, sort } = this.props;
+  componentWillReceiveProps(nextProps) {
+    const { dispatch, params, query, sort } = this.props;
     const changedParams = nextProps.params !== params;
     const changedQuery = nextProps.query !== query;
 
     if (!changedParams || !changedQuery) {
       return;
     }
+    const args = {
+      params: nextProps.params,
+      query: nextProps.query,
+      sort
+    };
 
-    let page;
-    let posts;
-
-    if (nextProps.query.page) {
-      page = parseInt(nextProps.query.page);
-    } else {
-      page = 1;
-    }
-
-    if (nextProps.params.author) {
-      posts = sort.author[nextProps.params.author];
-    } else if (nextProps.params.category) {
-      posts = sort.category[nextProps.params.category];
-    } else {
-      posts = sort.all;
-    }
-
-    dispatch(refilterPosts({ posts, page }));
+    dispatch(filterPosts(args));
   }
   render() {
     const { categories, showing, pagination, params, location: { pathname } } = this.props;
@@ -67,6 +55,7 @@ BlogPosts.propTypes = {
   sort: PropTypes.object,
   params: PropTypes.object,
   query: PropTypes.object,
+  routing: PropTypes.object,
   dispatch: PropTypes.func.isRequired
 };
 
@@ -76,6 +65,7 @@ BlogPosts.contextTypes = {
 
 export default connect(
   (state, ownProps) => ({
+    routing: state.routing,
     params: ownProps.params,
     query: ownProps.location.query,
     pathname: ownProps.location.pathname,

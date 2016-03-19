@@ -5,14 +5,11 @@ import { Router, browserHistory } from 'react-router';
 import { syncHistoryWithStore } from 'react-router-redux';
 import configureStore from 'store';
 import routes from 'routes';
-import { syncBlogWithRoutes } from 'actions/api';
 import css from 'less/style.less';
 
 const initialState = window.__INITIAL_STATE__;
 const store = configureStore(initialState);
-const history = syncHistoryWithStore(browserHistory, store)
-
-history.listen(syncBlogWithRoutes);
+const history = syncHistoryWithStore(browserHistory, store);
 
 render(
   <Provider store={store}>

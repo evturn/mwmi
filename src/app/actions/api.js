@@ -48,17 +48,12 @@ const client = {
       },
       body: JSON.stringify(data)
     });
-  },
-  syncBlogWithRoutes(location) {
-    console.log(`PATHNAME`, location.pathname);
-    console.log(`QUERY`, location.query);
   }
 };
 
 export const hydrate = server.hydrate;
 export const renderLayout = server.renderLayout;
 
-export const syncBlogWithRoutes = client.syncBlogWithRoutes;
 export const xhrpost = client.xhrpost;
 
 export function thunkmasterFlex({ dispatch, getState }) {
