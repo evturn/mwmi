@@ -5,7 +5,7 @@ import { Router, browserHistory } from 'react-router';
 import { syncHistoryWithStore } from 'react-router-redux';
 import configureStore from 'store';
 import routes from 'routes';
-import css from 'css/style.css';
+import css from 'less/global/style.less';
 
 const initialState = window.__INITIAL_STATE__;
 const store = configureStore(initialState);

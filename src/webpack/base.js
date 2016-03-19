@@ -25,8 +25,7 @@ exports.alias = {
   store:         path.join(__dirname, '../app/store/'),
   routes:        path.join(__dirname, '../app/routes'),
   images:        path.join(__dirname, '../client/img/'),
-  less:          path.join(__dirname, '../client/less/'),
-  css:          path.join(__dirname, '../client/css/')
+  less:          path.join(__dirname, '../client/less/')
 };
 
 exports.plugin = {
