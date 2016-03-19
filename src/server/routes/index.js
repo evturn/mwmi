@@ -2,7 +2,7 @@ import keystone from 'keystone';
 import express from 'express';
 import path from 'path';
 import * as blog from './blog';
-import * as contact from '../controllers/contact';
+import * as enquiry from './enquiry';
 import webpack from 'webpack';
 import webpackDevMiddleware from 'webpack-dev-middleware';
 import webpackHotMiddleware from 'webpack-hot-middleware';
@@ -15,8 +15,6 @@ const init = (req, res, next) => {
   res.locals.user = req.user;
   next();
 };
-
-const send = (req, res, next) => res.json(res.locals);
 
 export default function(app) {
   if (ENV === 'development') {
@@ -35,8 +33,8 @@ export default function(app) {
 
   app.get('/api/locals',          blog.init, blog.populateCategories, blog.findAllPosts);
   app.get('/api/blog/post/:post', blog.findOnePost);
-  app.get('/api/contact',         contact.get, send);
-  app.post('/api/contact',        contact.post, send);
+  app.get('/api/contact',         enquiry.get);
+  app.post('/api/contact',        enquiry.post);
 
   app.get('*', (req, res) => server(req, res));
 }
