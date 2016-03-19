@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router';
+import BlogRouter from 'components/BlogRouter';
 import moment from 'moment';
 
 export default props => {
@@ -8,32 +9,30 @@ export default props => {
     image, author, categories,
     content } = props;
 
-  const date = moment(publishedDate).format('MMM Do YYYY');
 
   const header = (
-    <div className="entry__header">
-      <div className="entry__header-title">
-        <Link to={{ pathname: `/blog/post/${slug}` }}>{title}</Link>
-      </div>
-      <div className="entry__header-caption">{date}</div>
+    <div className="post-title">
+      <Link to={{ pathname: `/blog/post/${slug}` }}>{title}</Link>
     </div>
   );
-
-  const photo = image !== undefined ? <img className="entry__image" src={image.url} /> : null
-
-  const body = <div className="entry__body" dangerouslySetInnerHTML={{ __html: content.extended }} />;
-
+  const photo = image !== undefined ? <img className="post-image" src={image.url} /> : null
+  const body = <div className="post-body" dangerouslySetInnerHTML={{ __html: content.extended }} />;
   const footer = (
-    <div className="entry__footer">
-      <div className="entry__footer-author">By: <Link key={author.id} to={{ pathname: `/blog/authors/${author.name.first}` }}>{author.name.first}</Link></div>
-      <div className="entry__footer-categories">Posted in | {categories.map(item =>
-        <Link key={item.key} to={{ pathname: `/blog/categories/${item.key}` }}>{item.name}</Link>
-      )}</div>
+    <div className="post-footer">
+      <div className="post-author">By: <Link key={author.id} to={{ pathname: `/blog/authors/${author.name.first}` }}>{author.name.first}</Link></div>
+      <ul className="post-categories">Posted in: {categories.map(item =>
+        <li key={item.key} className="post-category">
+          <Link to={{ pathname: `/blog/categories/${item.key}` }}>
+            <BlogRouter params={{ category: item.key }}>{item.name}</BlogRouter>
+          </Link>
+        </li>
+      )}</ul>
+      <div className="post-date">{moment(publishedDate).format('MMM Do YYYY')}</div>
     </div>
   );
 
   return (
-    <div className="entry" data-ks-editable="if-user-blah-blah-blah">
+    <div className="post" data-ks-editable="if-user-blah-blah-blah">
       {header}
       {photo}
       {body}
