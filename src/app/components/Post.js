@@ -18,10 +18,10 @@ export default props => {
   const body = <div className="post-body" dangerouslySetInnerHTML={{ __html: content.extended }} />;
   const footer = (
     <div className="post-footer">
-      <div className="post-author">By: <Link key={author.id} to={{ pathname: `/blog/authors/${author.name.first}` }}>{author.name.first}</Link></div>
+      <div className="post-author">By: <Link key={author.id} to={{ pathname: `/blog/author/${author.name.first}` }}>{author.name.first}</Link></div>
       <ul className="post-categories">Posted in: {categories.map(item =>
         <li key={item.key} className="post-category">
-          <Link to={{ pathname: `/blog/categories/${item.key}` }}>
+          <Link to={{ pathname: `/blog/category/${item.key}` }}>
             <BlogRouter params={{ category: item.key }}>{item.name}</BlogRouter>
           </Link>
         </li>

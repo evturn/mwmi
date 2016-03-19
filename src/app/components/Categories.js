@@ -14,7 +14,7 @@ export default class Categories extends Component {
           </li>
           {categories.map(item =>
             <li key={item.key} className="category-item">
-              <Link to={{ pathname: `/blog/categories/${item.key}` }}>
+              <Link to={{ pathname: `/blog/category/${item.key}` }}>
                 <BlogRouter params={{ category: item.key }}>
                   {item.name}
                 </BlogRouter>

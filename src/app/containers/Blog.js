@@ -32,14 +32,16 @@ Blog.contextTypes = {
   router: PropTypes.object
 };
 
-function mapStateToProps(state) {
+function mapStateToProps(state, ownProps) {
   return {
+    category: ownProps.params.category,
+    author: ownProps.params.author,
+    post: ownProps.params.post,
+    page: ownProps.location.query.page,
     sort: state.blog.sort,
     showing: state.blog.showing,
     posts: state.blog.posts,
     categories: state.blog.categories,
-    section: state.blog.section,
-    filters: state.blog.filters,
     isFetching: state.blog.isFetching,
     isCompleted: state.blog.isCompleted,
     hasOne: state.blog.hasOne

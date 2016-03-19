@@ -20,18 +20,12 @@ class App extends Component {
   }
 }
 
-App.propTypes = {
-  posts: PropTypes.array,
-  post: PropTypes.object,
-  categories: PropTypes.array,
-  dispatch: PropTypes.func.isRequired
-};
-
-function mapStateToProps(state) {
+function mapStateToProps(state, ownProps) {
   return {
-    posts: state.blog.posts,
-    post: state.blog.post,
-    categories: state.blog.categories
+    category: ownProps.params.category,
+    author: ownProps.params.author,
+    post: ownProps.params.post,
+    page: ownProps.location.query.page,
   };
 };
 

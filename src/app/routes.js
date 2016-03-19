@@ -12,8 +12,8 @@ export default (
     <IndexRoute component={Home} />
     <Route path="blog" component={Blog}>
       <IndexRoute component={BlogPosts} />
-      <Route path="categories/:category" component={BlogPosts} />
-      <Route path="authors/:author" component={BlogPosts} />
+      <Route path="category/:category" component={BlogPosts} />
+      <Route path="author/:author" component={BlogPosts} />
       <Route path="post/:post" component={BlogPost} />
     </Route>
     <Route path="contact" component={Enquiry} />

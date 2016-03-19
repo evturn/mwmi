@@ -4,7 +4,7 @@ exports.PATHS = {
   app: path.join(__dirname, '..', '..', 'src'),
   output: path.join(__dirname, '..', '..', 'dist'),
   publicPath: {
-    dev: '/build/',
+    dev: '/dist/',
     prod: '/dist/'
   },
   less: path.resolve(__dirname, '..', 'client', 'less'),
