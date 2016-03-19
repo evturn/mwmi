@@ -10,7 +10,7 @@ class Pagination extends Component {
   render() {
     const {
       total, pages, next, previous, buttons,
-      currentPage, first, last, params, pathname} = this.props;
+      currentPage, first, last, pathname} = this.props;
 
     const backClass = cx({'off': !previous});
     const backHref = { pathname, query: { page: previous } };
@@ -67,6 +67,7 @@ Pagination.propTypes = {
   first: PropTypes.number,
   last: PropTypes.number,
   currentPage: PropTypes.number,
+  pathname: PropTypes.string,
   dispatch: PropTypes.func
 };
 
@@ -79,7 +80,6 @@ export default connect(
     last: state.blog.pagination.last,
     previous: state.blog.pagination.previous,
     next: state.blog.pagination.next,
-    currentPage: state.blog.pagination.currentPage,
-    buttons: state.blog.pagination.buttons
+    currentPage: state.blog.pagination.currentPage
   })
 )(Pagination);

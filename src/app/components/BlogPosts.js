@@ -17,22 +17,21 @@ class BlogPosts extends Component {
   }
   componentWillReceiveProps(nextProps) {
     const { dispatch, params, query, sort } = this.props;
-    const changedParams = nextProps.params !== params;
-    const changedQuery = nextProps.query !== query;
 
-    if (!changedParams || !changedQuery) {
+    if (nextProps.params === params || nextProps.query === query) {
       return;
     }
-    const args = {
+
+    dispatch(filterPosts({
       params: nextProps.params,
       query: nextProps.query,
       sort
-    };
-
-    dispatch(filterPosts(args));
+    }));
   }
   render() {
-    const { categories, showing, pagination, params, location: { pathname } } = this.props;
+    const {
+      categories, showing, pagination,
+      location: { pathname } } = this.props;
 
     return (
       <div>
@@ -42,7 +41,7 @@ class BlogPosts extends Component {
           </div>
           <Categories categories={categories} />
         </div>
-        <Pagination params={params} pathname={pathname} {...pagination} />
+        <Pagination pathname={pathname} {...pagination} />
       </div>
     );
   }
@@ -57,10 +56,6 @@ BlogPosts.propTypes = {
   query: PropTypes.object,
   routing: PropTypes.object,
   dispatch: PropTypes.func.isRequired
-};
-
-BlogPosts.contextTypes = {
-  store: PropTypes.object
 };
 
 export default connect(
