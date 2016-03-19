@@ -101,8 +101,8 @@ Enquiry.PropTypes = {
   dispatch: PropTypes.func
 };
 
-function mapStateToProps(state) {
-  return {
+export default connect(
+  state => ({
     hasErrors: state.enquiry.hasErrors,
     enquirySubmitted: state.enquiry.enquirySubmitted,
     validationErrors: {
@@ -117,7 +117,5 @@ function mapStateToProps(state) {
       phone: state.enquiry.formData.phone,
       message: state.enquiry.formData.message
     }
-  };
-}
-
-export default connect(mapStateToProps)(Enquiry);
+  })
+)(Enquiry);

@@ -35,11 +35,9 @@ BlogPost.propTypes = {
   dispatch: PropTypes.func
 };
 
-function mapStateToProps(state) {
-  return {
+export default connect(
+  state => ({
     post: state.blog.post,
     hasOne: state.blog.hasOne
-  };
-}
-
-export default connect(mapStateToProps)(BlogPost);
+  })
+)(BlogPost);

@@ -70,8 +70,8 @@ Pagination.propTypes = {
   dispatch: PropTypes.func
 };
 
-function mapStateToProps(state) {
-  return {
+export default connect(
+  state => ({
     total: state.blog.pagination.total,
     pages: state.blog.pagination.pages,
     buttons: state.blog.pagination.buttons,
@@ -81,7 +81,5 @@ function mapStateToProps(state) {
     next: state.blog.pagination.next,
     currentPage: state.blog.pagination.currentPage,
     buttons: state.blog.pagination.buttons
-  };
-}
-
-export default connect(mapStateToProps)(Pagination);
+  })
+)(Pagination);

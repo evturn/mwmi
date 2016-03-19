@@ -22,17 +22,11 @@ Blog.propTypes = {
   dispatch: PropTypes.func.isRequired
 };
 
-Blog.contextTypes = {
-  router: PropTypes.object
-};
-
-function mapStateToProps(state) {
-  return {
+export default connect(
+  state => ({
     sort: state.blog.sort,
     showing: state.blog.showing,
     posts: state.blog.posts,
     categories: state.blog.categories
-  };
-};
-
-export default connect(mapStateToProps)(Blog)
+  })
+)(Blog)

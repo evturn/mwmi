@@ -10,10 +10,15 @@ class BlogPosts extends Component {
   constructor(props) {
     super(props);
   }
-  componentDidMount() {
+  componentWillMount() {
     const { dispatch, params, sort, location: { query } } = this.props;
 
     dispatch(filterPosts({ params, query, sort }));
+  }
+  componentWillReceiveProps(nextProps) {
+    if (this.props.params.id !== nextProps.params.id) {
+      setProject(nextProps.params.id);
+    }
   }
   render() {
     const { categories, showing, pagination, params, location: { pathname } } = this.props;
@@ -40,8 +45,8 @@ BlogPosts.propTypes = {
   dispatch: PropTypes.func.isRequired
 };
 
-function mapStateToProps(state, ownProps) {
-  return {
+export default connect(
+  (state, ownProps) => ({
     category: ownProps.params.category,
     author: ownProps.params.author,
     page: ownProps.location.query.page,
@@ -49,7 +54,5 @@ function mapStateToProps(state, ownProps) {
     showing: state.blog.showing,
     categories: state.blog.categories,
     sort: state.blog.sort
-  };
-};
-
-export default connect(mapStateToProps)(BlogPosts);
+  })
+)(BlogPosts);

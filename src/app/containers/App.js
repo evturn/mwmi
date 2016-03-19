@@ -20,13 +20,11 @@ class App extends Component {
   }
 }
 
-function mapStateToProps(state, ownProps) {
-  return {
+export default connect(
+  (state, ownProps) => ({
     category: ownProps.params.category,
     author: ownProps.params.author,
     post: ownProps.params.post,
     page: ownProps.location.query.page,
-  };
-};
-
-export default connect(mapStateToProps)(App);
+  })
+)(App);

@@ -55,6 +55,16 @@ const client = {
   }
 };
 
+export function thunkmasterFlex({ dispatch, getState }) {
+  return next => action => {
+    if (typeof action === 'function') {
+      return action(dispatch, getState);
+    }
+
+    return next(action);
+  };
+}
+
 export const hydrate = server.hydrate;
 export const renderLayout = server.renderLayout;
 
