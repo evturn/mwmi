@@ -15,6 +15,9 @@
 @tx-accent:             #dd4438;
 @bg-accent:             #dd4438;
 
+@tx-accent-2:           #b94721;
+@bg-accent-2:           #b94721;
+
 @tx-secondary:          #46758E;
 @bg-secondary:          #46758E;
 
@@ -40,11 +43,11 @@
 
 .button__red {
   font-family: "Dosis";
-  background: #dd4438;
-  border-bottom: 2px solid #b94721;
+  background: @bg-accent;
+  border-bottom: 2px solid @tx-accent-2;
   border-radius: 2px;
-  border-right: 2px solid #dd4438;
-  border-left: 2px solid #dd4438;
+  border-right: 2px solid @tx-accent;
+  border-left: 2px solid @tx-accent;
   border-top: none;
   color: @tx-light;
   font-size: 20px;
@@ -59,10 +62,10 @@
   padding-right: 1em;
 
   &:hover {
-    border-bottom: 2px solid #dd4438;
-    border-right: 2px solid #b94721;
-    border-top: 2px solid #b94721;
-    border-left: 2px solid #b94721;
+    border-bottom: 2px solid @tx-accent;
+    border-right: 2px solid @tx-accent-2;
+    border-top: 2px solid @tx-accent-2;
+    border-left: 2px solid @tx-accent-2;
   }
 }
 
@@ -111,34 +114,3 @@
   height: auto;
   display: block;
 }
-
-
-
-
-// Phasing out
-@sans:                  'Raleway', sans-serif;
-@serif:                 'Lato', sans-serif;
-@sans-serif:            'Dosis', sans-serif;
-@backend:               "Cochin";
-
-@iphone6:               375px;
-@xs:                    400px;
-@sm:                    600px;
-@smedium:               700px;
-@md:                    800px;
-@mlarge:                1000px;
-@lg:                    1200px;
-@max:                   1400px;
-
-@white:                 #ffffff;
-@whitesmoke:            #f1f1f1;
-@black:                 #000000;
-
-@standard-dark:         #46758E;
-@standard:              #cfe7f0;
-
-
-@red:                   #dd4438;
-@grey:                  #bfbfbf;
-@lightgrey:             #CDCDCD;
-

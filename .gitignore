@@ -4,3 +4,4 @@ node_modules
 .env
 *.hot-update.js
 dist
+font-awesome
