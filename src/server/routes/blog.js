@@ -2,7 +2,7 @@ import keystone from 'keystone';
 import async from 'async';
 
 export const init = (req, res, next) => {
-
+  res.locals.user = req.user;
   res.locals.blog = {
     section: 'blog',
     sort: {
@@ -21,7 +21,6 @@ export const init = (req, res, next) => {
   };
 
   next();
-
 };
 
 export const populateCategories = (req, res, next) => {

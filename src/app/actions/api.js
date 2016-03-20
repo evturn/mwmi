@@ -1,19 +1,10 @@
 import fetch from 'isomorphic-fetch'
-import configureStore from 'store';
 
 const server = {
   hydrate(cb) {
     return fetch('http://localhost:3000/api/locals')
       .then(res => res.json())
-      .then(res => {
-        return {
-          blog: res.blog,
-          enquiry: res.enquiry,
-          user: res.user
-        };
-      })
-      .then(data => configureStore(data))
-      .then(store => cb(store))
+      .then(res => cb(res))
       .catch(error => console.log(error));
   },
   renderLayout(html, initialState) {
