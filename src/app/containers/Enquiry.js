@@ -16,29 +16,29 @@ class Enquiry extends Component {
       enquirySubmitted, dispatch } = this.props;
 
     const name = (
-      <div className={cx('enquiry__form-field')}>
+      <div className={cx('field')}>
         <input
           name="name"
           type="text"
           placeholder="Name"
           onChange={e => dispatch(isTyping(e.target).bind(this))} />
-        <div className={cx('enquiry__form-error')}>{hasErrors && validationErrors.name ? validationErrors.name : null}</div>
+        <div className={cx('error')}>{hasErrors && validationErrors.name ? validationErrors.name : null}</div>
       </div>
     );
 
     const email = (
-      <div className={cx('enquiry__form-field')}>
+      <div className={cx('field')}>
         <input
           name="email"
           type="email"
           placeholder="Email"
           onChange={e => dispatch(isTyping(e.target).bind(this))} />
-        <div className={cx('enquiry__form-error')}>{hasErrors && validationErrors.email ? validationErrors.email : null}</div>
+        <div className={cx('error')}>{hasErrors && validationErrors.email ? validationErrors.email : null}</div>
       </div>
     );
 
     const phone = (
-      <div className={cx('enquiry__form-field')}>
+      <div className={cx('field')}>
         <input
           name="phone"
           type="text"
@@ -48,27 +48,27 @@ class Enquiry extends Component {
     );
 
     const message = (
-      <div className={cx('enquiry__form-field')}>
+      <div className={cx('field')}>
         <textarea
           name="message"
           rows="4"
           placeholder="Message"
           onChange={e => dispatch(isTyping(e.target).bind(this))} />
-        <div className={cx('enquiry__form-error')}>{hasErrors && validationErrors.message ? validationErrors.message : null}</div>
+        <div className={cx('error')}>{hasErrors && validationErrors.message ? validationErrors.message : null}</div>
       </div>
     );
 
     const submitButton = (
-      <div className={cx('enquiry__form-submit')}>
+      <div className={cx('submit')}>
         <button className={cx('btn')} onClick={this.onSubmit.bind(this)}>Send</button>
       </div>
     );
 
     return (
       <div className={cx('enquiry')}>
-        {enquirySubmitted ? <div className={cx('enquiry__success')}>Thanks for getting in touch.</div> : (
-          <form className={cx('enquiry__form')}>
-            <div className={cx('enquiry__header')}>Leave us a message</div>
+        {enquirySubmitted ? <div className={cx('success')}>Thanks for getting in touch.</div> : (
+          <form className={cx('form')}>
+            <div className={cx('header')}>Leave us a message</div>
             {name}
             {email}
             {phone}

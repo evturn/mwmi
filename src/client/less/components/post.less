@@ -7,53 +7,54 @@
   margin-bottom: 20px;
 }
 
-.post-image {
+.image {
   margin: 0 auto;
   text-align: center;
   display: block;
   .img-scale();
 }
 
-.post-body {
+.body {
   text-align: justify;
 }
 
-.post-category {
+.category {
   display: inline-block;
   margin-right: 5px;
 }
 
-.post-title {
+.title {
   margin-bottom: 10px;
   font-size: 24px;
   .clearfix();
   .hyperlink();
 }
 
-.post-footer {
+.footer {
   font-size: 12px;
 
-  .post-author,
-  .post-date,
-  .post-categories {
+  .author,
+  .date,
+  .categories {
     padding-bottom: 3px;
     .hyperlink();
   }
 }
 
-.post-date {
+.date {
   color: @tx-grey;
 }
 
-.post-detail {
+.detail {
   max-width: 700px;
   margin: 0 auto;
-}
 
-.post-detail__header {
-  margin-top: 25px;
-  margin-bottom: 25px;
-}
-.post-detail__back {
-  .hyperlink();
+  .header {
+    margin-top: 25px;
+    margin-bottom: 25px;
+  }
+
+  .back {
+    .hyperlink();
+  }
 }

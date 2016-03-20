@@ -33,7 +33,7 @@ class BlogPosts extends Component {
 
     return (
       <div>
-        <div className={cx('blog-content')}>
+        <div className={cx('blog-posts')}>
           <div className={cx('posts')}>{showing.map((item, i) =>
             <Post key={i} {...item} />)}
           </div>

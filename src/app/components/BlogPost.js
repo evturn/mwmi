@@ -21,10 +21,10 @@ class BlogPost extends Component {
     const { hasOne, post} = this.props;
 
     return (
-      <div className={cx('post-detail')}>
-        <div className={cx('post-detail__header')}>
-          <div className={cx('post-detail__back')}>
-            <Link to={{ pathname: `/blog` }}><span className={cx('fa fa-long-arrow-left')} /> back to the blog</Link>
+      <div className={cx('detail')}>
+        <div className={cx('header')}>
+          <div className={cx('back')}>
+            <Link to={{ pathname: `/blog` }}><span className="fa fa-long-arrow-left" /> back to the blog</Link>
           </div>
         </div>
         {hasOne ? <Post {...post}/> : null}

@@ -20,7 +20,7 @@ class Pagination extends Component {
     const back = (
       <li className={cx('page')}>
         <Link className={backClass} to={backHref}>
-          <span className={cx('fa fa-chevron-left')} />
+          <span className="fa fa-chevron-left" />
         </Link>
       </li>
     );
@@ -30,7 +30,7 @@ class Pagination extends Component {
     const forward = (
       <li className={cx('page')}>
         <Link className={forwardClass} to={forwardHref}>
-          <span className={cx('fa fa-chevron-right')} />
+          <span className="fa fa-chevron-right" />
         </Link>
       </li>
     );
