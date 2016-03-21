@@ -19,14 +19,17 @@ export default props => {
   );
   const photo = image !== undefined ? <img className={cx('image')} src={image.url} /> : null
   const body = <div className={cx('body')} dangerouslySetInnerHTML={{ __html: content.extended }} />;
+  const postCategories = (
+    <ul className={cx('categories')}>Posted in: {categories.map(item =>
+      <li key={item.key} className={cx('category')}>
+        <Link to={{ pathname: `/blog/category/${item.key}` }}>{item.name}</Link>
+      </li>
+  )}</ul>
+  );
   const footer = (
     <div className={cx('footer')}>
       <div className={cx('author')}>By: <Link key={author.id} to={{ pathname: `/blog/author/${author.username}` }}>{author.name.first}</Link></div>
-      <ul className={cx('categories')}>Posted in: {categories.map(item =>
-        <li key={item.key} className={cx('category')}>
-          <Link to={{ pathname: `/blog/category/${item.key}` }}>{item.name}</Link>
-        </li>
-      )}</ul>
+      {postCategories}
       <div className={cx('post-date')}>{moment(publishedDate).format('MMM Do YYYY')}</div>
     </div>
   );

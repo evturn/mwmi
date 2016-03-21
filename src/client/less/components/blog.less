@@ -4,6 +4,7 @@
   width: 100%;
   position: relative;
   .clearfix();
+  min-height: 90vh;
   background-color: @bg-primary;
   margin: 0 auto;
 }
@@ -14,12 +15,20 @@
   .clearfix();
   margin: 0 auto;
   max-width: 1200px;
+
+}
+
+.content {
+  display: block;
+  position: relative;
+  width: 100%;
+  .clearfix();
+  margin: 0 auto;
   padding-top: 60px;
 
   @media(@tablet) {
     padding-top: 30px;
   }
-
 }
 
 .posts {
@@ -31,6 +40,11 @@
     width: 55%;
     margin-left: 5%;
   }
+}
+
+.no {
+  text-align: center;
+  margin-top: 60px;
 }
 
 .filters {

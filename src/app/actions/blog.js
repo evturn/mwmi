@@ -4,7 +4,8 @@ const actions = {
   fetchPost:    ()      => ({ type: 'FETCH_POST' }),
   fetchSuccess: payload => ({ type: 'FETCH_SUCCESS', payload }),
   fetchError:   message => ({ type: 'FETCH_ERROR', message }),
-  filterPosts:  payload => ({ type: 'FILTER_POSTS', payload })
+  filterPosts:  payload => ({ type: 'FILTER_POSTS', payload }),
+  noPostsFound: payload => ({ type: 'NO_POSTS_FOUND' })
 };
 
 export const filterPosts = props => dispatch => {
@@ -20,8 +21,11 @@ export const filterPosts = props => dispatch => {
     posts = sort.all;
   }
 
-  const blogState = setPagination(posts, currentPage);
+  if (!posts) {
+    return dispatch(actions.noPostsFound());
+  }
 
+  const blogState = setPagination(posts, currentPage);
   dispatch(actions.filterPosts(blogState));
 };
 
