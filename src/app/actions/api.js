@@ -29,6 +29,9 @@ const server = {
 };
 
 const client = {
+  scrollWindowTop() {
+    window.scrollTo(0, 0);
+  },
   xhrpost(endpoint, data) {
     return fetch(endpoint, {
       method: 'post',
@@ -46,6 +49,7 @@ export const hydrate = server.hydrate;
 export const renderLayout = server.renderLayout;
 
 export const xhrpost = client.xhrpost;
+export const scrollWindowTop = client.scrollWindowTop;
 
 export function thunkmasterFlex({ dispatch, getState }) {
   return next => action => {

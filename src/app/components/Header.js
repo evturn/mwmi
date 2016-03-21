@@ -12,7 +12,7 @@ export default class Header extends Component {
     return (
       <header className={cx('header')}>
         <ul>{nav.map(link =>
-          <li><Link to={link.href}>{link.name}</Link></li>
+          <li key={link.key}><Link to={link.href}>{link.name}</Link></li>
         )}</ul>
       </header>
     );
