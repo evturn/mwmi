@@ -1,54 +1,12 @@
-const path = require('path');
-const webpack = require('webpack');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const CleanPlugin = require('clean-webpack-plugin');
+import path from 'path';
+import webpack from 'webpack';
+import ExtractTextPlugin from 'extract-text-webpack-plugin';
+import CleanPlugin from 'clean-webpack-plugin';
+import {
+  PATHS, prodLoaders, extensions,
+  modulesDirectories, alias, plugin } from './base';
 
-const PATHS = require('./base').PATHS;
-const extensions = require('./base').extensions;
-const modulesDirectories = require('./base').modulesDirectories;
-const alias = require('./base').alias;
-const plugin = require('./base').plugin;
-const LOADERS = [
-  {
-    test: /\.js$|\.jsx$/,
-    loader: 'babel',
-    exclude: /node_modules/,
-    include: PATHS.app
-  },,{
-    test: /\.json$/,
-    loader: 'json-loader'
-  },{
-    test: /\.(eot|ttf|woff|otf)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-    loader: 'url-loader'
-  },{
-    test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-    loader: 'file-loader'
-  },{
-    test: /.*\.(gif|png|jpe?g|svg)$/i,
-    loaders: [
-      `file?hash=sha512&digest=hex&name=${PATHS.static.img}`,
-      'image-webpack?bypassOnDebug&optimizationLevel=7&interlaced=false',
-    ],
-    exclude: /less/
-  },{
-    test: /\.woff2(\?\S*)?$/,
-    loader: 'url-loader?limit=100000'
-  },{
-    test: /\.less$/,
-    loader: ExtractTextPlugin.extract('style-loader', 'css-loader!less-loader'),
-    include: /global/
-  },{
-    test: /\.less$/,
-    loader: ExtractTextPlugin.extract(
-      'style-loader',
-      'css-loader?module&localIdentName=[local]__[hash:base64:5]' +
-      '!less?includePaths[]=' + encodeURIComponent(PATHS.less)),
-    exclude: /global/
-  }
-];
-
-
-module.exports = [
+export default webpack([
   {
     name: 'browser',
     devtool: 'source-map',
@@ -63,7 +21,7 @@ module.exports = [
       publicPath: PATHS.publicPath.prod  // The output path from the view of the Javascript
     },
     module: {
-      loaders: LOADERS
+      loaders: prodLoaders
     },
     resolve: {
       extensions: extensions,
@@ -101,7 +59,7 @@ module.exports = [
       libraryTarget: 'commonjs2'
     },
     module: {
-      loaders: LOADERS
+      loaders: prodLoaders
     },
     resolve: {
       extensions: extensions,
@@ -119,4 +77,14 @@ module.exports = [
       })
     ]
   }
-];
+], (err, stats) => {
+  if (err) {
+    const jsonStats = stats.toJson();
+
+    if (jsonStats.errors.length > 0) {
+      console.log(json.errors);
+    }
+  }
+
+  console.log(stats.toString({ colors: true }))
+});

@@ -2,7 +2,7 @@ import webpack from 'webpack';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
 import WriteFilePlugin from 'write-file-webpack-plugin';
 import {
-  PATHS, extensions, plugin,
+  PATHS, devLoaders, extensions, plugin,
   alias, modulesDirectories } from './base';
 
 export default {
@@ -34,43 +34,7 @@ export default {
     host: 'localhost'
   },
   module: {
-    loaders: [
-      {
-        test: /\.js$|\.jsx$/,
-        loader: 'babel',
-        exclude: /node_modules/,
-        include: PATHS.app
-      },,{
-        test: /\.json$/,
-        loader: 'json-loader'
-      },{
-        test: /\.(eot|ttf|woff|otf)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-        loader: 'url-loader'
-      },{
-        test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-        loader: 'file-loader'
-      },{
-        test: /.*\.(gif|png|jpe?g|svg)$/i,
-        loaders: [
-          `file?hash=sha512&digest=hex&name=${PATHS.static.img}`,
-          'image-webpack?bypassOnDebug&optimizationLevel=7&interlaced=false',
-        ],
-        exclude: /less/
-      },{
-        test: /\.woff2(\?\S*)?$/,
-        loader: 'url-loader?limit=100000'
-      },{
-        test: /\.less$/,
-        loader: ExtractTextPlugin.extract('style-loader', 'css-loader!less-loader'),
-        include: /global/
-      },{
-        test: /\.less$/,
-        loader: 'style!css?module&localIdentName=[local]__[hash:base64:5]' +
-          '&sourceMap!less?sourceMap&outputStyle=expanded' +
-          '&includePaths[]=' + encodeURIComponent(PATHS.less),
-        exclude: /global/
-      }
-    ]
+    loaders: devLoaders
   },
   resolve: {
     extensions: extensions,

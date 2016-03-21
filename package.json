@@ -12,12 +12,13 @@
     "npm": "https://www.npmjs.com/~evturn"
   },
   "scripts": {
-    "dev": "NODE_ENV=development babel-node index.js",
-    "build": "NODE_ENV=production webpack --progress --colors --config src/webpack/prod.js",
-    "serve": "NODE_ENV=production babel-node index.js"
+    "dev": "NODE_ENV=development babel-node src/server",
+    "build": "NODE_ENV=production babel-node src/webpack",
+    "serve": "NODE_ENV=production babel-node src/server"
   },
   "license": "MIT",
   "dependencies": {
+    "async": "^2.0.0-rc.1",
     "babel-cli": "^6.6.5",
     "babel-core": "^6.6.5",
     "babel-eslint": "^5.0.0",
