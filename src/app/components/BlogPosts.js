@@ -11,9 +11,6 @@ import css from 'less/components/blog.less';
 const cx = classNames.bind(css);
 
 class BlogPosts extends Component {
-  constructor(props) {
-    super(props);
-  }
   componentWillMount() {
     const { dispatch, params, query, sort } = this.props;
 

@@ -7,9 +7,6 @@ import css from 'less/components/pagination.less';
 const cx = classNames.bind(css);
 
 class Pagination extends Component {
-  constructor(props) {
-    super(props);
-  }
   render() {
     const {
       total, pages, next, previous, buttons,

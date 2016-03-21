@@ -7,9 +7,6 @@ import css from 'less/components/enquiry.less';
 const cx = classNames.bind(css);
 
 class Enquiry extends Component {
-  constructor(props){
-    super(props);
-  }
   render() {
     const {
       validationErrors, hasErrors,

@@ -5,9 +5,6 @@ import Footer from 'components/Footer';
 import css from 'less/global/style.less';
 
 class App extends Component {
-  constructor(props){
-    super(props);
-  }
   render() {
     return (
       <div className="site">
