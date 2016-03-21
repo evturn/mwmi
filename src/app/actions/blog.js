@@ -25,6 +25,27 @@ export const filterPosts = props => dispatch => {
   dispatch(actions.filterPosts(blogState));
 };
 
+function setPagination(posts, page) {
+  const currentPage = page;
+  const perPage = 2;
+  const total = posts.length;
+  const pages = Math.ceil(posts.length / perPage);
+  const previous = currentPage > 1 ? currentPage - 1 : false;
+  const next = currentPage < pages ? currentPage + 1 : false;
+  const first = ((currentPage - 1) * perPage ) + 1;
+  const last = currentPage * perPage;
+  const buttons = posts.map((item, i) => i + 1).filter(i => i <= pages);
+  const showing = posts.map(post => post).filter((post, i) => i >= first - 1 && i <= last - 1);
+
+  return {
+    showing,
+    pagination: {
+      perPage, total, pages, currentPage,
+      buttons, previous, next, first, last
+    }
+  };
+}
+
 export const fetchPost = slug => dispatch => {
   dispatch(actions.fetchPost());
 
@@ -33,35 +54,3 @@ export const fetchPost = slug => dispatch => {
     .then(res => dispatch(actions.fetchSuccess(res.blog.post)))
     .catch(err => dispatch(actions.fetchError(err)));
 };
-
-function setPagination(posts, page) {
-  const currentPage = page;
-  const perPage = 2;
-  const total = posts.length;
-  const pages = Math.ceil(posts.length / perPage);
-  const buttons = posts.map((item, i) => i + 1).filter(i => i <= pages);
-  const previous = currentPage > 1 ? currentPage - 1 : false;
-  const next = currentPage < pages ? currentPage + 1 : false;
-  const first = ((currentPage - 1) * perPage ) + 1;
-  const last = currentPage * perPage;
-
-  const firstWithIndex = first - 1;
-  const lastWithIndex = last - 1;
-
-  const showing = posts.map(post => post).filter((post, i) => i >= firstWithIndex && i <= lastWithIndex);
-
-  return {
-    showing,
-    pagination: {
-      perPage,
-      total,
-      pages,
-      buttons,
-      currentPage,
-      previous,
-      next,
-      first,
-      last
-    }
-  };
-}

@@ -1,42 +1,20 @@
 import { xhrpost } from 'actions/api';
 
 const actions = {
-  enquiryReceived(payload) {
-    return {
-      type: 'ENQUIRY_RECEIVED',
-      payload
-    };
-  },
-  enquiryError(error) {
-    return {
-      type: 'ENQUIRY_ERROR',
-      error
-    };
-  },
+  enquiryReceived:  payload => { type: 'ENQUIRY_RECEIVED', payload },
+  enquiryError:     error   => { type: 'ENQUIRY_ERROR', error },
+  enquirySubmit:    payload => { type: 'ENQUIRY_SUBMIT', payload },
+  validationErrors: payload => { type: 'VALIDATION_ERRORS', payload },
   userIsTyping(value) {
     return {
       type: 'USER_IS_TYPING',
       value
     };
-  },
-  enquirySubmit(payload) {
-    return {
-      type: 'ENQUIRY_SUBMIT',
-      payload
-    }
-  },
-  validationErrors(payload) {
-    return {
-      type: 'VALIDATION_ERRORS',
-      payload
-    };
   }
 };
 
 export const isTyping = e => dispatch => dispatch(actions.userIsTyping({ [e.name]: e.value }));
-
 export const enquiryReceived = payload => dispatch => dispatch(actions.enquiryReceived(payload));
-
 export const enquirySubmit = formData => dispatch => {
   const payload = parseFormData(formData);
 

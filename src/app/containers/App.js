@@ -22,12 +22,8 @@ class App extends Component {
 }
 
 export default connect(
-  (state, ownProps) => ({
+  state => ({
     user: state.site.user,
-    nav: state.site.nav,
-    category: ownProps.params.category,
-    author: ownProps.params.author,
-    post: ownProps.params.post,
-    page: ownProps.location.query.page,
+    nav: state.site.nav
   })
 )(App);
