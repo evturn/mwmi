@@ -19,6 +19,7 @@
   "license": "MIT",
   "dependencies": {
     "async": "^2.0.0-rc.1",
+    "async-props": "^0.3.2",
     "babel-cli": "^6.6.5",
     "babel-core": "^6.6.5",
     "babel-eslint": "^5.0.0",

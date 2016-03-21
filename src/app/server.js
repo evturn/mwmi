@@ -4,7 +4,7 @@ import { match, RouterContext } from 'react-router';
 import { Provider } from 'react-redux';
 import configureStore from 'store';
 import routes from 'routes';
-import { renderLayout, hydrate } from 'actions/api';
+import { createPage, fetchLocals } from 'actions/api';
 
 export default (req, res) => {
   match({routes, location: req.url}, (err, redirectLocation, renderProps) => {
@@ -13,7 +13,7 @@ export default (req, res) => {
     } else if (redirectLocation) {
       res.redirect(302, redirectLocation.pathname + redirectLocation.search);
     } else if (renderProps) {
-      hydrate(res => {
+      fetchLocals(res => {
         return configureStore({
           blog: res.blog,
           enquiry: res.enquiry,
@@ -30,7 +30,7 @@ export default (req, res) => {
             <RouterContext {...renderProps} />
           </Provider>);
 
-        res.status(200).send(renderLayout(html, initialState));
+        res.status(200).send(createPage(html, initialState));
       });
 
     } else {

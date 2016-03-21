@@ -9,8 +9,6 @@ import webpackHotMiddleware from 'webpack-hot-middleware';
 import webpackConfig from '../../webpack/dev';
 import server from '../../../dist/js/ser';
 
-const ENV = process.env.NODE_ENV;
-
 const locals = (req, res, next) => {
   res.locals.user = req.user;
   res.locals.nav = [
@@ -23,8 +21,7 @@ const locals = (req, res, next) => {
 };
 
 export default function(app) {
-  if (ENV === 'development') {
-    console.log(ENV);
+  if (process.env.NODE_ENV === 'development') {
     const compiler = webpack(webpackConfig);
 
     app.use(webpackDevMiddleware(compiler, {

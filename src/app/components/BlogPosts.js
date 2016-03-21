@@ -26,7 +26,9 @@ class BlogPosts extends Component {
     }
   }
   render() {
-    const { categories, authors, showing, pagination, pathname } = this.props;
+    const {
+      categories, authors, showing,
+      pagination, pathname } = this.props;
 
     return (
       <div>
