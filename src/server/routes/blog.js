@@ -104,8 +104,8 @@ function sortPostsByAuthor(posts) {
   const sortedByAuthor = {};
 
   posts.map(post => {
-    sortedByAuthor[post.author.name.first] = sortedByAuthor[post.author.name.first] || [];
-    sortedByAuthor[post.author.name.first].push(post);
+    sortedByAuthor[post.author.username] = sortedByAuthor[post.author.username] || [];
+    sortedByAuthor[post.author.username].push(post);
   });
 
   return sortedByAuthor;

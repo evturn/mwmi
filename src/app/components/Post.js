@@ -21,7 +21,7 @@ export default props => {
   const body = <div className={cx('body')} dangerouslySetInnerHTML={{ __html: content.extended }} />;
   const footer = (
     <div className={cx('footer')}>
-      <div className={cx('author')}>By: <Link key={author.id} to={{ pathname: `/blog/author/${author.name.first}` }}>{author.name.first}</Link></div>
+      <div className={cx('author')}>By: <Link key={author.id} to={{ pathname: `/blog/author/${author.username}` }}>{author.name.first}</Link></div>
       <ul className={cx('categories')}>Posted in: {categories.map(item =>
         <li key={item.key} className={cx('category')}>
           <Link to={{ pathname: `/blog/category/${item.key}` }}>{item.name}</Link>
