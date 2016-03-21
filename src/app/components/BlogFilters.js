@@ -24,12 +24,16 @@ export default class BlogFilters extends Component {
     return (
       <div className={cx('filters')}>
         <div className={cx('filter')}>
-          <div className={cx('header')}>Categories</div>
-          <ul>{categoryLinks}</ul>
+          <ul>
+            <li className={cx('item', 'header')}>Categories</li>
+            {categoryLinks}
+          </ul>
         </div>
         <div className={cx('filter')}>
-          <div className={cx('header')}>Authors</div>
-          <ul>{authorLinks}</ul>
+          <ul>
+            <li className={cx('item', 'header')}>Authors</li>
+            {authorLinks}
+          </ul>
         </div>
       </div>
     );

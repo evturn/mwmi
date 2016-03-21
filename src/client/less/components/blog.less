@@ -14,7 +14,12 @@
   .clearfix();
   margin: 0 auto;
   max-width: 1200px;
-  margin-top: 30px;
+  padding-top: 60px;
+
+  @media(@tablet) {
+    padding-top: 30px;
+  }
+
 }
 
 .posts {
@@ -30,12 +35,21 @@
 
 .filters {
   border: 1px solid fade(@tx-grey, 30);
-  display: none;
-  padding: 15px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  margin: 0 auto;
+  text-align: center;
   background-color: @bg-light;
+  padding-top: 10px;
+  padding-bottom: 10px;
 
   @media(@tablet) {
     display: block;
+    position: relative;
+    text-align: left;
+    padding: 15px;
     float: right;
     width: 25%;
     margin-right: 12%;
@@ -43,21 +57,47 @@
 }
 
 .filter {
-  margin-bottom: 20px;
+  display: inline-block;
+  margin-right: 10px;
+
+  @media(@tablet) {
+    display: block;
+    margin-bottom: 20px;
+    margin-right: 0;
+  }
 
   &:last-child {
     margin-bottom: 0;
   }
 
-  .item {
-    margin-bottom: 5px;
-    display: block;
-    text-align: left;
-    .hyperlink();
+  ul {
+    display: inline-block;
   }
 
-  .header {
-    margin-bottom: 10px;
-    font-size: 24px;
+  .item {
+    display: inline-block;
+    font-size: 14px;
+    .hyperlink();
+    margin-right: 10px;
+
+    @media(@tablet) {
+      margin-bottom: 5px;
+      display: block;
+      text-align: left;
+    }
+
+    &.header {
+      display: inline-block;
+      color: @tx-secondary;
+      font-size: 11px;
+
+      @media(@tablet) {
+        display: block;
+        color: @tx-dark;
+        margin-bottom: 10px;
+        font-size: 24px;
+      }
+    }
   }
+
 }
