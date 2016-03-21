@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
-import { filterPosts } from 'actions/blog';
+import { filterPosts, noPostsFound } from 'actions/blog';
 import BlogFilters from 'components/BlogFilters';
 import Pagination from 'components/Pagination';
 import Posts from 'components/Posts';
@@ -28,23 +28,15 @@ class BlogPosts extends Component {
   render() {
     const {
       categories, authors, showing,
-      pagination, pathname, message } = this.props;
+      pagination, pathname } = this.props;
 
-    const posts = (
-      <div>
+    return (
+      <div className={cx('blog-posts')}>
         <div className={cx('content')}>
           <Posts posts={showing} />
           <BlogFilters categories={categories} authors={authors} />
         </div>
         <Pagination pathname={pathname} {...pagination} />
-      </div>
-    );
-
-    const noPosts = <div className={cx('no')}>{message}</div>;
-
-    return (
-      <div className={cx('blog-posts')}>
-        {!message ? posts : noPosts}
       </div>
     );
   }
@@ -58,7 +50,6 @@ BlogPosts.propTypes = {
   sort: PropTypes.object,
   params: PropTypes.object,
   query: PropTypes.object,
-  message: PropTypes.string,
   dispatch: PropTypes.func.isRequired
 };
 
@@ -72,7 +63,6 @@ export default connect(
     showing: state.blog.showing,
     categories: state.blog.categories,
     authors: state.blog.authors,
-    message: state.blog.message,
     sort: state.blog.sort
   })
 )(BlogPosts);

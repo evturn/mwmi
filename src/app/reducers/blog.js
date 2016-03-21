@@ -14,7 +14,6 @@ export default function blog(state = {
   categories: [],
   posts: [],
   post: {},
-  message: '',
   isFetching: false,
   isCompleted: false,
   hasOne: false
@@ -22,8 +21,7 @@ export default function blog(state = {
   switch (action.type) {
     case 'FILTER_POSTS':
       return Object.assign({}, state, {
-        ...action.payload,
-        message: '',
+        ...action.payload
       });
     case 'FETCH_POST':
       return Object.assign({}, state, {
@@ -42,10 +40,6 @@ export default function blog(state = {
         message: action.message,
         isFetching: false,
         isCompleted: true
-      });
-    case 'NO_POSTS_FOUND':
-      return Object.assign({}, state, {
-        message: 'This author has yet to post.'
       });
     default:
       return state;

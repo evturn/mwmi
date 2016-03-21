@@ -4,13 +4,11 @@ const actions = {
   fetchPost:    ()      => ({ type: 'FETCH_POST' }),
   fetchSuccess: payload => ({ type: 'FETCH_SUCCESS', payload }),
   fetchError:   message => ({ type: 'FETCH_ERROR', message }),
-  filterPosts:  payload => ({ type: 'FILTER_POSTS', payload }),
-  noPostsFound: payload => ({ type: 'NO_POSTS_FOUND' })
+  filterPosts:  payload => ({ type: 'FILTER_POSTS', payload })
 };
 
 export const filterPosts = props => dispatch => {
   const { params, query, sort } = props;
-  const currentPage = query.page ? parseInt(query.page) : 1;
   let posts;
 
   if (params.author) {
@@ -21,11 +19,9 @@ export const filterPosts = props => dispatch => {
     posts = sort.all;
   }
 
-  if (!posts) {
-    return dispatch(actions.noPostsFound());
-  }
-
+  const currentPage = query.page ? parseInt(query.page) : 1;
   const blogState = setPagination(posts, currentPage);
+
   dispatch(actions.filterPosts(blogState));
 };
 
