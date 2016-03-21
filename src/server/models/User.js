@@ -10,6 +10,12 @@ User.add({
     required: true,
     index: true
   },
+  username: {
+    type: String,
+    required: true,
+    initial: true,
+    unique: true
+  },
   email: {
     type: Types.Email,
     initial: true,
@@ -36,5 +42,5 @@ User.schema.virtual('canAccessKeystone').get(function() {
 
 transform.toJSON(User);
 
-User.defaultColumns = 'name, email, isAdmin';
+User.defaultColumns = 'name, email, username, isAdmin';
 User.register();
