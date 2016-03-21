@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { Link } from 'react-router';
 import classNames from 'classnames/bind';
 import css from 'less/components/home.less';
 
 const cx = classNames.bind(css);
 
-export default class Home extends React.Component {
+export default class Home extends Component {
   constructor(props) {
     super(props);
 
@@ -20,7 +20,9 @@ export default class Home extends React.Component {
         </div>
         <div className={cx('headline')}>
           <div className={cx('text')}>{this.subtitle}</div>
-          <Link to={{ pathname: '/blog' }}><button className={cx('btn')}>Stream Now</button></Link>
+          <Link to={{ pathname: '/blog' }}>
+            <button className={cx('btn')}>Stream Now</button>
+          </Link>
         </div>
       </div>
     );

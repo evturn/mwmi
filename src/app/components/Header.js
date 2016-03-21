@@ -12,15 +12,13 @@ class Header extends Component {
   }
   render() {
     return (
-      <nav className={cx('header')}>
-        <div className={cx('wrapper')}>
-          <ul className={cx('navbar-links')}>
-            <li><IndexLink to='/'>Home</IndexLink></li>
-            <li><Link to='/blog'>Blog</Link></li>
-            <li><Link to='/contact'>Contact</Link></li>
-          </ul>
-        </div>
-      </nav>
+      <header className={cx('header')}>
+        <ul className={cx('navbar')}>
+          <li><IndexLink to='/'>Home</IndexLink></li>
+          <li><Link to='/blog'>Blog</Link></li>
+          <li><Link to='/contact'>Contact</Link></li>
+        </ul>
+      </header>
     );
   }
 }

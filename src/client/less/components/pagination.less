@@ -24,7 +24,15 @@
     height: 50px;
     line-height: 50px;
     font-weight: 600;
-    .hyperlink();
+    font-family: @font-serif;
+    a {
+      .transition(0.3);
+      color: @tx-secondary;
+
+      &:hover {
+        color: @tx-dark;
+      }
+    }
 
     a.off {
       transition: initial;
@@ -42,7 +50,8 @@
 .page-results {
   margin: 0 auto;
   margin-bottom: 25px;
-  @media(@tablet) {
-    margin-left: 5%;
-  }
+  right: 0;
+  left: 0;
+  top: 0;
+  text-align: center;
 }

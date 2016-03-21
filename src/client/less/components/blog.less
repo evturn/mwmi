@@ -4,6 +4,7 @@
   width: 100%;
   position: relative;
   .clearfix();
+  background-color: @bg-light;
   margin: 0 auto;
 }
 
@@ -31,13 +32,13 @@
   display: none;
   padding: 15px;
   background-color: @bg-light;
-  .box-shadow(0px 2px 5px -3px rgba(0, 0, 0, 0.65));
+  border: 1px solid fade(@tx-grey, 30);
 
   @media(@tablet) {
     display: block;
     float: right;
     width: 25%;
-    margin-right: 5%;
+    margin-right: 12%;
   }
 
   .item {

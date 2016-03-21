@@ -3,7 +3,7 @@
 .post {
   padding: 15px;
   background-color: @bg-light;
-  .box-shadow(0px 2px 5px -3px rgba(0, 0, 0, 0.65));
+  border: 1px solid fade(@tx-grey, 30);
   margin-bottom: 20px;
 }
 
@@ -16,6 +16,8 @@
 
 .body {
   text-align: justify;
+  font-size: 19px;
+  line-height: 27px;
 }
 
 .category {
@@ -28,6 +30,12 @@
   font-size: 24px;
   .clearfix();
   .hyperlink();
+  a {
+    color: @tx-dark;
+    &:hover {
+      color: @tx-secondary;
+    }
+  }
 }
 
 .footer {

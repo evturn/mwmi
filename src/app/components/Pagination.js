@@ -45,19 +45,16 @@ class Pagination extends Component {
       </li>
     );
 
-    const pageResultsText = `Showing ${first} - ${last} of ${total}`;
-    const pageResults = <div className={cx('page-results')}>{pageResultsText}</div>;
+    const pageResults = `Showing ${first} - ${last} of ${total}`;
 
     return (
-      <div>
-        {pageResults}
-        <div className={cx('pagination')}>
-          <ul className={cx('pages')}>
-            {back}
-            {skipTo}
-            {forward}
-          </ul>
-        </div>
+      <div className={cx('pagination')}>
+        <div className={cx('page-results')}>{pageResults}</div>
+        <ul className={cx('pages')}>
+          {back}
+          {skipTo}
+          {forward}
+        </ul>
       </div>
     );
   }
