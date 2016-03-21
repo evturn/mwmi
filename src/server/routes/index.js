@@ -11,8 +11,14 @@ import server from '../../../dist/js/ser';
 
 const ENV = process.env.NODE_ENV;
 
-const init = (req, res, next) => {
+const locals = (req, res, next) => {
   res.locals.user = req.user;
+  res.locals.nav = [
+    {name: 'Home',    key: 'home',    href: '/'},
+    {name: 'Blog',    key: 'blog',    href: '/blog'},
+    {name: 'Contact', key: 'contact', href: '/contact'}
+  ];
+
   next();
 };
 
@@ -29,7 +35,7 @@ export default function(app) {
     app.use(webpackHotMiddleware(compiler));
   }
 
-  app.use(init);
+  app.use(locals);
 
   app.get('/api/locals',          blog.init, blog.populateCategories, blog.findAllPosts);
   app.get('/api/blog/post/:post', blog.findOnePost);

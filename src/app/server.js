@@ -17,7 +17,10 @@ export default (req, res) => {
         return configureStore({
           blog: res.blog,
           enquiry: res.enquiry,
-          user: req.user
+          site: {
+            user: req.user,
+            nav: res.nav
+          }
         });
       })
       .then(store => {

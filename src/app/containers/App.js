@@ -11,11 +11,11 @@ class App extends Component {
   render() {
     return (
       <div className="site">
-        <Header />
+        <Header nav={this.props.nav} />
         <div className="content">
           {this.props.children}
         </div>
-        <Footer />
+        <Footer user={this.props.user} />
       </div>
     );
   }
@@ -23,6 +23,8 @@ class App extends Component {
 
 export default connect(
   (state, ownProps) => ({
+    user: state.site.user,
+    nav: state.site.nav,
     category: ownProps.params.category,
     author: ownProps.params.author,
     post: ownProps.params.post,

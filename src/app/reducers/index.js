@@ -3,11 +3,11 @@ import { routerReducer } from 'react-router-redux';
 import blog from './blog';
 import enquiry from './enquiry';
 
-const user = (state = {}, action) => state;
+const site = (state = {}, action) => state;
 const rootReducer = combineReducers({
   blog,
   enquiry,
-  user,
+  site,
   routing: routerReducer
 });
 
