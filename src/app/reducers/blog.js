@@ -10,6 +10,7 @@ export default function blog(state = {
     last: 1,
     buttons: []
   },
+  authors: [],
   categories: [],
   posts: [],
   post: {},

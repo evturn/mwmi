@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import { filterPosts } from 'actions/blog';
-import Categories from 'components/Categories';
+import BlogFilters from 'components/BlogFilters';
 import Pagination from 'components/Pagination';
 import Post from 'components/Post';
 import classNames from 'classnames/bind';
@@ -26,7 +26,7 @@ class BlogPosts extends Component {
     }
   }
   render() {
-    const { categories, showing, pagination, pathname } = this.props;
+    const { categories, authors, showing, pagination, pathname } = this.props;
 
     return (
       <div>
@@ -34,7 +34,7 @@ class BlogPosts extends Component {
           <div className={cx('posts')}>{showing.map((item, i) =>
             <Post key={i} {...item} />)}
           </div>
-          <Categories categories={categories} />
+          <BlogFilters categories={categories} authors={authors} />
         </div>
         <Pagination pathname={pathname} {...pagination} />
       </div>
@@ -44,6 +44,7 @@ class BlogPosts extends Component {
 
 BlogPosts.propTypes = {
   showing: PropTypes.array,
+  authors: PropTypes.array,
   categories: PropTypes.array,
   pagination: PropTypes.object,
   sort: PropTypes.object,
@@ -61,6 +62,7 @@ export default connect(
     pagination: state.blog.pagination,
     showing: state.blog.showing,
     categories: state.blog.categories,
+    authors: state.blog.authors,
     sort: state.blog.sort
   })
 )(BlogPosts);

@@ -15,6 +15,7 @@ export const init = (req, res, next) => {
       pages: 0,
       total: 0
     },
+    authors: [],
     categories: [],
     posts: [],
     post: {}
@@ -52,6 +53,22 @@ export const populateCategories = (req, res, next) => {
   });
 };
 
+export const populateAuthors = (req, res, next) => {
+  keystone.list('User')
+    .model.find()
+    .sort('username')
+    .exec((err, results) => {
+
+      if (err || !results.length) {
+        return next(err);
+      }
+
+      res.locals.blog = res.locals.blog || {};
+      res.locals.blog.authors = results;
+      next();
+    });
+};
+
 export const findOnePost = (req, res, next) => {
   res.locals.section = 'blog';
 
@@ -80,6 +97,7 @@ export const findAllPosts = (req, res, next) => {
 
       res.locals.blog = {
         categories: res.locals.blog.categories,
+        authors: res.locals.blog.authors,
         posts: results,
         sort: {
           all: results,

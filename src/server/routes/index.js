@@ -37,7 +37,7 @@ export default function(app) {
 
   app.use(locals);
 
-  app.get('/api/locals',          blog.init, blog.populateCategories, blog.findAllPosts);
+  app.get('/api/locals',          blog.init, blog.populateCategories, blog.populateAuthors, blog.findAllPosts);
   app.get('/api/blog/post/:post', blog.findOnePost);
   app.get('/api/contact',         enquiry.get);
   app.post('/api/contact',        enquiry.post);
