@@ -6,7 +6,7 @@ import configureStore from 'store';
 import routes from 'routes';
 import { renderLayout, hydrate } from 'actions/api';
 
-const serve = (req, res) => {
+export default (req, res) => {
   match({routes, location: req.url}, (err, redirectLocation, renderProps) => {
     if (err) {
       res.status(500).send(err.message);
@@ -35,5 +35,3 @@ const serve = (req, res) => {
     }
   });
 };
-
-export default serve;
