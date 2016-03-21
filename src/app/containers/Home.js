@@ -14,12 +14,12 @@ export default class Home extends React.Component {
   render() {
     return (
       <div className={cx('home')}>
-        <div className={cx('home__logo')}>
-          <img className={cx('home__logo-image')} src={require('images/home.png')} />
-          <div className={cx('home__logo-title')}>MWMI</div>
+        <div className={cx('hero')}>
+          <img className={cx('image')} src={require('images/home.png')} />
+          <div className={cx('title')}>MWMI</div>
         </div>
-        <div className={cx('home__details')}>
-          <div className={cx('home__details-description')}>{this.subtitle}</div>
+        <div className={cx('headline')}>
+          <div className={cx('text')}>{this.subtitle}</div>
           <Link to={{ pathname: '/blog' }}><button className={cx('btn')}>Stream Now</button></Link>
         </div>
       </div>
