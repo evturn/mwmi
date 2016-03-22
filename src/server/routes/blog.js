@@ -24,6 +24,23 @@ export const init = (req, res, next) => {
   next();
 };
 
+export const findOnePost = (req, res, next) => {
+  res.locals.section = 'blog';
+
+  const q = keystone.list('Post').model.findOne({
+    state: 'published',
+    slug: req.params.post
+  }).populate('author categories');
+
+  q.exec(function(err, result) {
+    res.locals.blog = {
+      post: result
+    };
+
+    res.json(res.locals);
+  });
+};
+
 export const populateCategories = (req, res, next) => {
   keystone.list('PostCategory')
     .model.find()
@@ -69,23 +86,6 @@ export const populateAuthors = (req, res, next) => {
     });
 };
 
-export const findOnePost = (req, res, next) => {
-  res.locals.section = 'blog';
-
-  const q = keystone.list('Post').model.findOne({
-    state: 'published',
-    slug: req.params.post
-  }).populate('author categories');
-
-  q.exec(function(err, result) {
-    res.locals.blog = {
-      post: result
-    };
-
-    res.json(res.locals);
-  });
-};
-
 export const findAllPosts = (req, res, next) => {
   keystone.list('Post')
     .model.find()
@@ -95,50 +95,62 @@ export const findAllPosts = (req, res, next) => {
     .exec((err, results) => {
       const pages = Math.ceil(results.length / 2);
 
-      res.locals.blog = {
-        categories: res.locals.blog.categories,
-        authors: res.locals.blog.authors,
-        posts: results,
-        sort: {
-          all: results,
-          category: sortPostsByCategory(results),
-          author: sortPostsByAuthor(results)
-        },
-        showing: results,
-        pagination: {
-          perPage: 2,
-          total: results.length,
-          pages,
-          buttons: results.map((item, i) => i + 1).filter(i => i <= pages)
-        }
+      res.locals.blog.sort = {
+        all: results
+      };
+      res.locals.blog.showing = results;
+      res.locals.blog.pagination = {
+        perPage: 2,
+        total: results.length,
+        pages,
+        buttons: results.map((item, i) => i + 1).filter(i => i <= pages)
       };
 
-      res.json(res.locals);
+      next();
     });
 };
 
-function sortPostsByAuthor(posts) {
+export const filterPostsByUsername = (req, res, next) => {
+  const allPosts = res.locals.blog.sort.all;
+  let allUsers = res.locals.blog.authors;
+  let filteredByUsername = {};
 
-  const sortedByAuthor = {};
-
-  posts.map(post => {
-    sortedByAuthor[post.author.username] = sortedByAuthor[post.author.username] || [];
-    sortedByAuthor[post.author.username].push(post);
+  allPosts.map(post => {
+    filteredByUsername[post.author.username] = filteredByUsername[post.author.username] || [];
+    filteredByUsername[post.author.username].push(post);
   });
 
-  return sortedByAuthor;
+  const usersWithPosts = allUsers.filter(user => {
+    let hasPosts = false;
+
+    for (let usernameKey in filteredByUsername) {
+      if (user.username === usernameKey) {
+        hasPosts = true;
+      }
+    }
+    console.log(hasPosts);
+    return hasPosts;
+  });
+  res.locals.blog.sort.author = filteredByUsername;
+  res.locals.blog.authors = usersWithPosts;
+  next();
 };
 
-function sortPostsByCategory(posts) {
+export const filterPostsByCategory = (req, res, next) => {
+  const allPosts = res.locals.blog.sort.all;
+  const filteredByCategory = {};
 
-  const sortedByCategory = {};
-
-  posts.map(post => {
+  allPosts.map(post => {
     return post.categories.forEach(category => {
-      sortedByCategory[category.key] = sortedByCategory[category.key] || [];
-      sortedByCategory[category.key].push(post);
+      filteredByCategory[category.key] = filteredByCategory[category.key] || [];
+      filteredByCategory[category.key].push(post);
     });
   });
 
-  return sortedByCategory;
+  res.locals.blog.sort.category = filteredByCategory;
+  next();
+};
+
+export const sendPayload = (req, res, next) => {
+  res.json(res.locals);
 };
