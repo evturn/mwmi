@@ -1,12 +1,13 @@
 @import url('./variables.less');
 
 .blog {
-  width: 100%;
   position: relative;
+  width: 100%;
   .clearfix();
-  min-height: 90vh;
-  background-color: @bg-primary;
   margin: 0 auto;
+  background-color: @bg-primary;
+  min-height: 100vh;
+  padding-top: 70px;
 }
 
 .blog-posts {
@@ -15,7 +16,6 @@
   .clearfix();
   margin: 0 auto;
   max-width: 1200px;
-
 }
 
 .content {
@@ -25,6 +25,8 @@
   .clearfix();
   margin: 0 auto;
   padding-top: 60px;
+  padding-left: 15px;
+  padding-right: 15px;
 
   @media(@tablet) {
     padding-top: 30px;
