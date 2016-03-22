@@ -12,23 +12,15 @@ class Pagination extends Component {
       total, pages, next, previous, buttons,
       currentPage, first, last, pathname} = this.props;
 
-    const backHref = { pathname, query: { page: previous } };
     const backArrow = <span className="fa fa-chevron-left" />;
+    const forwardArrow = <span className="fa fa-chevron-right" />;
+    const pageResults = `Showing ${first} - ${last} of ${total}`;
+
     const back = (
       <li className={cx('page')}>{previous ? (
-        <Link to={backHref}>{backArrow}</Link>
+        <Link to={{ pathname, query: { page: previous } }}>{backArrow}</Link>
         ) : (
         <a className={cx('off')}>{backArrow}</a>
-      )}</li>
-    );
-
-    const forwardHref = { pathname, query: { page: next } }
-    const forwardArrow = <span className="fa fa-chevron-right" />;
-    const forward = (
-      <li className={cx('page')}>{next ? (
-        <Link to={forwardHref}>{forwardArrow}</Link>
-        ) : (
-        <a className={cx('off')}>{forwardArrow}</a>
       )}</li>
     );
 
@@ -40,7 +32,13 @@ class Pagination extends Component {
       )}</li>
     );
 
-    const pageResults = `Showing ${first} - ${last} of ${total}`;
+    const forward = (
+      <li className={cx('page')}>{next ? (
+        <Link to={{ pathname, query: { page: next } }}>{forwardArrow}</Link>
+        ) : (
+        <a className={cx('off')}>{forwardArrow}</a>
+      )}</li>
+    );
 
     return (
       <div className={cx('pagination')}>
