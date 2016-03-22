@@ -12,17 +12,17 @@ const cx = classNames.bind(css);
 
 class BlogPosts extends Component {
   componentWillMount() {
-    const { dispatch, params, query, sort } = this.props;
+    const { dispatch, params, query, filter } = this.props;
 
-    dispatch(filterPosts({ params, query, sort }));
+    dispatch(filterPosts({ params, query, filter }));
   }
   componentWillReceiveProps(nextProps) {
-    const { dispatch, sort } = this.props;
+    const { dispatch, filter } = this.props;
 
     if (nextProps.params !== this.props.params || nextProps.query !== this.props.query) {
       const { params, query } = nextProps;
 
-      dispatch(filterPosts({ params, query, sort }));
+      dispatch(filterPosts({ params, query, filter }));
     }
   }
   render() {
@@ -47,7 +47,7 @@ BlogPosts.propTypes = {
   authors: PropTypes.array,
   categories: PropTypes.array,
   pagination: PropTypes.object,
-  sort: PropTypes.object,
+  filter: PropTypes.object,
   params: PropTypes.object,
   query: PropTypes.object,
   dispatch: PropTypes.func.isRequired
@@ -63,6 +63,6 @@ export default connect(
     showing: state.blog.showing,
     categories: state.blog.categories,
     authors: state.blog.authors,
-    sort: state.blog.sort
+    filter: state.blog.filter
   })
 )(BlogPosts);

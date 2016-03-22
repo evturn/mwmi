@@ -8,15 +8,15 @@ const actions = {
 };
 
 export const filterPosts = props => dispatch => {
-  const { params, query, sort } = props;
+  const { params, query, filter } = props;
   let posts;
 
   if (params.author) {
-    posts = sort.author[params.author];
+    posts = filter.author[params.author];
   } else if (params.category) {
-    posts = sort.category[params.category];
+    posts = filter.category[params.category];
   } else {
-    posts = sort.all;
+    posts = filter.all;
   }
 
   const currentPage = query.page ? parseInt(query.page) : 1;

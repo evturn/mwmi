@@ -5,7 +5,7 @@ export const init = (req, res, next) => {
   res.locals.user = req.user;
   res.locals.blog = {
     section: 'blog',
-    sort: {
+    filter: {
       all: [],
       category: {},
       author: {}
@@ -95,7 +95,7 @@ export const findAllPosts = (req, res, next) => {
     .exec((err, results) => {
       const pages = Math.ceil(results.length / 2);
 
-      res.locals.blog.sort = {
+      res.locals.blog.filter = {
         all: results
       };
       res.locals.blog.showing = results;
@@ -111,7 +111,7 @@ export const findAllPosts = (req, res, next) => {
 };
 
 export const filterPostsByUsername = (req, res, next) => {
-  const allPosts = res.locals.blog.sort.all;
+  const allPosts = res.locals.blog.filter.all;
   let allUsers = res.locals.blog.authors;
   let filteredByUsername = {};
 
@@ -128,16 +128,17 @@ export const filterPostsByUsername = (req, res, next) => {
         hasPosts = true;
       }
     }
-    console.log(hasPosts);
+
     return hasPosts;
   });
-  res.locals.blog.sort.author = filteredByUsername;
+
+  res.locals.blog.filter.author = filteredByUsername;
   res.locals.blog.authors = usersWithPosts;
   next();
 };
 
 export const filterPostsByCategory = (req, res, next) => {
-  const allPosts = res.locals.blog.sort.all;
+  const allPosts = res.locals.blog.filter.all;
   const filteredByCategory = {};
 
   allPosts.map(post => {
@@ -147,7 +148,7 @@ export const filterPostsByCategory = (req, res, next) => {
     });
   });
 
-  res.locals.blog.sort.category = filteredByCategory;
+  res.locals.blog.filter.category = filteredByCategory;
   next();
 };
 

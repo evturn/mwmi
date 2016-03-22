@@ -1,6 +1,6 @@
 export default function blog(state = {
   section: '',
-  sort: {},
+  filter: {},
   showing: [],
   pagination: {
     perPage: 2,
