@@ -1,7 +1,7 @@
 import keystone from 'keystone';
 const Types = keystone.Field.Types;
 
-let Post = new keystone.List('Post', {
+const Post = new keystone.List('Post', {
   map: {
     name: 'title'
   },
@@ -13,16 +13,48 @@ let Post = new keystone.List('Post', {
 });
 
 Post.add({
-  title:         { type: String, required: true },
-  state:         { type: Types.Select, options: 'draft, published, archived', default: 'draft', index: true },
-  author:        { type: Types.Relationship, ref: 'User', index: true },
-  publishedDate: { type: Types.Date, index: true, dependsOn: { state: 'published' } },
-  image:         { type: Types.CloudinaryImage },
-  content: {
-    brief:       { type: Types.Html, wysiwyg: true, height: 150 },
-    extended:    { type: Types.Html, wysiwyg: true, height: 400 }
+  title: {
+    type: String,
+    required: true
   },
-  categories:    { type: Types.Relationship, ref: 'PostCategory', many: true }
+  state: {
+    type: Types.Select,
+    options: 'draft, published, archived',
+    default: 'draft',
+    index: true
+  },
+  author: {
+    type: Types.Relationship,
+    ref: 'User',
+    index: true
+  },
+  publishedDate: {
+    type: Types.Date,
+    index: true,
+    dependsOn: {
+      state: 'published'
+    }
+  },
+  image: {
+    type: Types.CloudinaryImage
+  },
+  content: {
+    brief: {
+      type: Types.Html,
+      wysiwyg: true,
+      height: 150
+    },
+    extended: {
+      type: Types.Html,
+      wysiwyg: true,
+      height: 400
+    }
+  },
+  categories: {
+    type: Types.Relationship,
+    ref: 'PostCategory',
+    many: true
+  }
 });
 
 Post.schema.virtual('content.full').get(function() {

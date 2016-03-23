@@ -36,6 +36,19 @@ User.add({
   }
 });
 
+User.schema.post('init', user => {
+  if (user.custom) {
+    const i = user.name.full.indexOf(' ');
+    if (i  > 0) {
+      user.name.first = user.name.substring(0, i);
+      user.name.last = user.name.substring(i, user.name.length);
+    } else {
+      user.name.first = user.name;
+      user.name.last = '';
+    }
+  }
+});
+
 User.schema.virtual('canAccessKeystone').get(function() {
   return this.isAdmin;
 });
