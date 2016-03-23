@@ -6,6 +6,7 @@ import Enquiry from 'containers/Enquiry';
 import Blog from 'containers/Blog';
 import BlogPost from 'components/BlogPost';
 import BlogPosts from 'components/BlogPosts';
+import Gallery from 'containers/Gallery';
 
 export default (
   <Route path="/" component={App} name="app">
@@ -17,5 +18,6 @@ export default (
       <Route path="post/:post" component={BlogPost} />
     </Route>
     <Route path="contact" component={Enquiry} />
+    <Route path="gallery" component={Gallery} />
   </Route>
 );

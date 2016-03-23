@@ -3,6 +3,7 @@ import express from 'express';
 import path from 'path';
 import * as blog from './blog';
 import * as enquiry from './enquiry';
+import * as gallery from './gallery';
 import webpack from 'webpack';
 import webpackDevMiddleware from 'webpack-dev-middleware';
 import webpackHotMiddleware from 'webpack-hot-middleware';
@@ -14,6 +15,7 @@ const locals = (req, res, next) => {
   res.locals.nav = [
     {name: 'Home',    key: 'home',    href: '/'},
     {name: 'Blog',    key: 'blog',    href: '/blog'},
+    {name: 'Gallery', key: 'gallery', href: '/gallery'},
     {name: 'Contact', key: 'contact', href: '/contact'}
   ];
 
@@ -38,6 +40,7 @@ export default function(app) {
   app.get('/api/blog/post/:post', blog.findOnePost);
   app.get('/api/contact',         enquiry.get);
   app.post('/api/contact',        enquiry.post);
+  app.get('/api/gallery',         gallery.get);
 
   app.get('*', (req, res) => server(req, res));
 }
