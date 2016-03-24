@@ -20,7 +20,8 @@ export default (req, res) => {
           site: {
             user: req.user,
             nav: res.nav
-          }
+          },
+          gallery: res.gallery
         });
       })
       .then(store => {
