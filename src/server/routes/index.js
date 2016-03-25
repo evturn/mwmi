@@ -1,6 +1,5 @@
 import keystone from 'keystone';
 import express from 'express';
-import path from 'path';
 import * as blog from './blog';
 import * as enquiry from './enquiry';
 import * as gallery from './gallery';
