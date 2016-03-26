@@ -6,11 +6,6 @@ import css from 'less/components/home.less';
 const cx = classNames.bind(css);
 
 export default class Home extends Component {
-  constructor(props) {
-    super(props);
-
-    this.subtitle = 'Inspiring stories from successful industry experts, artists, and songwriters';
-  }
   render() {
     return (
       <div className={cx('home')}>
@@ -19,7 +14,7 @@ export default class Home extends Component {
           <div className={cx('title')}>MWMI</div>
         </div>
         <div className={cx('headline')}>
-          <div className={cx('text')}>{this.subtitle}</div>
+          <div className={cx('text')}>Inspiring stories from successful pancakes</div>
           <Link to={{ pathname: '/blog' }}>
             <button className={cx('btn')}>Stream Now</button>
           </Link>
