@@ -10,14 +10,10 @@ export default class Home extends Component {
     return (
       <div className={cx('home')}>
         <div className={cx('hero')}>
-          <img className={cx('image')} src={require('images/home.png')} />
-          <div className={cx('title')}>MWMI</div>
+          <img className={cx('image')} src={require('images/m.png')} />
         </div>
         <div className={cx('headline')}>
           <div className={cx('text')}>Inspiring stories from successful pancakes</div>
-          <Link to={{ pathname: '/blog' }}>
-            <button className={cx('btn')}>Stream Now</button>
-          </Link>
         </div>
       </div>
     );
