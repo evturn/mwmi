@@ -6,7 +6,7 @@
     "url": "https://github.com/evturn/mwmi.git"
   },
   "author": {
-    "name": "Ev Turner",
+    "name": "Evan Turner",
     "url": "http://evturn.com",
     "github": "http://github.com/evturn",
     "npm": "https://www.npmjs.com/~evturn"
@@ -21,7 +21,6 @@
     "async": "^2.0.0-rc.1",
     "classnames": "^2.2.3",
     "cloudinary": "^1.3.0",
-    "es6-promise": "^3.1.2",
     "express": "^4.13.4",
     "extract-text-webpack-plugin": "^1.0.1",
     "history": "^2.0.2",
@@ -34,12 +33,10 @@
     "node-libs-browser": "^1.0.0",
     "react": "^15.0.1",
     "react-dom": "^15.0.1",
-    "react-helmet": "^2.3.1",
     "react-redux": "^4.4.5",
     "react-router": "^2.2.4",
     "react-router-redux": "^4.0.2",
     "redux": "^3.3.1",
-    "redux-thunk": "^2.0.1",
     "webpack": "^1.13.0"
   },
   "devDependencies": {
