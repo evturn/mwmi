@@ -6,6 +6,8 @@
   text-align: center;
   max-width: 900px;
   font-family: @font-montserrat;
+  padding-bottom: 30px;
+  margin-top: -70px;
 }
 
 .li {
@@ -14,6 +16,8 @@
   margin-bottom: 10px;
   text-transform: uppercase;
   letter-spacing: -0.8px;
+  text-shadow: 1px 3px 3px rgba(0,0,0,.50);
+  font-size: 14px;
 
   &:nth-child(odd) {
     text-align: left;
@@ -24,6 +28,11 @@
   }
 
   a {
+    .transition(0.3s);
     color: @tx-primary;
+
+    &:hover {
+      color: fade(@tx-primary, 80);
+    }
   }
 }
