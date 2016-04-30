@@ -13,17 +13,23 @@ class Episodes extends Component {
         <ul className={cx('ul')}>{this.props.podcast.map((x, i) =>
           <li key={i} className={cx('li')}>
             {i % 2 === 0 ? (
-              <div>
+              <a href={x.url} target="_blank">
                 <div className={cx('ep')}>{x.episodeNumber}</div>
-                <div className={cx('guest')}>{x.guest}</div>
-              </div>
+                <div className={cx('desc')}>
+                  <div className={cx('guest')}>{x.guest}</div>
+                  <div className={cx('title')}>{x.title}</div>
+                </div>
+              </a>
             ) : (
-              <div>
-                <div className={cx('guest')}>{x.guest}</div>
+              <a href={x.url} target="_blank">
+                <div className={cx('desc')}>
+                  <div className={cx('guest')}>{x.guest}</div>
+                  <div className={cx('title')}>{x.title}</div>
+                </div>
                 <div className={cx('ep')}>{x.episodeNumber}</div>
-              </div>
+              </a>
             )}
-            <div><a href={x.url} target="_blank">{x.title}</a></div>
+
           </li>
        )}</ul>
       </div>
