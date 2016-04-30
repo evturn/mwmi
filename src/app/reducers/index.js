@@ -4,7 +4,7 @@ import podcast from './podcast'
 import enquiry from './enquiry'
 import gallery from './gallery'
 
-const site = (state = {}, action) => state;
+const site = (state = {}, action) => state
 const rootReducer = combineReducers({
   podcast,
   enquiry,

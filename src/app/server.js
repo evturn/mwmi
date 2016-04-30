@@ -18,7 +18,7 @@ export default (req, res) => {
           podcast: res.podcast,
           enquiry: res.enquiry,
           site: {
-            user: req.user,
+            user: res.user,
             nav: res.nav
           },
           gallery: res.gallery
