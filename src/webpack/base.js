@@ -53,7 +53,7 @@ export const devLoaders = [
     test: /\.(eot|ttf|woff|otf)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
     loader: 'url-loader'
   },{
-    test: /\.(gif|png|jpe?g|svg|ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+    test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
     loader: 'file-loader'
   },{
     test: /.*\.(gif|png|jpe?g|svg)$/i,
