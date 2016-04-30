@@ -12,7 +12,7 @@ export const PATHS = {
   static: {
     js: 'js/[name].js',
     css: 'css/app.css',
-    img: 'img/[hash].[ext]'
+    img: 'img/[name].[ext]'
   },
   root: __dirname
 };
@@ -46,14 +46,14 @@ export const devLoaders = [
     loader: 'babel',
     exclude: /node_modules/,
     include: PATHS.app
-  },,{
+  },{
     test: /\.json$/,
     loader: 'json-loader'
   },{
     test: /\.(eot|ttf|woff|otf)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
     loader: 'url-loader'
   },{
-    test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+    test: /\.(gif|png|jpe?g|svg|ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
     loader: 'file-loader'
   },{
     test: /.*\.(gif|png|jpe?g|svg)$/i,
@@ -84,7 +84,7 @@ export const prodLoaders = [
     loader: 'babel',
     exclude: /node_modules/,
     include: PATHS.app
-  },,{
+  },{
     test: /\.json$/,
     loader: 'json-loader'
   },{

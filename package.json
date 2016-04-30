@@ -17,7 +17,7 @@
     "build:lib": "rm -rf lib && mkdir lib && babel src/server -d lib/server && babel src/webpack -d lib/webpack",
     "build": "NODE_ENV=production npm run build:dist && npm run build:lib",
     "test": "NODE_ENV=production node lib/server",
-    "serve": "NODE_ENV=production babel-node src/server"
+    "serve": "NODE_ENV=production nohup node lib/server &"
   },
   "license": "MIT",
   "dependencies": {
@@ -25,6 +25,7 @@
     "classnames": "^2.2.3",
     "cloudinary": "^1.3.0",
     "express": "^4.13.4",
+    "fs": "0.0.2",
     "history": "^2.0.2",
     "isomorphic-fetch": "^2.2.1",
     "keystone": "https://github.com/keystonejs/keystone.git",
