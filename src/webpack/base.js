@@ -38,7 +38,7 @@ export const plugin = {
 };
 
 export const extensions = ['', '.js', '.jsx', '.less'];
-export const modulesDirectories = ['app', 'node_modules'];
+export const modulesDirectories = ['node_modules'];
 
 export const devLoaders = [
   {

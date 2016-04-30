@@ -7,7 +7,6 @@ const cx = classNames.bind(css)
 
 class Episodes extends Component {
   render() {
-    console.log(this.props.podcast)
     return (
       <div className={cx('root')}>
         <ul className={cx('ul')}>{this.props.podcast.map((x, i) =>
@@ -29,7 +28,6 @@ class Episodes extends Component {
                 <div className={cx('ep')}>{x.episodeNumber}</div>
               </a>
             )}
-
           </li>
        )}</ul>
       </div>
