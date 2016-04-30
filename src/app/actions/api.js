@@ -1,13 +1,11 @@
 import fetch from 'isomorphic-fetch';
 
-const fetchJSON = (url, cb) => {
-  return fetch(url)
+export const fetchLocals = cb => {
+  return fetch(`http://localhost:${__PORT__}/api/locals`)
     .then(res => res.json())
     .then(res => cb(res))
-    .catch(error => console.log(error));
-};
-
-export const fetchLocals = cb => fetchJSON('http://localhost:4000/api/locals', cb);
+    .catch(err => console.log(err));
+}
 
 export const createPage = (html, initialState) => {
   return `
@@ -15,7 +13,7 @@ export const createPage = (html, initialState) => {
     <html lang="en">
     <head>
       <meta name="viewport" content="width=device-width, initial-scale=1" />
-      <title>MWMI</title>
+      <title>Mama We Made It</title>
       <link rel="icon" type="image/png" href="dist/favicon.png">
       <link rel="stylesheet" type="text/css" href="/dist/css/app.css" />
     </head>

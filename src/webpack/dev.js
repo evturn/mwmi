@@ -1,9 +1,9 @@
-import webpack from 'webpack';
-import ExtractTextPlugin from 'extract-text-webpack-plugin';
-import WriteFilePlugin from 'write-file-webpack-plugin';
+import webpack from 'webpack'
+import ExtractTextPlugin from 'extract-text-webpack-plugin'
+import WriteFilePlugin from 'write-file-webpack-plugin'
 import {
   PATHS, devLoaders, extensions, plugin,
-  alias, modulesDirectories } from './base';
+  alias, modulesDirectories } from './base'
 
 export default {
   debug: true,
@@ -16,9 +16,9 @@ export default {
     app: ['../app/client', 'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000&reload=true']
   },
   output: {
-    path: PATHS.output,              // The output directory as absolute path
-    filename: PATHS.static.js,       // The filename of the entry chunk as relative path inside the output.path directory
-    publicPath: PATHS.publicPath.dev // The output path from the view of the Javascript
+    path: PATHS.output,
+    filename: PATHS.static.js,
+    publicPath: PATHS.publicPath,
   },
   devServer: {
     outputPath: PATHS.output,
@@ -37,9 +37,9 @@ export default {
     loaders: devLoaders
   },
   resolve: {
-    extensions: extensions,
-    modulesDirectories: modulesDirectories,
-    alias: alias
+    extensions,
+    modulesDirectories,
+    alias
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
@@ -50,7 +50,8 @@ export default {
       'process.env.NODE_ENV': '"development"',
       __DEV__: true,
       __CLIENT__: true,
-      __SERVER__: false
+      __SERVER__: false,
+      __PORT__: process.env.PORT_MWMI
     }),
   ]
-};
+}

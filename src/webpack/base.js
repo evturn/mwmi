@@ -4,10 +4,7 @@ import ExtractTextPlugin from 'extract-text-webpack-plugin';
 export const PATHS = {
   app: path.join(__dirname, '..', '..', 'src'),
   output: path.join(__dirname, '..', '..', 'dist'),
-  publicPath: {
-    dev: '/dist/',
-    prod: '/dist/'
-  },
+  publicPath: '/dist/',
   less: path.resolve(__dirname, '..', 'client', 'less'),
   static: {
     js: 'js/[name].js',
