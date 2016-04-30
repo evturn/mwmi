@@ -1,8 +1,9 @@
 import keystone from 'keystone'
 import transform from 'model-transform'
 
-const Types = keystone.Field.Types
-const User = new keystone.List('User')
+const { Field: { Types }, List } = keystone
+
+const User = new List('User')
 
 User.add({
   name: {
@@ -34,17 +35,6 @@ User.add({
     label: 'Can access Keystone',
     index: true
   }
-})
-
-User.schema.post('init', user => {
-    const i = user.name.full.indexOf(' ')
-    if (i  > 0) {
-      user.name.first = user.name.substring(0, i)
-      user.name.last = user.name.substring(i, user.name.length)
-    } else {
-      user.name.first = user.name
-      user.name.last = ''
-    }
 })
 
 User.schema.virtual('canAccessKeystone').get(function() {

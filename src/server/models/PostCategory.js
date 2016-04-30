@@ -5,7 +5,8 @@ const PostCategory = new keystone.List('PostCategory', {
     from: 'name',
     path: 'key',
     unique: true
-  }
+  },
+  hidden: true
 });
 
 PostCategory.add({

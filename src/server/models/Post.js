@@ -9,7 +9,8 @@ const Post = new keystone.List('Post', {
     path: 'slug',
     from: 'title',
     unique: true
-  }
+  },
+  hidden: true
 });
 
 Post.add({

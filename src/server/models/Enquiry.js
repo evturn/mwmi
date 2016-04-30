@@ -30,7 +30,7 @@ Enquiry.add({
 });
 
 Enquiry.defaultSort = '-createdAt';
-Enquiry.defaultColumns = 'name, email, enquiryType, createdAt';
+Enquiry.defaultColumns = 'name, email, createdAt, message';
 Enquiry.register();
 
 // Enquiry.schema.pre('save', function(next) {

@@ -3,8 +3,8 @@ const Types = keystone.Field.Types;
 
 const Gallery = new keystone.List('Gallery', {
   autokey: {
-    from: 'name',
     path: 'key',
+    from: 'name',
     unique: true
   }
 });

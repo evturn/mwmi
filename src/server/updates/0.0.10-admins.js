@@ -12,6 +12,12 @@ exports.create = {
       password: 'password',
       username: 'rauschy',
       isAdmin: true
+    },{
+      name: 'ev',
+      email: 'ev@ev.com',
+      password: 'ev',
+      username: 'ev',
+      isAdmin: true
     }
   ]
 }

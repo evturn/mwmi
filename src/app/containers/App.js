@@ -6,13 +6,15 @@ import css from 'less/global/style.less'
 
 class App extends Component {
   render() {
+    const { nav, location, user } = this.props
+
     return (
       <div className="site">
-        <Header nav={this.props.nav} pathname={this.props.location.pathname} />
+        <Header nav={nav} pathname={location.pathname} />
         <div className="content">
           {this.props.children}
         </div>
-        <Footer user={this.props.user} />
+        <Footer user={user} />
       </div>
     )
   }
