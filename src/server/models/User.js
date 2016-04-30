@@ -1,8 +1,8 @@
-import keystone from 'keystone';
-import transform from 'model-transform';
+import keystone from 'keystone'
+import transform from 'model-transform'
 
-const Types = keystone.Field.Types;
-const User = new keystone.List('User');
+const Types = keystone.Field.Types
+const User = new keystone.List('User')
 
 User.add({
   name: {
@@ -34,26 +34,24 @@ User.add({
     label: 'Can access Keystone',
     index: true
   }
-});
+})
 
 User.schema.post('init', user => {
-  if (user.custom) {
-    const i = user.name.full.indexOf(' ');
+    const i = user.name.full.indexOf(' ')
     if (i  > 0) {
-      user.name.first = user.name.substring(0, i);
-      user.name.last = user.name.substring(i, user.name.length);
+      user.name.first = user.name.substring(0, i)
+      user.name.last = user.name.substring(i, user.name.length)
     } else {
-      user.name.first = user.name;
-      user.name.last = '';
+      user.name.first = user.name
+      user.name.last = ''
     }
-  }
-});
+})
 
 User.schema.virtual('canAccessKeystone').get(function() {
-  return this.isAdmin;
-});
+  return this.isAdmin
+})
 
-transform.toJSON(User);
+transform.toJSON(User)
 
-User.defaultColumns = 'name, email, username, isAdmin';
-User.register();
+User.defaultColumns = 'name, email, username, isAdmin'
+User.register()

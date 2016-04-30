@@ -20,8 +20,10 @@ const locals = (req, res, next) => {
   next();
 };
 
+console.log(process.env.NODE_ENV, 'outside')
 export default function(app) {
   if (process.env.NODE_ENV === 'development') {
+    console.log(process.env.NODE_ENV, 'inside')
     const compiler = webpack(webpackConfig);
 
     app.use(webpackDevMiddleware(compiler, {

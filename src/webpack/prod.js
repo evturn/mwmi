@@ -1,10 +1,11 @@
-import path from 'path';
-import webpack from 'webpack';
-import ExtractTextPlugin from 'extract-text-webpack-plugin';
-import CleanPlugin from 'clean-webpack-plugin';
+import path from 'path'
+import webpack from 'webpack'
+import ExtractTextPlugin from 'extract-text-webpack-plugin'
+import CleanPlugin from 'clean-webpack-plugin'
+import CopyWebpackPlugin from 'copy-webpack-plugin'
 import {
   PATHS, prodLoaders, extensions,
-  modulesDirectories, alias, plugin } from './base';
+  modulesDirectories, alias, plugin } from './base'
 
 export default webpack([
   {
@@ -37,6 +38,12 @@ export default webpack([
           warnings: false
         }
       }),
+      new CopyWebpackPlugin([
+        {
+          from: path.join(__dirname, '..', 'client', 'img', 'favicon.png'),
+          to: 'favicon.png'
+        }
+      ]),
       new webpack.DefinePlugin({
         'process.env.NODE_ENV': '"production"',
         __DEV__: false,
@@ -79,12 +86,12 @@ export default webpack([
   }
 ], (err, stats) => {
   if (err) {
-    const jsonStats = stats.toJson();
+    const jsonStats = stats.toJson()
 
     if (jsonStats.errors.length > 0) {
-      console.log(json.errors);
+      console.log(json.errors)
     }
   }
 
   console.log(stats.toString({ colors: true }))
-});
+})

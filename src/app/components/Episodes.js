@@ -8,7 +8,7 @@ const cx = classNames.bind(css)
 class Episodes extends Component {
   render() {
     return (
-      <div>
+      <div className={cx('root')}>
         <ul className={cx('ul')}>{this.props.podcast.map(x =>
           <li key={x.url} className={cx('li')}>
             <a href={x.url} target="_blank">{x.title}</a>
