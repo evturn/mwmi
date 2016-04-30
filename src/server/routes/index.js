@@ -4,18 +4,14 @@ import { locals, episodes, gallery, enquiries, complete } from './middleware'
 import webpackDevServer from '../../webpack/dev-server'
 import server from '../../../dist/js/ser'
 
-export default function(app) {
-
+export default app => {
   if (process.env.NODE_ENV === 'development') {
     webpackDevServer(app)
   }
-
   app.use(locals)
 
-  app.get('/api/locals',   episodes, gallery, complete)
-  app.get('/api/contact',  enquiries.get)
-  app.post('/api/contact', enquiries.post)
-
+  app.get('/api/locals',     episodes, gallery, complete)
+  app.get('/api/contact',    enquiries.get)
+  app.post('/api/contact',   enquiries.post)
   app.get('*', (req, res) => server(req, res))
-
 }

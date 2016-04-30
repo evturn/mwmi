@@ -22,13 +22,22 @@
   letter-spacing: -0.8px;
   text-shadow: 1px 1px 3px rgba(0,0,0,.50);
   font-size: 14px;
+  color: @tx-primary;
 
   &:nth-child(odd) {
     text-align: left;
+
+    .ep {
+      margin-right: 10px;
+    }
   }
 
   &:nth-child(even) {
     text-align: right;
+
+    .ep {
+      margin-left: 10px;
+    }
   }
 
   a {
@@ -39,4 +48,12 @@
       color: fade(@tx-primary, 80);
     }
   }
+}
+
+.guest {
+  display: inline-block;
+}
+
+.ep {
+  display: inline-block;
 }
