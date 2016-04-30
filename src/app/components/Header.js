@@ -7,14 +7,13 @@ const cx = classNames.bind(css);
 
 class Header extends Component {
   render() {
-    const { nav, path } = this.props;
-    console.log(this.props.path)
+    const { nav, pathname } = this.props;
+
     return (
       <header className={cx('header')}>
-        <ul>{nav.map(link => {
-          if (path === '/' && link.key !== 'home') {
-            return <li key={link.key}><Link to={link.href}>{link.name}</Link></li>
-          }
+        <ul>{nav.map((x, i)=> {
+          const link = <li key={i}><Link to={x.href}>{x.name}</Link></li>
+          return pathname !== '/' ? link : x.key === 'home' ? null : link
         })}</ul>
       </header>
     );

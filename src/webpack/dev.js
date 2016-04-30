@@ -30,7 +30,7 @@ export default {
     inline: true,
     progress: true,
     stats: 'errors-only',
-    port: 3000,
+    port: process.env.PORT_MWMI || 4000,
     host: 'localhost'
   },
   module: {

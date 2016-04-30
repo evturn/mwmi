@@ -8,7 +8,7 @@ class App extends Component {
   render() {
     return (
       <div className="site">
-        <Header nav={this.props.nav} path={this.props.route.path} />
+        <Header nav={this.props.nav} pathname={this.props.location.pathname} />
         <div className="content">
           {this.props.children}
         </div>
