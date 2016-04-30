@@ -2,29 +2,24 @@ import keystone from 'keystone'
 import path from 'path'
 import routes from '../routes'
 
+global.__DEV__ = process.env.NODE_ENV === 'development'
+
 const init = {
   'name': 'Mama We Made It',
   'brand': 'MWMI',
-  'env': process.env.NODE_ENV || 'development',
+  'env': process.env.NODE_ENV,
   'static': path.join(__dirname, '..', '..', '..'),
   'favicon': path.join(__dirname, '..', '..', '..', 'dist', 'favicon.png'),
   'mongo': 'mongodb://localhost/mwmi',
   'auto update': true,
-  'cloudinary config': process.env.CLOUDINARY_URL,
+  'cloudinary config':  __DEV__ ? process.env.CLOUDINARY_URL : process.env.MWMI_CLOUDINARY_URL,
   'admin path': 'admin',
   'session': true,
   'auth': true,
   'user model': 'User',
-  'cookie secret': '939390a671664cf1eca64ee5f4a98b08746c301934cdcbb4c3e49bc18fb3fd88a4580b1e464702b29c0bbde893f9b37e9889002af623d1b6a1df0b960373b03c',
+  'cookie secret': process.env.MWMI_COOKIE_SECRET,
   'updates': '../updates',
   'port': process.env.PORT_MWMI || 4000
-}
-
-const locals = {
-  _: require('underscore'),
-  env: keystone.get('env'),
-  utils: keystone.utils,
-  editable: keystone.content.editable
 }
 
 const nav = {
@@ -36,7 +31,6 @@ const nav = {
 
 keystone.init(init)
 keystone.import('../models')
-keystone.set('locals', locals)
 keystone.set('routes', routes)
 keystone.set('nav', nav)
-keystone.start(_ => console.log(process.env.NODE_ENV))
+keystone.start()

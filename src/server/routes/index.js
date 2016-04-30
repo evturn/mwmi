@@ -5,7 +5,7 @@ import webpackDevServer from '../../webpack/dev-server'
 import server from '../../../dist/js/ser'
 
 export default app => {
-  if (process.env.NODE_ENV === 'development') {
+  if (__DEV__) {
     webpackDevServer(app)
   }
   app.use(locals)
