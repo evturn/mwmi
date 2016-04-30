@@ -15,7 +15,7 @@ export default (req, res) => {
     } else if (renderProps) {
       fetchLocals(res => {
         return configureStore({
-          blog: res.blog,
+          episode: res.episode,
           enquiry: res.enquiry,
           site: {
             user: req.user,

@@ -34,6 +34,6 @@ Episodes.propTypes = {
 
 export default connect(
   (state) => ({
-    episodes: state.blog.showing
+    episodes: state.episode
   })
 )(Episodes);

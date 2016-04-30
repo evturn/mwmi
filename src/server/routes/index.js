@@ -1,6 +1,6 @@
 import keystone from 'keystone';
 import express from 'express';
-import * as blog from './blog';
+import * as episode from './episode';
 import * as enquiry from './enquiry';
 import * as gallery from './gallery';
 import webpack from 'webpack';
@@ -34,8 +34,7 @@ export default function(app) {
 
   app.use(locals);
 
-  app.get('/api/locals',          blog.init, blog.findAllPosts, gallery.get, blog.sendPayload);
-  app.get('/api/blog/post/:post', blog.findOnePost);
+  app.get('/api/locals',          episode.get, gallery.get, episode.send);
   app.get('/api/contact',         enquiry.get);
   app.post('/api/contact',        enquiry.post);
   app.get('/api/gallery',         gallery.get);
