@@ -13,9 +13,8 @@ const locals = (req, res, next) => {
   res.locals.user = req.user;
   res.locals.nav = [
     {name: 'Home',    key: 'home',    href: '/'},
-    {name: 'Blog',    key: 'blog',    href: '/blog'},
     {name: 'Gallery', key: 'gallery', href: '/gallery'},
-    {name: 'Contact', key: 'contact', href: '/contact'}
+    {name: 'About',   key: 'about',   href: '/about'}
   ];
 
   next();
@@ -35,7 +34,7 @@ export default function(app) {
 
   app.use(locals);
 
-  app.get('/api/locals',          blog.init, blog.populateCategories, blog.populateAuthors, blog.findAllPosts, blog.filterPostsByUsername, blog.filterPostsByCategory, gallery.get, blog.sendPayload);
+  app.get('/api/locals',          blog.init, blog.findAllPosts, gallery.get, blog.sendPayload);
   app.get('/api/blog/post/:post', blog.findOnePost);
   app.get('/api/contact',         enquiry.get);
   app.post('/api/contact',        enquiry.post);

@@ -1,0 +1,25 @@
+@import url('./variables.less');
+
+.ul {
+  .flex();
+  margin: 0 auto;
+  text-align: center;
+  max-width: 800px;
+  font-family: @font-montserrat;
+}
+
+.li {
+  color: @tx-primary;
+  width: 50%;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+  letter-spacing: -0.8px;
+
+  &:nth-child(odd) {
+    text-align: left;
+  }
+
+  &:nth-child(even) {
+    text-align: right;
+  }
+}
