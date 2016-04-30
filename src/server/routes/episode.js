@@ -5,7 +5,7 @@ export const get = (req, res, next) => {
     .model.find()
 
   q.exec((err, data) => {
-    res.locals.episode = data
+    res.locals.podcast = data
 
     next()
   })

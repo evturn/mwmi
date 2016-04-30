@@ -7,19 +7,12 @@ const cx = classNames.bind(css)
 
 class Episodes extends Component {
   render() {
-    const a = [
-      'Episode 1: Fred Goes to School',
-      'Episode 2: I Eat Sandwiches',
-      'Episode 3: This Tastes Like Shit. Here, Try It',
-      'Episode 4: Nobody Knows How To Swim',
-      'Episode 5: I Decorated a Cake',
-      'Episode 6: Do Not Ask About The Specials'
-    ]
-
     return (
       <div>
-        <ul className={cx('ul')}>{this.props.episodes.map(x =>
-          <li key={x.slug} className={cx('li')}>{x.title}</li>
+        <ul className={cx('ul')}>{this.props.podcast.map(x =>
+          <li key={x.url} className={cx('li')}>
+            <a href={x.url} target="_blank">{x.title}</a>
+          </li>
         )}</ul>
       </div>
     )
@@ -29,11 +22,11 @@ class Episodes extends Component {
 export default Episodes
 
 Episodes.propTypes = {
-  episodes: PropTypes.array
+  podcast: PropTypes.array
 }
 
 export default connect(
   (state) => ({
-    episodes: state.episode
+    podcast: state.podcast
   })
 )(Episodes);

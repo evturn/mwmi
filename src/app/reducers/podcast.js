@@ -1,4 +1,4 @@
-export default function episode(state=[], action) {
+export default function podcast(state=[], action) {
   switch (action.type) {
     default:
       return state;

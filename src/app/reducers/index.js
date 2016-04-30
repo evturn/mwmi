@@ -1,12 +1,12 @@
 import { combineReducers } from 'redux'
 import { routerReducer } from 'react-router-redux'
-import episode from './episode'
+import podcast from './podcast'
 import enquiry from './enquiry'
 import gallery from './gallery'
 
 const site = (state = {}, action) => state;
 const rootReducer = combineReducers({
-  episode,
+  podcast,
   enquiry,
   site,
   gallery,
