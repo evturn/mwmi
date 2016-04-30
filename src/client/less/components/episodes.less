@@ -15,8 +15,9 @@
 }
 
 .li {
-  width: 50%;
-  height: 40px;
+  position: relative;
+  width: 100%;
+  height: 80px;
   margin-bottom: 10px;
   text-transform: uppercase;
   letter-spacing: -0.8px;
@@ -24,19 +25,26 @@
   font-size: 14px;
   color: @tx-primary;
 
-  &:nth-child(odd) {
-    text-align: left;
-
-    .ep {
-      margin-right: 25px;
-    }
+  @media(@tablet) {
+    width: 50%;
+    height: 40px;
   }
 
-  &:nth-child(even) {
-    text-align: right;
+  @media(@tablet) {
+    &:nth-child(odd) {
+      text-align: left;
 
-    .ep {
-      margin-left: 25px;
+      .ep {
+        margin-right: 25px;
+      }
+    }
+
+    &:nth-child(even) {
+      text-align: right;
+
+      .ep {
+        margin-left: 25px;
+      }
     }
   }
 
@@ -51,15 +59,31 @@
 }
 
 .desc {
-  display: inline-block;
-  font-weight: 600;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  left: 0;
   margin-bottom: 10px;
+  font-weight: 600;
+
+  @media(@tablet) {
+    position: inherit;
+    display: inline-block;
+  }
+
 }
 
 .ep {
+  float: left;
+  width: 100%;
   font-weight: 600;
   display: inline-block;
   vertical-align: top;
+
+  @media(@tablet) {
+    float: none;
+    width: inherit;
+  }
 }
 
 .guest {
