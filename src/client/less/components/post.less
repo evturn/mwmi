@@ -2,8 +2,9 @@
 
 .post {
   padding: 15px;
-  background-color: @bg-light;
+  background-color: fade(@bg-dark, 30);
   border: 1px solid fade(@tx-grey, 30);
+  color: @tx-light;
   margin-bottom: 20px;
 }
 
@@ -31,9 +32,9 @@
   .clearfix();
   .hyperlink();
   a {
-    color: @tx-dark;
+    color: @tx-light;
     &:hover {
-      color: @tx-secondary;
+      color: @tx-light;
     }
   }
 }
