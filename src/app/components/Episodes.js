@@ -45,4 +45,4 @@ export default connect(
   (state) => ({
     podcast: state.podcast
   })
-)(Episodes);
+)(Episodes)

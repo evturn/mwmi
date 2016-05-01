@@ -1,34 +1,34 @@
-import React, { Component, PropTypes } from 'react';
-import { connect } from 'react-redux';
-import { Link } from 'react-router';
-import { filterPosts, noPostsFound } from 'actions/blog';
-import BlogFilters from 'components/BlogFilters';
-import Pagination from 'components/Pagination';
-import Posts from 'components/Posts';
-import classNames from 'classnames/bind';
-import css from 'less/components/blog.less';
+import React, { Component, PropTypes } from 'react'
+import { connect } from 'react-redux'
+import { Link } from 'react-router'
+import { filterPosts, noPostsFound } from 'actions/blog'
+import BlogFilters from 'components/BlogFilters'
+import Pagination from 'components/Pagination'
+import Posts from 'components/Posts'
+import classNames from 'classnames/bind'
+import css from 'less/components/blog.less'
 
-const cx = classNames.bind(css);
+const cx = classNames.bind(css)
 
 class BlogPosts extends Component {
   componentWillMount() {
-    const { dispatch, params, query, filter } = this.props;
+    const { dispatch, params, query, filter } = this.props
 
-    dispatch(filterPosts({ params, query, filter }));
+    dispatch(filterPosts({ params, query, filter }))
   }
   componentWillReceiveProps(nextProps) {
-    const { dispatch, filter } = this.props;
+    const { dispatch, filter } = this.props
 
     if (nextProps.params !== this.props.params || nextProps.query !== this.props.query) {
-      const { params, query } = nextProps;
+      const { params, query } = nextProps
 
-      dispatch(filterPosts({ params, query, filter }));
+      dispatch(filterPosts({ params, query, filter }))
     }
   }
   render() {
     const {
       categories, authors, showing,
-      pagination, pathname } = this.props;
+      pagination, pathname } = this.props
 
     return (
       <div className={cx('blog-posts')}>
@@ -38,7 +38,7 @@ class BlogPosts extends Component {
         </div>
         <Pagination pathname={pathname} {...pagination} />
       </div>
-    );
+    )
   }
 }
 
@@ -51,7 +51,7 @@ BlogPosts.propTypes = {
   params: PropTypes.object,
   query: PropTypes.object,
   dispatch: PropTypes.func.isRequired
-};
+}
 
 export default connect(
   (state, ownProps) => ({
@@ -65,4 +65,4 @@ export default connect(
     authors: state.blog.authors,
     filter: state.blog.filter
   })
-)(BlogPosts);
+)(BlogPosts)

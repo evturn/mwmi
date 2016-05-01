@@ -1,20 +1,20 @@
-import React, { Component, PropTypes } from 'react';
-import { connect } from 'react-redux';
-import { Link } from 'react-router';
-import classNames from 'classnames/bind';
-import css from 'less/components/pagination.less';
+import React, { Component, PropTypes } from 'react'
+import { connect } from 'react-redux'
+import { Link } from 'react-router'
+import classNames from 'classnames/bind'
+import css from 'less/components/pagination.less'
 
-const cx = classNames.bind(css);
+const cx = classNames.bind(css)
 
 class Pagination extends Component {
   render() {
     const {
       total, pages, next, previous, buttons,
-      currentPage, first, last, pathname} = this.props;
+      currentPage, first, last, pathname} = this.props
 
-    const backArrow = <span className="fa fa-chevron-left" />;
-    const forwardArrow = <span className="fa fa-chevron-right" />;
-    const pageResults = `Showing ${first} - ${last} of ${total}`;
+    const backArrow = <span className="fa fa-chevron-left" />
+    const forwardArrow = <span className="fa fa-chevron-right" />
+    const pageResults = `Showing ${first} - ${last} of ${total}`
 
     const back = (
       <li className={cx('page')}>{previous ? (
@@ -22,7 +22,7 @@ class Pagination extends Component {
         ) : (
         <a className={cx('off')}>{backArrow}</a>
       )}</li>
-    );
+    )
 
     const skipTo = buttons.map(page =>
       <li key={page} className={cx('page')}>{page !== currentPage ? (
@@ -30,7 +30,7 @@ class Pagination extends Component {
         ) : (
         <a className={cx('off')}>{page}</a>
       )}</li>
-    );
+    )
 
     const forward = (
       <li className={cx('page')}>{next ? (
@@ -38,7 +38,7 @@ class Pagination extends Component {
         ) : (
         <a className={cx('off')}>{forwardArrow}</a>
       )}</li>
-    );
+    )
 
     return (
       <div className={cx('pagination')}>
@@ -49,7 +49,7 @@ class Pagination extends Component {
           {forward}
         </ul>
       </div>
-    );
+    )
   }
 }
 
@@ -62,7 +62,7 @@ Pagination.propTypes = {
   currentPage: PropTypes.number,
   pathname: PropTypes.string,
   dispatch: PropTypes.func
-};
+}
 
 export default connect(
   state => ({
@@ -75,4 +75,4 @@ export default connect(
     next: state.blog.pagination.next,
     currentPage: state.blog.pagination.currentPage
   })
-)(Pagination);
+)(Pagination)

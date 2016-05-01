@@ -7,7 +7,6 @@ import css from 'less/global/style.less'
 class App extends Component {
   render() {
     const { nav, location, user } = this.props
-    console.log(user)
     return (
       <div className="site">
         <Header nav={nav} pathname={location.pathname} />

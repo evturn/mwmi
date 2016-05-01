@@ -1,13 +1,13 @@
-import React, { Component, PropTypes } from 'react';
-import { Link } from 'react-router';
-import classNames from 'classnames/bind';
-import css from 'less/components/header.less';
+import React, { Component, PropTypes } from 'react'
+import { Link } from 'react-router'
+import classNames from 'classnames/bind'
+import css from 'less/components/header.less'
 
-const cx = classNames.bind(css);
+const cx = classNames.bind(css)
 
 class Header extends Component {
   render() {
-    const { nav, pathname } = this.props;
+    const { nav, pathname } = this.props
 
     return (
       <header className={cx('header')}>
@@ -16,7 +16,7 @@ class Header extends Component {
           return pathname !== '/' ? link : x.key === 'home' ? null : link
         })}</ul>
       </header>
-    );
+    )
   }
 }
 

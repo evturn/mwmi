@@ -1,16 +1,16 @@
-import React, { Component, PropTypes } from 'react';
-import { connect } from 'react-redux';
-import { isTyping, enquirySubmit } from 'actions/enquiry';
-import classNames from 'classnames/bind';
-import css from 'less/components/enquiry.less';
+import React, { Component, PropTypes } from 'react'
+import { connect } from 'react-redux'
+import { isTyping, enquirySubmit } from 'actions/enquiry'
+import classNames from 'classnames/bind'
+import css from 'less/components/enquiry.less'
 
-const cx = classNames.bind(css);
+const cx = classNames.bind(css)
 
 class Enquiry extends Component {
   render() {
     const {
       validationErrors, hasErrors,
-      enquirySubmitted, dispatch } = this.props;
+      enquirySubmitted, dispatch } = this.props
 
     const name = (
       <div className={cx('field')}>
@@ -21,7 +21,7 @@ class Enquiry extends Component {
           onChange={e => dispatch(isTyping(e.target).bind(this))} />
         <div className={cx('error')}>{hasErrors && validationErrors.name ? validationErrors.name : null}</div>
       </div>
-    );
+    )
 
     const email = (
       <div className={cx('field')}>
@@ -32,7 +32,7 @@ class Enquiry extends Component {
           onChange={e => dispatch(isTyping(e.target).bind(this))} />
         <div className={cx('error')}>{hasErrors && validationErrors.email ? validationErrors.email : null}</div>
       </div>
-    );
+    )
 
     const phone = (
       <div className={cx('field')}>
@@ -42,7 +42,7 @@ class Enquiry extends Component {
           placeholder="Phone (optional)"
           onChange={e => dispatch(isTyping(e.target).bind(this))} />
       </div>
-    );
+    )
 
     const message = (
       <div className={cx('field')}>
@@ -53,13 +53,13 @@ class Enquiry extends Component {
           onChange={e => dispatch(isTyping(e.target).bind(this))} />
         <div className={cx('error')}>{hasErrors && validationErrors.message ? validationErrors.message : null}</div>
       </div>
-    );
+    )
 
     const submitButton = (
       <div className={cx('submit')}>
         <button className={cx('btn')} onClick={this.onSubmit.bind(this)}>Send</button>
       </div>
-    );
+    )
 
     return (
       <div className={cx('enquiry')}>
@@ -74,13 +74,13 @@ class Enquiry extends Component {
           </form>
         )}
       </div>
-    );
+    )
   }
   onSubmit(e) {
-    e.preventDefault();
-    const { formData, dispatch } = this.props;
+    e.preventDefault()
+    const { formData, dispatch } = this.props
 
-    dispatch(enquirySubmit(formData));
+    dispatch(enquirySubmit(formData))
   }
 }
 
@@ -100,7 +100,7 @@ Enquiry.PropTypes = {
     message: PropTypes.string
   },
   dispatch: PropTypes.func
-};
+}
 
 export default connect(
   state => ({
@@ -119,4 +119,4 @@ export default connect(
       message: state.enquiry.formData.message
     }
   })
-)(Enquiry);
+)(Enquiry)

@@ -1,14 +1,14 @@
-import React, { Component, PropTypes } from 'react';
-import { connect } from 'react-redux';
-import { Link } from 'react-router';
-import classNames from 'classnames/bind';
-import css from 'less/components/gallery.less';
+import React, { Component, PropTypes } from 'react'
+import { connect } from 'react-redux'
+import { Link } from 'react-router'
+import classNames from 'classnames/bind'
+import css from 'less/components/gallery.less'
 
-const cx = classNames.bind(css);
+const cx = classNames.bind(css)
 
 class Gallery extends Component {
   render() {
-    const { gallery } = this.props;
+    const { gallery } = this.props
 
     return (
       <div className={cx('root')}>
@@ -23,7 +23,7 @@ class Gallery extends Component {
           </li>
         )}</ul>
       </div>
-    );
+    )
   }
 }
 
@@ -36,4 +36,4 @@ export default connect(
   state => ({
     gallery: state.gallery
   })
-)(Gallery);
+)(Gallery)
