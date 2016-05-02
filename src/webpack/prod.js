@@ -3,6 +3,8 @@ import webpack from 'webpack'
 import ExtractTextPlugin from 'extract-text-webpack-plugin'
 import CleanPlugin from 'clean-webpack-plugin'
 import CopyWebpackPlugin from 'copy-webpack-plugin'
+import precss from 'precss'
+import autoprefixer from 'autoprefixer'
 import {
   PATHS, prodLoaders, extensions,
   modulesDirectories, alias, plugin } from './base'
@@ -29,6 +31,7 @@ export default webpack([
       modulesDirectories,
       alias
     },
+    postcss: _ => [precss, autoprefixer],
     plugins: [
       new CleanPlugin(plugin.clean.paths, plugin.clean.options),
       new webpack.optimize.OccurenceOrderPlugin(),

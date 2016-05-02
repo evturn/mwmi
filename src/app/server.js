@@ -2,7 +2,7 @@ import React from 'react'
 import { renderToString } from 'react-dom/server'
 import { match, RouterContext } from 'react-router'
 import { Provider } from 'react-redux'
-import configureStore from 'store'
+import store from 'store/server'
 import routes from 'routes'
 import { createPage, fetchLocals } from 'actions/api'
 
@@ -13,17 +13,7 @@ export default (req, res) => {
     } else if (redirectLocation) {
       res.redirect(302, redirectLocation.pathname + redirectLocation.search)
     } else if (renderProps) {
-      fetchLocals(res => {
-        return configureStore({
-          podcast: res.podcast,
-          enquiry: res.enquiry,
-          site: {
-            user: res.user,
-            nav: res.nav
-          },
-          gallery: res.gallery
-        })
-      })
+      fetchLocals(store)
       .then(store => {
         const initialState = store.getState()
         const html = renderToString(

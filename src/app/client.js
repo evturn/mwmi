@@ -4,13 +4,12 @@ import { Provider } from 'react-redux'
 import { Router, browserHistory } from 'react-router'
 import { syncHistoryWithStore } from 'react-router-redux'
 import { scrollWindowTop } from 'actions/api'
-import configureStore from 'store'
+import store from 'store/client'
 import routes from 'routes'
 
-const store = configureStore(window.__INITIAL_STATE__)
 const history = syncHistoryWithStore(browserHistory, store)
 
-export default render(
+render(
   <Provider store={store}>
     <Router history={history} onUpdate={scrollWindowTop}>
       {routes}

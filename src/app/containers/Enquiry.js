@@ -10,7 +10,7 @@ class Enquiry extends Component {
   render() {
     const {
       validationErrors, hasErrors,
-      enquirySubmitted, dispatch } = this.props
+      enquirySubmitted } = this.props
 
     const name = (
       <div className={cx('field')}>
@@ -18,7 +18,7 @@ class Enquiry extends Component {
           name="name"
           type="text"
           placeholder="Name"
-          onChange={e => dispatch(isTyping(e.target).bind(this))} />
+          onChange={e => isTyping(e.target)} />
         <div className={cx('error')}>{hasErrors && validationErrors.name ? validationErrors.name : null}</div>
       </div>
     )
@@ -29,7 +29,7 @@ class Enquiry extends Component {
           name="email"
           type="email"
           placeholder="Email"
-          onChange={e => dispatch(isTyping(e.target).bind(this))} />
+          onChange={e => isTyping(e.target)} />
         <div className={cx('error')}>{hasErrors && validationErrors.email ? validationErrors.email : null}</div>
       </div>
     )
@@ -40,7 +40,7 @@ class Enquiry extends Component {
           name="phone"
           type="text"
           placeholder="Phone (optional)"
-          onChange={e => dispatch(isTyping(e.target).bind(this))} />
+          onChange={e => isTyping(e.target)} />
       </div>
     )
 
@@ -50,7 +50,7 @@ class Enquiry extends Component {
           name="message"
           rows="4"
           placeholder="Message"
-          onChange={e => dispatch(isTyping(e.target).bind(this))} />
+          onChange={e => isTyping(e.target)} />
         <div className={cx('error')}>{hasErrors && validationErrors.message ? validationErrors.message : null}</div>
       </div>
     )
@@ -80,7 +80,7 @@ class Enquiry extends Component {
     e.preventDefault()
     const { formData, dispatch } = this.props
 
-    dispatch(enquirySubmit(formData))
+    enquirySubmit(formData)
   }
 }
 
@@ -98,8 +98,7 @@ Enquiry.PropTypes = {
     email: PropTypes.string,
     phone: PropTypes.string,
     message: PropTypes.string
-  },
-  dispatch: PropTypes.func
+  }
 }
 
 export default connect(
