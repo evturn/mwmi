@@ -40,8 +40,8 @@ export const enquiries = {
     res.locals.enquiry = {
       section: 'contact',
       formData: req.body || {},
-      validationErrors: {},
-      enquirySubmitted: false
+      errors: {},
+      submitted: false
     }
 
     res.json(res.locals)
@@ -54,8 +54,9 @@ export const enquiries = {
     res.locals.enquiry = {
       section: 'contact',
       formData: req.body || {},
-      validationErrors: {},
-      enquirySubmitted: false
+      errors: {},
+      hasErrors: false,
+      submitted: false
     }
 
     updater.process(req.body, {
@@ -64,9 +65,10 @@ export const enquiries = {
       errorMessage: 'There was a problem submitting your enquiry:'
     }, function(err) {
       if (err) {
-        res.locals.enquiry.validationErrors = err.errors
+        res.locals.enquiry.errors = err.errors
+        res.locals.enquiry.hasErrors = true
       } else {
-        res.locals.enquiry.enquirySubmitted = true
+        res.locals.enquiry.submitted = true
       }
 
       res.json(res.locals)

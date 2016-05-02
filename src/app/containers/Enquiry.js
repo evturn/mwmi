@@ -8,9 +8,7 @@ const cx = classNames.bind(css)
 
 class Enquiry extends Component {
   render() {
-    const {
-      validationErrors, hasErrors,
-      enquirySubmitted } = this.props
+    const {hasErrors, errors, submitted } = this.props
 
     const name = (
       <div className={cx('field')}>
@@ -19,7 +17,7 @@ class Enquiry extends Component {
           type="text"
           placeholder="Name"
           onChange={e => isTyping(e.target)} />
-        <div className={cx('error')}>{hasErrors && validationErrors.name ? validationErrors.name : null}</div>
+        <div className={cx('error')}>{hasErrors && errors.name ? errors.name : null}</div>
       </div>
     )
 
@@ -30,7 +28,7 @@ class Enquiry extends Component {
           type="email"
           placeholder="Email"
           onChange={e => isTyping(e.target)} />
-        <div className={cx('error')}>{hasErrors && validationErrors.email ? validationErrors.email : null}</div>
+        <div className={cx('error')}>{hasErrors && errors.email ? errors.email : null}</div>
       </div>
     )
 
@@ -51,7 +49,7 @@ class Enquiry extends Component {
           rows="4"
           placeholder="Message"
           onChange={e => isTyping(e.target)} />
-        <div className={cx('error')}>{hasErrors && validationErrors.message ? validationErrors.message : null}</div>
+        <div className={cx('error')}>{hasErrors && errors.message ? errors.message : null}</div>
       </div>
     )
 
@@ -63,7 +61,7 @@ class Enquiry extends Component {
 
     return (
       <div className={cx('enquiry')}>
-        {enquirySubmitted ? <div className={cx('success')}>Thanks for getting in touch.</div> : (
+        {submitted ? <div className={cx('success')}>Thanks for getting in touch.</div> : (
           <form className={cx('form')}>
             <div className={cx('header')}>Leave us a message</div>
             {name}
@@ -86,8 +84,8 @@ class Enquiry extends Component {
 
 Enquiry.PropTypes = {
   hasErrors: PropTypes.bool,
-  enquirySubmitted: PropTypes.bool,
-  validationErrors: {
+  submitted: PropTypes.bool,
+  errors: {
     name: PropTypes.string,
     email: PropTypes.string,
     message: PropTypes.string,
@@ -104,13 +102,8 @@ Enquiry.PropTypes = {
 export default connect(
   state => ({
     hasErrors: state.enquiry.hasErrors,
-    enquirySubmitted: state.enquiry.enquirySubmitted,
-    validationErrors: {
-      name: state.enquiry.validationErrors.name,
-      email: state.enquiry.validationErrors.email,
-      message: state.enquiry.validationErrors.message,
-      phone: state.enquiry.validationErrors.phone
-    },
+    submitted: state.enquiry.submitted,
+    errors: state.enquiry.errors,
     formData: {
       name: state.enquiry.formData.name,
       email: state.enquiry.formData.email,

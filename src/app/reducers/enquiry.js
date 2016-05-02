@@ -1,9 +1,9 @@
  export default function enquiry(state = {
   section: 'contact',
-  enquirySubmitted: false,
+  submitted: false,
   hasErrors: false,
   error: null,
-  validationErrors: {},
+  errors: {},
   formData: {}
 }, action) {
   switch (action.type) {
