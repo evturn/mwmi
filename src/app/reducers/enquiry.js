@@ -1,7 +1,6 @@
  export default function enquiry(state = {
   section: 'contact',
   submitted: false,
-  hasErrors: false,
   error: null,
   errors: {},
   formData: {}

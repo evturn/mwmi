@@ -55,7 +55,7 @@ export const enquiries = {
       section: 'contact',
       formData: req.body || {},
       errors: {},
-      hasErrors: false,
+      hasErrors: true,
       submitted: false
     }
 

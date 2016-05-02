@@ -76,7 +76,7 @@ class Enquiry extends Component {
   }
   onSubmit(e) {
     e.preventDefault()
-    const { formData, dispatch } = this.props
+    const { formData } = this.props
 
     enquirySubmit(formData)
   }

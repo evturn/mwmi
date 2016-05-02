@@ -50,3 +50,14 @@ export const enquirySubmit = data => {
        dispatch(VALIDATION_ERRORS({ errors: getFormErrors(x.errors) }))
     })
 }
+
+const getFormErrors = ({ name, email, message }) => {
+  let messages = {}
+
+  if (name) { messages.name = name.message }
+  if (email) { messages.email = email.message }
+  if (message) { messages.message = message.message }
+
+  return messages
+}
+
