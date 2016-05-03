@@ -7,6 +7,7 @@ import css from 'less/components/enquiry.less'
 const cx = classNames.bind(css)
 
 class Enquiry extends Component {
+
   componentDidMount() {
     observeRefs({
       name: this.name,
@@ -15,53 +16,39 @@ class Enquiry extends Component {
       button: this.button
     })(this.context.store)
   }
-  render() {
-    const {
-      hasErrors, validationErrors, enquirySubmitted,
-      formData } = this.props
 
+  errorHandler = propName => {
+    if (this.props.hasErrors) {
+      return this.props.validationErrors[propName]
+    }
+
+    return null
+  };
+
+  render() {
     const nameField = (
       <div className={cx('field')}>
-        <input
-          name="name"
-          type="text"
-          placeholder="Name"
-          ref={i => this.name = i} />
-        <div className={cx('error')}>{hasErrors && validationErrors.name ? validationErrors.name : null}</div>
-      </div>
-    )
-
+        <input name="name" type="text" placeholder="Name" ref={i => this.name = i} />
+        <div className={cx('error')}>{this.errorHandler('name')}</div>
+      </div>)
     const emailField = (
       <div className={cx('field')}>
-        <input
-          name="email"
-          type="email"
-          placeholder="Email"
-          ref={i => this.email = i} />
-        <div className={cx('error')}>{hasErrors && validationErrors.email ? validationErrors.email : null}</div>
-      </div>
-    )
-
+        <input name="email" type="email" placeholder="Email" ref={i => this.email = i} />
+        <div className={cx('error')}>{this.errorHandler('email')}</div>
+      </div>)
     const messageField = (
       <div className={cx('field')}>
-        <textarea
-          name="message"
-          rows="4"
-          placeholder="Message"
-          ref={i => this.message = i} />
-        <div className={cx('error')}>{hasErrors && validationErrors.message ? validationErrors.message : null}</div>
-      </div>
-    )
-
+        <textarea name="message" rows="4" placeholder="Message" ref={i => this.message = i} />
+        <div className={cx('error')}>{this.errorHandler('message')}</div>
+      </div>)
     const submitButton = (
       <div className={cx('submit')}>
         <button className={cx('btn')} ref={i => this.button = i}>Send</button>
-      </div>
-    )
+      </div>)
 
     return (
       <div className={cx('enquiry')}>
-        {enquirySubmitted ? (
+        {this.props.enquirySubmitted ? (
           <div className={cx('success')}>Thanks for getting in touch.</div>
         ) : (
           <div className={cx('form')}>
@@ -75,6 +62,7 @@ class Enquiry extends Component {
       </div>
     )
   }
+
 }
 
 Enquiry.propTypes = {
