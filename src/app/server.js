@@ -26,7 +26,6 @@ export default (req, res) => {
           initialState: store.getState()
         }))
         .subscribe(({ html, initialState }) => res.send(createPage(html, initialState)))
-
     } else {
       res.status(404).send('Not found')
     }

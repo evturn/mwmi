@@ -1,6 +1,6 @@
 import fetch from 'isomorphic-fetch'
 
-export const fetchLocals = cb => {
+export const fetchLocals = _ => {
   return fetch(`http://localhost:${__PORT__}/api/locals`)
     .then(res => res.json())
     .catch(err => console.log(err))
