@@ -2,11 +2,9 @@ import { Observable } from 'rx'
 import { DOM } from 'rx-dom'
 import { dispatch } from 'store/client'
 
-const ENQUIRY_RECEIVED  = payload => ({ type: 'ENQUIRY_RECEIVED',  payload })
-const VALIDATION_ERRORS = payload => ({ type: 'VALIDATION_ERRORS', payload })
-const ENQUIRY_SUBMIT    = payload => ({ type: 'ENQUIRY_SUBMIT',    payload })
-const USER_IS_TYPING    =   value => ({ type: 'USER_IS_TYPING',    value })
-const ENQUIRY_ERROR     =   error => ({ type: 'ENQUIRY_ERROR',     error })
+const ENQUIRY_RECEIVED  = payload => dispatch({ type: 'ENQUIRY_RECEIVED',  payload })
+const VALIDATION_ERRORS = payload => dispatch({ type: 'VALIDATION_ERRORS', payload })
+const USER_IS_TYPING    =   value => dispatch({ type: 'USER_IS_TYPING',    value })
 
 const createPostReq = ({ name, email, phone, message }) => {
   const i = name === undefined ? -1 : name.indexOf(' ')
@@ -35,29 +33,31 @@ const createPostReq = ({ name, email, phone, message }) => {
   }
 }
 
-export const isTyping = e => dispatch(USER_IS_TYPING({ [e.name]: e.value }))
+const showSuccess = ({ enquirySubmitted }) => {
+  ENQUIRY_RECEIVED({ enquirySubmitted })
+}
+
+const showErrors = ({ name, email, message }) => {
+  const validationErrors = [name, email, message].reduce((acc, x) => {
+    x !== undefined ? acc[x.path] = x.message : ''
+    return acc
+  }, {})
+  VALIDATION_ERRORS({ validationErrors, hasErrors: true })
+}
+
+export const isTyping = e => USER_IS_TYPING({ [e.name]: e.value })
 
 export const enquirySubmit = data => {
   DOM.ajax(createPostReq(data))
     .map(x => JSON.parse(x.response))
     .map(({ enquiry }) => ({
-      errors: enquiry.errors,
-      submitted: enquiry.submitted
+      validationErrors: enquiry.validationErrors,
+      enquirySubmitted: enquiry.enquirySubmitted
      }))
     .subscribe(x => {
-       x.submitted ?
-       dispatch(ENQUIRY_RECEIVED({ submitted: x.submitted })) :
-       dispatch(VALIDATION_ERRORS({ errors: getFormErrors(x.errors) }))
+       x.enquirySubmitted ?
+       showSuccess(x.enquirySubmitted) :
+       showErrors(x.validationErrors)
     })
-}
-
-const getFormErrors = ({ name, email, message }) => {
-  let messages = {}
-
-  if (name) { messages.name = name.message }
-  if (email) { messages.email = email.message }
-  if (message) { messages.message = message.message }
-
-  return messages
 }
 

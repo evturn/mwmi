@@ -38,10 +38,9 @@ export const gallery = (req, res, next) => {
 export const enquiries = {
   get: (req, res, next) => {
     res.locals.enquiry = {
-      section: 'contact',
       formData: req.body || {},
-      errors: {},
-      submitted: false
+      validationErrors: {},
+      enquirySubmitted: false
     }
 
     res.json(res.locals)
@@ -52,23 +51,27 @@ export const enquiries = {
     const updater = newEnquiry.getUpdateHandler(req)
 
     res.locals.enquiry = {
-      section: 'contact',
       formData: req.body || {},
-      errors: {},
-      hasErrors: true,
-      submitted: false
+      validationErrors: {},
+      enquirySubmitted: false
     }
 
     updater.process(req.body, {
-      flashErrors: true,
+      flashErrors: false,
       fields: 'name, email, phone, message',
       errorMessage: 'There was a problem submitting your enquiry:'
     }, function(err) {
       if (err) {
-        res.locals.enquiry.errors = err.errors
-        res.locals.enquiry.hasErrors = true
+        res.locals.enquiry = {
+          validationErrors: err.errors,
+          hasErrors: true,
+          enquirySubmitted: false
+        }
       } else {
-        res.locals.enquiry.submitted = true
+        res.locals.enquiry = {
+          hasErrors: false,
+          enquirySubmitted: true
+        }
       }
 
       res.json(res.locals)
