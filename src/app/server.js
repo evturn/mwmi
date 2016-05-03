@@ -2,6 +2,7 @@ import React from 'react'
 import { renderToString } from 'react-dom/server'
 import { match, RouterContext } from 'react-router'
 import { Provider } from 'react-redux'
+import { Observable } from 'rx'
 import configureStore from 'store'
 import routes from 'routes'
 import { createPage, fetchLocals } from 'actions/api'
@@ -13,24 +14,18 @@ export default (req, res) => {
     } else if (redirectLocation) {
       res.redirect(302, redirectLocation.pathname + redirectLocation.search)
     } else if (renderProps) {
-      fetchLocals(x => {
-        const store = configureStore({
-          podcast: x.podcast,
-          enquiry: x.enquiry,
-          site: {
-            user: x.user,
-            nav: x.nav
-          },
-          gallery: x.gallery
-        })
-        const initialState = store.getState()
-        const html = renderToString(
-          <Provider store={store}>
-            <RouterContext {...renderProps} />
-          </Provider>)
-
-        res.status(200).send(createPage(html, initialState))
-      })
+      Observable.fromPromise(fetchLocals)
+        .map(({ podcast, enquiry, gallery, ...rest }) =>
+          configureStore({ podcast, enquiry, gallery, site: rest })
+        )
+        .map(store => ({
+          html: renderToString(
+            <Provider store={store}>
+              <RouterContext {...renderProps} />
+            </Provider>),
+          initialState: store.getState()
+        }))
+        .subscribe(({ html, initialState }) => res.send(createPage(html, initialState)))
 
     } else {
       res.status(404).send('Not found')

@@ -3,7 +3,6 @@ import fetch from 'isomorphic-fetch'
 export const fetchLocals = cb => {
   return fetch(`http://localhost:${__PORT__}/api/locals`)
     .then(res => res.json())
-    .then(res => cb(res))
     .catch(err => console.log(err))
 }
 
