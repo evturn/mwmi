@@ -1,102 +1,88 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
-import { isTyping, enquirySubmit } from 'actions/enquiry'
+import { observeRefs } from 'actions/enquiry'
 import classNames from 'classnames/bind'
 import css from 'less/components/enquiry.less'
 
 const cx = classNames.bind(css)
 
 class Enquiry extends Component {
+  componentDidMount() {
+    observeRefs({
+      name: this.name,
+      email: this.email,
+      message: this.message,
+      button: this.button
+    })
+  }
   render() {
-    const {hasErrors, validationErrors, enquirySubmitted } = this.props
+    const {
+      hasErrors, validationErrors, enquirySubmitted,
+      formData } = this.props
 
-    const name = (
+    const nameField = (
       <div className={cx('field')}>
         <input
           name="name"
           type="text"
           placeholder="Name"
-          onChange={e => isTyping(e.target)} />
+          ref={i => this.name = i} />
         <div className={cx('error')}>{hasErrors && validationErrors.name ? validationErrors.name : null}</div>
       </div>
     )
 
-    const email = (
+    const emailField = (
       <div className={cx('field')}>
         <input
           name="email"
           type="email"
           placeholder="Email"
-          onChange={e => isTyping(e.target)} />
+          ref={i => this.email = i} />
         <div className={cx('error')}>{hasErrors && validationErrors.email ? validationErrors.email : null}</div>
       </div>
     )
 
-    const phone = (
-      <div className={cx('field')}>
-        <input
-          name="phone"
-          type="text"
-          placeholder="Phone (optional)"
-          onChange={e => isTyping(e.target)} />
-      </div>
-    )
-
-    const message = (
+    const messageField = (
       <div className={cx('field')}>
         <textarea
           name="message"
           rows="4"
           placeholder="Message"
-          onChange={e => isTyping(e.target)} />
+          ref={i => this.message = i} />
         <div className={cx('error')}>{hasErrors && validationErrors.message ? validationErrors.message : null}</div>
       </div>
     )
 
     const submitButton = (
       <div className={cx('submit')}>
-        <button className={cx('btn')} onClick={this.onSubmit.bind(this)}>Send</button>
+        <button className={cx('btn')} ref={i => this.button = i}>Send</button>
       </div>
     )
 
     return (
       <div className={cx('enquiry')}>
-        {enquirySubmitted ? <div className={cx('success')}>Thanks for getting in touch.</div> : (
-          <form className={cx('form')}>
+        {enquirySubmitted ? (
+          <div className={cx('success')}>Thanks for getting in touch.</div>
+        ) : (
+          <div className={cx('form')}>
             <div className={cx('header')}>Leave us a message</div>
-            {name}
-            {email}
-            {phone}
-            {message}
+            {nameField}
+            {emailField}
+            {messageField}
             {submitButton}
-          </form>
+          </div>
         )}
       </div>
     )
-  }
-  onSubmit(e) {
-    e.preventDefault()
-    const { formData } = this.props
-
-    enquirySubmit(formData)
   }
 }
 
 Enquiry.PropTypes = {
   hasErrors: PropTypes.bool,
   enquirySubmitted: PropTypes.bool,
-  validationErrors: {
-    name: PropTypes.string,
-    email: PropTypes.string,
-    message: PropTypes.string,
-    phone: PropTypes.string
-  },
-  formData: {
-    name: PropTypes.string,
-    email: PropTypes.string,
-    phone: PropTypes.string,
-    message: PropTypes.string
-  }
+  formData: PropTypes.object,
+
+  validationErrors: PropTypes.object
 }
 
 export default connect(
@@ -104,11 +90,6 @@ export default connect(
     hasErrors: state.enquiry.hasErrors,
     enquirySubmitted: state.enquiry.enquirySubmitted,
     validationErrors: state.enquiry.validationErrors,
-    formData: {
-      name: state.enquiry.formData.name,
-      email: state.enquiry.formData.email,
-      phone: state.enquiry.formData.phone,
-      message: state.enquiry.formData.message
-    }
+    formData: state.enquiry.formData
   })
 )(Enquiry)

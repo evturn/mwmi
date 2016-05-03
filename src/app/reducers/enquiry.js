@@ -8,14 +8,15 @@
       return Object.assign({}, state, {
         ...action.payload
       })
-    case 'USER_IS_TYPING':
+    case 'UPDATE_FORM_DATA':
       return Object.assign({}, state, {
-        formData: {
-          ...state.formData,
-          ...action.value
-        }
+        ...action.payload
       })
     case 'VALIDATION_ERRORS':
+      return Object.assign({}, state, {
+        ...action.payload
+      })
+    case 'VALIDATE_FIELD':
       return Object.assign({}, state, {
         ...action.payload
       })
