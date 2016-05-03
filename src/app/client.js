@@ -4,9 +4,10 @@ import { Provider } from 'react-redux'
 import { Router, browserHistory } from 'react-router'
 import { syncHistoryWithStore } from 'react-router-redux'
 import { scrollWindowTop } from 'actions/api'
-import store from 'store/client'
+import configureStore from 'store'
 import routes from 'routes'
 
+const store = configureStore(window.__INITIAL_STATE__)
 const history = syncHistoryWithStore(browserHistory, store)
 
 render(

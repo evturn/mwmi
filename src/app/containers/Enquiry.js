@@ -13,7 +13,7 @@ class Enquiry extends Component {
       email: this.email,
       message: this.message,
       button: this.button
-    })
+    })(this.context.store)
   }
   render() {
     const {
@@ -77,12 +77,17 @@ class Enquiry extends Component {
   }
 }
 
-Enquiry.PropTypes = {
+Enquiry.propTypes = {
   hasErrors: PropTypes.bool,
   enquirySubmitted: PropTypes.bool,
   formData: PropTypes.object,
+  validationErrors: PropTypes.object,
+  dispatch: PropTypes.func,
+  getState: PropTypes.func
+}
 
-  validationErrors: PropTypes.object
+Enquiry.contextTypes = {
+  store: PropTypes.object
 }
 
 export default connect(
