@@ -39,7 +39,6 @@ const app = (state = {
   }
 }
 
-
 const rootReducer = combineReducers({
   app,
   routing: routerReducer

@@ -81,9 +81,7 @@ export const observeRefs = ({ name, email, message, button }) =>
           'Accept': 'application/json',
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({
-          ...getState().app.enquiry.formData
-        })
+        body: JSON.stringify({ ...getState().app.enquiry.formData })
       }
     }
 
