@@ -47,7 +47,7 @@ export const observeRefs = ({ name, email, message, button }) => ({ dispatch, ge
     }
     return {
       formData: {
-        ...getState().enquiry.formData,
+        ...getState().app.enquiry.formData,
         name: fullname
       }
     }
@@ -64,7 +64,7 @@ export const observeRefs = ({ name, email, message, button }) => ({ dispatch, ge
   function updateFormData(e) {
     return {
       formData: {
-        ...getState().enquiry.formData,
+        ...getState().app.enquiry.formData,
         [e.target.name]: e.target.value
       }
     }
@@ -80,7 +80,7 @@ export const observeRefs = ({ name, email, message, button }) => ({ dispatch, ge
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        ...getState().enquiry.formData
+        ...getState().app.enquiry.formData
       })
     }
   }

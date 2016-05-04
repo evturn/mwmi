@@ -9,7 +9,7 @@ class Episodes extends Component {
   render() {
     return (
       <div className={cx('root')}>
-        <ul className={cx('ul')}>{this.props.podcast.map((x, i) =>
+        <ul className={cx('ul')}>{this.props.episodes.map((x, i) =>
           <li key={i} className={cx('li')}>
             {i % 2 === 0 ? (
               <a href={x.url} target="_blank">
@@ -38,11 +38,11 @@ class Episodes extends Component {
 export default Episodes
 
 Episodes.propTypes = {
-  podcast: PropTypes.array
+  episodes: PropTypes.array
 }
 
 export default connect(
-  (state) => ({
-    podcast: state.podcast
+  state => ({
+    episodes: state.app.episodes
   })
 )(Episodes)

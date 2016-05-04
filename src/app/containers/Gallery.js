@@ -34,6 +34,6 @@ Gallery.propTypes ={
 
 export default connect(
   state => ({
-    gallery: state.gallery
+    gallery: state.app.gallery
   })
 )(Gallery)

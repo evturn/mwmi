@@ -16,7 +16,7 @@ export const episodes = (req, res, next) => {
     .model.find()
 
   q.exec((err, data) => {
-    res.locals.podcast = data
+    res.locals.episodes = data
 
     next()
   })
@@ -35,7 +35,7 @@ export const gallery = (req, res, next) => {
   })
 }
 
-export const enquiries = {
+export const enquiry = {
   get: (req, res, next) => {
     res.locals.enquiry = {
       formData: req.body || {},
@@ -43,7 +43,7 @@ export const enquiries = {
       enquirySubmitted: false
     }
 
-    res.json(res.locals)
+    next()
   },
   post: (req, res, next) => {
     const Enquiry = keystone.list('Enquiry')

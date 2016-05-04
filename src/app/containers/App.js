@@ -21,7 +21,7 @@ class App extends Component {
 
 export default connect(
   state => ({
-    user: state.site.user,
-    nav: state.site.nav
+    user: state.app.user,
+    nav: state.app.nav
   })
 )(App)

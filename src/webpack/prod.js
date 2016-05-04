@@ -80,6 +80,11 @@ export default webpack([
     plugins: [
       new webpack.optimize.OccurenceOrderPlugin(),
       new ExtractTextPlugin(PATHS.static.css),
+      new webpack.optimize.UglifyJsPlugin({
+        compressor: {
+          warnings: false
+        }
+      }),
       new webpack.DefinePlugin({
         'process.env.NODE_ENV': '"production"',
         __DEV__: false,

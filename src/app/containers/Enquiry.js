@@ -80,9 +80,9 @@ Enquiry.contextTypes = {
 
 export default connect(
   state => ({
-    hasErrors: state.enquiry.hasErrors,
-    enquirySubmitted: state.enquiry.enquirySubmitted,
-    validationErrors: state.enquiry.validationErrors,
-    formData: state.enquiry.formData
+    hasErrors: state.app.enquiry.hasErrors,
+    enquirySubmitted: state.app.enquiry.enquirySubmitted,
+    validationErrors: state.app.enquiry.validationErrors,
+    formData: state.app.enquiry.formData
   })
 )(Enquiry)

@@ -15,9 +15,7 @@ export default (req, res) => {
       res.redirect(302, redirectLocation.pathname + redirectLocation.search)
     } else if (renderProps) {
       Observable.fromPromise(fetchLocals)
-        .map(({ podcast, enquiry, gallery, ...rest }) =>
-          configureStore({ podcast, enquiry, gallery, site: rest })
-        )
+        .map(data => configureStore({ app: { ...data } }))
         .map(store => ({
           html: renderToString(
             <Provider store={store}>
