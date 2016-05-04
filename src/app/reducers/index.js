@@ -13,28 +13,21 @@ const app = (state = {
   }
 }, action) => {
   switch (action.type) {
-    case 'ENQUIRY_RECEIVED':
+    case 'ENQUIRY_SUCCESS':
       return Object.assign({}, state, {
         enquiry: {
           ...state.enquiry,
           ...action.payload
         }
       })
-    case 'UPDATE_FORM_DATA':
+    case 'ENQUIRY_SNAPSHOT':
       return Object.assign({}, state, {
         enquiry: {
           ...state.enquiry,
           ...action.payload
         }
       })
-    case 'VALIDATION_ERRORS':
-      return Object.assign({}, state, {
-        enquiry: {
-          ...state.enquiry,
-          ...action.payload
-        }
-      })
-    case 'VALIDATE_FIELD':
+    case 'ENQUIRY_ERROR':
       return Object.assign({}, state, {
         enquiry: {
           ...state.enquiry,
