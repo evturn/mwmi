@@ -31,17 +31,12 @@ export const observeRefs = ({ name, email, message, button }) => ({ dispatch, ge
 
   const success$ = submit$
     .filter(x => x.enquirySubmitted)
-    .map(({ enquirySubmitted }) => dispatch(ENQUIRY_RECEIVED({ enquirySubmitted })))
+    .subscribe(({ enquirySubmitted }) => dispatch(ENQUIRY_RECEIVED({ enquirySubmitted })))
 
   const error$ = submit$
     .filter(x => !x.enquirySubmitted)
     .map(({ validationErrors }) => showErrors(validationErrors))
-    .map(validationErrors => dispatch(VALIDATION_ERRORS({ validationErrors, hasErrors: true })))
-
-
-  Observable.combineLatest(success$, error$)
-    .subscribe(x => console.log(x))
-
+    .subscribe(validationErrors => dispatch(VALIDATION_ERRORS({ validationErrors, hasErrors: true })))
 
   function createFullname(e) {
     const name = e.target.value
