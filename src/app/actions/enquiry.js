@@ -20,7 +20,7 @@ export const observeRefs = ({ name, email, message, button }) => ({ dispatch, ge
     .map(createFullname)
     .subscribe(x => dispatch(UPDATE_FORM_DATA(x)))
 
-  Observable.fromEvent(button, 'click')
+  const submit$ = Observable.fromEvent(button, 'click')
     .map(createRequestObject)
     .flatMap(DOM.ajax)
     .map(x => JSON.parse(x.response))
@@ -28,11 +28,19 @@ export const observeRefs = ({ name, email, message, button }) => ({ dispatch, ge
       validationErrors: enquiry.validationErrors,
       enquirySubmitted: enquiry.enquirySubmitted
      }))
-    .subscribe(x => {
-      x.enquirySubmitted ?
-      dispatch(ENQUIRY_RECEIVED({ enquirySubmitted: x.enquirySubmitted })) :
-      showErrors(x.validationErrors)
-    })
+
+  const success$ = submit$
+    .filter(x => x.enquirySubmitted)
+    .map(({ enquirySubmitted }) => dispatch(ENQUIRY_RECEIVED({ enquirySubmitted })))
+
+  const error$ = submit$
+    .filter(x => !x.enquirySubmitted)
+    .map(({ validationErrors }) => showErrors(validationErrors))
+    .map(validationErrors => dispatch(VALIDATION_ERRORS({ validationErrors, hasErrors: true })))
+
+
+  Observable.combineLatest(success$, error$)
+    .subscribe(x => console.log(x))
 
 
   function createFullname(e) {
@@ -54,11 +62,10 @@ export const observeRefs = ({ name, email, message, button }) => ({ dispatch, ge
   }
 
   function showErrors({ name, email, message }) {
-    const validationErrors = [name, email, message].reduce((acc, x) => {
+    return [name, email, message].reduce((acc, x) => {
       x !== undefined ? acc[x.path] = x.message : ''
       return acc
     }, {})
-    dispatch(VALIDATION_ERRORS({ validationErrors, hasErrors: true }))
   }
 
   function updateFormData(e) {
