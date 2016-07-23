@@ -1,0 +1,57 @@
+.home {
+  composes: bg-dark from '../App/styles.css';
+  position: relative;
+  margin: 0 auto;
+  padding-top: 2%;
+  padding-bottom: 2%;
+  min-height: 100vh;
+  padding-top: 10px;
+}
+
+.hero {
+  position: relative;
+  margin: 0 auto;
+  width: 370px;
+}
+
+.headline {
+  margin: 0 auto;
+  text-align: center;
+  width: 300px;
+}
+
+.btn {
+  composes: button__red from '../App/styles.css';
+}
+
+.image {
+  height: auto;
+  width: 100%;
+  display: block;
+}
+
+.title {
+  composes: tx-primary from '../App/styles.css';
+  position: absolute;
+  z-index: 10;
+  top: 75%;
+  left: 5%;
+  font-size: 50px;
+}
+
+.text {
+  composes: tx-primary from '../App/styles.css';
+  padding-bottom: 20px;
+  font-size: 22px;
+}
+
+@media (min-width: 1024px) {
+  .hero {
+    width: 800px;
+    margin-bottom: 30px;
+    margin-top: -60px;
+  }
+  .headline {
+    width: 400px;
+  }
+}

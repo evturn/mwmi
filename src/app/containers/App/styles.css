@@ -1,0 +1,197 @@
+@import url(http://fonts.googleapis.com/css?family=Raleway:600,700,400,300);
+@import url(http://fonts.googleapis.com/css?family=Dosis:400,500,300,200,600,700,800);
+@import url(http://fonts.googleapis.com/css?family=Lato:400,300,300italic,400italic,700,700italic,900,900italic,100,100italic);
+@import url(https://fonts.googleapis.com/css?family=Montserrat:400,700);
+
+.font-sans {
+  font-family: 'Raleway', sans;
+}
+.font-serif {
+  font-family: 'Lato', serif;
+}
+.font-sans-serif {
+  font-family: 'Dosis', sans-serif;
+}
+.font-backend {
+  font-family: 'Cochin', sans-serif;
+}
+.font-montserrat {
+  font-family: 'Montserrat', sans-serif;
+}
+
+.tx-white    { color: #ffffff; }
+.bg-white    { background-color: #ffffff; }
+
+.tx-dark     { color: #030303; }
+.bg-dark     { background-color: #171914; }
+
+.tx-light    { color: #f1f1f1; }
+.bg-light    { background-color: #f1f1f1; }
+
+.tx-primary  { color: #B9B19F; }
+.bg-primary  { background-color: #F7E981; }
+
+.tx-secondary{ color: #46758E; }
+.bg-secondary{ background-color: #46758E; }
+
+.tx-grey     { color: #a8a8a8; }
+.bg-grey     { background-color: #a8a8a8; }
+
+.tx-accent   { color: #dd4438; }
+.bg-accent   { background-color: #dd4438; }
+
+.tx-accent-2 { color: #b94721; }
+.bg-accent-2 { background-color: #b94721; }
+
+.border {
+  border: 1px solid #a8a8a8;
+}
+.border-top {
+  border-top: 1px solid #a8a8a8;
+}
+.border-bottom {
+  border-bottom: 1px solid #a8a8a8;
+}
+
+.clearfix {
+  zoom: 1;
+}
+.clearfix:before,
+.clearfix:after {
+  content: " ";
+  display: table;
+}
+.clearfix:after {
+  clear: both;
+}
+
+.site {
+  position: relative;
+  margin: 0 auto;
+  min-height: 100vh;
+  width: 100%;
+  zoom: 1;
+}
+.site:before,
+.site:after {
+  content: " ";
+  display: table;
+}
+.site:after {
+  clear: both;
+}
+
+
+.content {
+  position: relative;
+  margin: 0 auto;
+  height: 100%;
+}
+
+.content:before,
+.content:after {
+  content: " ";
+  display: table;
+}
+
+.content:after {
+  clear: both;
+}
+
+.button__red {
+  composes: font-sans-serif;
+  composes: bg-accent;
+  composes: tx-light;
+  border-bottom: 2px solid #b94721;
+  border-radius: 2px;
+  border-right: 2px solid #dd4438;
+  border-left: 2px solid #dd4438;
+  border-top: none;
+  font-size: 20px;
+  font-weight: normal;
+  text-transform: uppercase;
+  outline: 0;
+  height: 50px;
+  line-height: 2em;
+  text-align: center;
+  width: auto;
+  padding-left: 1em;
+  padding-right: 1em;
+}
+
+.button__red:hover {
+  border-bottom: 2px solid #dd4438;
+  border-right: 2px solid #b94721;
+  border-top: 2px solid #b94721;
+  border-left: 2px solid #b94721;
+}
+
+.flex {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-direction: normal;
+  -webkit-box-orient: horizontal;
+  -ms-flex-direction: row;
+  -webkit-flex-direction: row;
+  flex-direction: row;
+  -ms-flex-wrap: wrap;
+  -webkit-flex-wrap: wrap;
+  flex-wrap: wrap;
+}
+
+body {
+  font-family: 'Raleway', sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  text-decoration: none;
+}
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  position: relative;
+  box-sizing: border-box;
+}
+
+@-webkit-keyframes bugfix {
+  from {padding:0;}
+  to {padding:0;}
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+}
+
+ul {
+  padding-left: 0;
+}
+
+ol, li {
+  list-style-type: none;
+}
+
+ul, ol {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+ }
+
+a,
+a:hover,
+a:active,
+a:focus {
+  text-decoration: none;
+  outline: none;
+}
+
+button:focus {
+  outline: 0;
+}

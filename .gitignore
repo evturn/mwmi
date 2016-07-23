@@ -2,7 +2,5 @@ node_modules
 .DS_Store
 *.log
 .env
-*.hot-update.js
 dist
 lib
-font-awesome
