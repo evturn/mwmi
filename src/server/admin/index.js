@@ -1,5 +1,3 @@
-import path from 'path'
-
 const init = {
   static: '/',
   name: 'Mama We Made It',
