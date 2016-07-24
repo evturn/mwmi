@@ -1,6 +1,6 @@
 import React from 'react'
 
-import Thumbnail from './thumbnail.jpg'
+const fallbackImg = 'https://db.tt/0sSuBZOS'
 
 import css from './styles.css'
 
@@ -19,7 +19,7 @@ const Episodes = ({ episodes }) => {
                 target="_blank">
                 <img
                   className={css.thumbnail}
-                  src={x.image ? x.image.secure_url : Thumbnail} />
+                  src={x.image ? x.image.secure_url : fallbackImg} />
                 <div className={css.title}>{x.title}</div>
               </a>
             </div>

@@ -5,19 +5,19 @@ exports.create = {
       email: 'anoush@mamawemadeit.com',
       password: 'password',
       username: 'noushy',
-      isAdmin: true
+      isAdmin: true,
     },{
       name: 'Joe Rausch',
       email: 'joe@mamawemadeit.com',
       password: 'password',
       username: 'rauschy',
-      isAdmin: true
+      isAdmin: true,
     },{
       name: 'ev',
       email: 'ev@ev.com',
       password: 'ev',
       username: 'ev',
-      isAdmin: true
+      isAdmin: true,
     }
   ]
 }

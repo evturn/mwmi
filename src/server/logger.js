@@ -1,30 +1,21 @@
 import chalk from 'chalk'
 import ip from 'ip'
 
-const {
-  red,
-  blue,
-  yellow,
-  magenta,
-  gray,
-  bold,
-  italic,
-} = chalk
+const divider = `${chalk.gray('------------------------------------------------')}`
 
 export default {
-  error:       err => console.log(red(err)),
+  error:       err => console.log(chalk.red(err)),
   appStarted: port => console.log(serverListening(port)),
 }
 
 function serverListening(port) {
-  const divider = `${gray('------------------------------------------------')}`
   return `
-${yellow('Server started\n')}
+${chalk.yellow('Server started\n')}
 ${divider}
-${bold('Access URLs:')}
-Localhost: ${blue('http://localhost:' + magenta(port))}
-      LAN: ${blue('http://' + ip.address() + ':' + magenta(port))}
+${chalk.bold('Access URLs:')}
+Localhost: ${chalk.blue('http://localhost:' + chalk.magenta(port))}
+      LAN: ${chalk.blue('http://' + ip.address() + ':' + chalk.magenta(port))}
 ${divider}
-${gray('\nPress' + italic(' CTRL-C ') + 'or' + italic(' CMD-. ') + 'to stop')}
+${chalk.gray('\nPress' + chalk.italic(' CTRL-C ') + 'or' + chalk.italic(' CMD-. ') + 'to stop')}
 `
 }

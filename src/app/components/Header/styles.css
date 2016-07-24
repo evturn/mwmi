@@ -2,7 +2,8 @@
   composes: font-sans from '../../containers/App/styles.css';
   position: relative;
   width: 100%;
-  margin-bottom: 35px;
+  margin-bottom: 50px;
+  margin-top: 10px;
 }
 
 .ul {
@@ -16,6 +17,11 @@
 }
 
 @media(min-width: 1024px) {
+  .header {
+    margin-bottom: 35px;
+    margin-top: auto;
+  }
+
   .li {
     font-size: 42px;
   }
