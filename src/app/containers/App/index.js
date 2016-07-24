@@ -4,6 +4,8 @@ import Header from 'components/Header'
 import Footer from 'components/Footer'
 import Episodes from 'containers/Episodes'
 
+import withProps from 'utils/connect'
+
 import Trophy from './trophy.png'
 
 import 'sanitize.css/sanitize.css'
@@ -15,13 +17,16 @@ const App = props => (
       <Header />
       <div className={css.content}>
         <div className={css.hero}>
-          <img className={css.image} src={Trophy} />
+          <img
+            className={css.image}
+            src={Trophy}
+          />
         </div>
         <Episodes episodes={props.episodes} />
       </div>
-      <Footer user={props.user} />
+      <Footer />
     </div>
   </div>
 )
 
-export default App
+export default withProps(App)

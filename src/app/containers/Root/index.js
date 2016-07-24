@@ -12,19 +12,11 @@ const initialState = {
   user: false,
 }
 
-export default (props = initialState) => {
-  const AppWithProps = withProps(props)
-
-  return (
-    <Router history={browserHistory}>
-      <Route
-        path="*"
-        component={AppWithProps}
-      />
-    </Router>
-  )
-}
-
-function withProps(props) {
-  return _ => <App { ...props } />
-}
+export default (props = initialState) => (
+  <Router history={browserHistory}>
+    <Route
+      path="*"
+      component={App(props)}
+    />
+  </Router>
+)
