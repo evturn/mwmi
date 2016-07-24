@@ -1,40 +1,29 @@
 import keystone from 'keystone'
 
-const getLocals = (req, res, next) => {
+const getUser = (req, res, next) => {
   res.locals.user = req.user
-  res.locals.nav = [
-    {name: 'Home',    key: 'home',    href: '/'},
-    {name: 'Gallery', key: 'gallery', href: '/gallery'},
-    {name: 'About',   key: 'about',   href: '/about'}
-  ]
-
   next()
 }
 
 const getEpisodes = (req, res, next) => {
-  const q = keystone.list('Episode')
+  keystone.list('Episode')
     .model.find()
-
-  q.exec((err, data) => {
-    res.locals.episodes = data
-
-    next()
-  })
+    .exec((err, episodes) => {
+      res.locals.episodes = episodes
+      res.json(res.locals)
+    })
 }
 
 const getGalleryImages = (req, res, next) => {
-  const q = keystone.list('Gallery')
+  keystone.list('Gallery')
     .model.find()
     .sort('sortOrder')
     .populate('images')
-
-  q.exec((err, data) => {
-    res.locals.gallery = data
-
-    next()
-  })
+    .exec((err, images) => {
+      res.locals.gallery = images
+      next()
+    })
 }
-
 
 const getEnquiry = (req, res, next) => {
   res.locals.enquiry = {
@@ -42,7 +31,6 @@ const getEnquiry = (req, res, next) => {
     validationErrors: {},
     enquirySubmitted: false
   }
-
   res.json(res.locals)
 }
 
@@ -61,7 +49,7 @@ const processEnquiry = (req, res, next) => {
     flashErrors: false,
     fields: 'name, email, phone, message',
     errorMessage: 'There was a problem submitting your enquiry:'
-  }, function(err) {
+  }, err => {
     if (err) {
       res.locals.enquiry = {
         validationErrors: err.errors,
@@ -80,7 +68,7 @@ const processEnquiry = (req, res, next) => {
 }
 
 export {
-  getLocals,
+  getUser,
   getEpisodes,
   getGalleryImages,
   getEnquiry,

@@ -32,11 +32,9 @@ const prodMiddleware = (app, options) => {
 }
 
 export default options => {
-  const __DEV__ = process.env.NODE_ENV === 'development'
-
   const app = express()
 
-  if (__DEV__) {
+  if (process.env.NODE_ENV === 'development') {
     devMiddleware(app, options)
   } else {
     prodMiddleware(app, options)

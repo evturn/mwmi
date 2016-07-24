@@ -5,24 +5,15 @@ import frontend from './middlewares/frontendMiddleware'
 import * as middleware from './middlewares/backendMiddleware'
 import * as admin from './admin'
 
-const __DEV__ = process.env.NODE_ENV !== 'production'
 const app = express()
 
-const webpackConfig = __DEV__
+const webpackConfig = process.env.NODE_ENV !== 'production'
   ? require('../webpack/webpack.dev.babel')
   : require('../webpack/webpack.prod.babel')
 
-app.use(middleware.getLocals)
+app.use(middleware.getUser)
 
-app.get('/api/locals',
-  middleware.getEpisodes,
-  middleware.getGalleryImages,
-  middleware.getEnquiry
-)
-
-app.post('/api/contact',
-  middleware.processEnquiry
-)
+app.get('/api/locals', middleware.getEpisodes)
 
 app.use(frontend(webpackConfig))
 

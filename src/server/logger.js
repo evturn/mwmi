@@ -1,26 +1,32 @@
 import chalk from 'chalk'
 import ip from 'ip'
 
-const divider = chalk.gray('\n-----------------------------------')
+const {
+  red,
+  blue,
+  yellow,
+  magenta,
+  gray,
+  bold,
+  italic,
+} = chalk
+const divider = `${gray('------------------------------------------------')}`
+const localhost = `http://localhost:${magenta(process.env.PORT)}`
+const lan = `http://${ip.address()}:${magenta(process.env.PORT)}`
 
-const logger = {
-  error: err => console.log(chalk.red(err)),
-
-  appStarted: (port, tunnelStarted) => {
-    console.log('Server started ' + chalk.green('🎅'))
-    if (tunnelStarted) {
-      console.log('Tunnel initialised ' + chalk.green('🎅'))
-    }
-    console.log(
-      chalk.bold('\nAccess URLs:') +
-      divider +
-      '\nLocalhost: ' + chalk.magenta('http://localhost:' + port) +
-      '\n      LAN: ' + chalk.magenta('http://' + ip.address() + ':' + port) +
-      (tunnelStarted ? '\n    Proxy: ' + chalk.magenta(tunnelStarted) : '') +
-      divider,
-      chalk.blue('\nPress ' + chalk.italic('CMD-.') + ' to stop\n')
-    )
-  },
+export default {
+  error:    err => console.log(red(err)),
+  appStarted: _ => console.log(serverListening()),
 }
 
-export default logger
+function serverListening() {
+  return `
+${yellow('Server started\n')}
+${divider}
+${bold('Access URLs:')}
+Localhost: ${blue(localhost)}
+      LAN: ${blue(lan)}
+${divider}
+${gray('\nPress' + italic(' CTRL-C ') + 'or' + italic(' CMD-. ') + 'to stop')}
+`
+}

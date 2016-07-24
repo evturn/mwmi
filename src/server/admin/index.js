@@ -1,5 +1,3 @@
-import path from 'path'
-
 const init = {
   static: '/',
   name: 'Mama We Made It',
@@ -21,9 +19,7 @@ const init = {
 
 const nav = {
   episodes: 'episodes',
-  galleries: 'galleries',
-  enquiries: 'enquiries',
-  users: 'users'
+  users: 'users',
 }
 
 export {

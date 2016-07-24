@@ -86,6 +86,14 @@
   position: relative;
   margin: 0 auto;
   height: 100%;
+
+  composes: bg-dark;
+  position: relative;
+  margin: 0 auto;
+  padding-top: 2%;
+  padding-bottom: 2%;
+  min-height: 100vh;
+  padding-top: 10px;
 }
 
 .content:before,
@@ -96,6 +104,26 @@
 
 .content:after {
   clear: both;
+}
+
+.hero {
+  position: relative;
+  margin: 0 auto;
+  width: 370px;
+}
+
+.image {
+  height: auto;
+  width: 100%;
+  display: block;
+}
+
+@media (min-width: 1024px) {
+  .hero {
+    width: 800px;
+    margin-bottom: 30px;
+    margin-top: -60px;
+  }
 }
 
 .button__red {

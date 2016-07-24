@@ -1,46 +1,27 @@
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
+import React from 'react'
 
 import Header from 'components/Header'
 import Footer from 'components/Footer'
+import Episodes from 'containers/Episodes'
 
-import * as actions from 'actions'
+import Trophy from './trophy.png'
 
 import 'sanitize.css/sanitize.css'
 import css from './styles.css'
 
-class App extends Component {
-  componentDidMount() {
-    this.props.fetchInitialState()
-  }
-
-  render() {
-    const { nav, location, user } = this.props
-    return (
-      <div className={css.site}>
-        <Header
-          nav={nav}
-          pathname={location.pathname}
-        />
-        <div className={css.content}>
-          {this.props.children}
+const App = props => (
+  <div className={css.site}>
+    <div>
+      <Header />
+      <div className={css.content}>
+        <div className={css.hero}>
+          <img className={css.image} src={Trophy} />
         </div>
-        <Footer user={user} />
+        <Episodes episodes={props.episodes} />
       </div>
-    )
-  }
-}
+      <Footer user={props.user} />
+    </div>
+  </div>
+)
 
-const mapStateToProps = state => ({
-  user: state.app.user,
-  nav: state.app.nav
-})
-
-const mapDispatchToProps = dispatch => ({
-  fetchInitialState: _ => dispatch(actions.fetchInitialState())
-})
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(App)
+export default App
