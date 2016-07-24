@@ -1,5 +1,6 @@
-import keystone from 'keystone';
-const Types = keystone.Field.Types;
+import keystone from 'keystone'
+
+const Types = keystone.Field.Types
 
 const Gallery = new keystone.List('Gallery', {
   autokey: {
@@ -7,7 +8,7 @@ const Gallery = new keystone.List('Gallery', {
     from: 'name',
     unique: true
   }
-});
+})
 
 Gallery.add({
   name: {
@@ -24,6 +25,6 @@ Gallery.add({
   images: {
     type: Types.CloudinaryImages
   }
-});
+})
 
-Gallery.register();
+Gallery.register()

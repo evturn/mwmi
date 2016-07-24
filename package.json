@@ -3,7 +3,7 @@
   "version": "0.2.0",
   "description": "© MWMI Website & CMS",
   "scripts": {
-    "start": "cross-env NODE_ENV=development babel-node src/server"
+    "start": "cross-env NODE_ENV=development babel-node src/server/admin"
   },
   "repository": {
     "type": "git",
@@ -47,6 +47,7 @@
     "cloudinary": "^1.4.1",
     "express": "^4.14.0",
     "keystone": "https://github.com/keystonejs/keystone.git",
+    "model-transform": "^2.0.0",
     "moment": "2.14.1",
     "react": "^15.2.1",
     "react-dom": "^15.2.1",

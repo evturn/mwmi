@@ -1,5 +1,5 @@
-const path = require('path');
-const webpack = require('webpack');
+const path = require('path')
+const webpack = require('webpack')
 
 module.exports = (options) => ({
   entry: options.entry,
@@ -66,13 +66,9 @@ module.exports = (options) => ({
       'main',
     ],
     alias: {
-      actions:    path.resolve(process.cwd(), 'src/app/actions/'),
       containers: path.resolve(process.cwd(), 'src/app/containers/'),
       components: path.resolve(process.cwd(), 'src/app/components/'),
-      reducers:   path.resolve(process.cwd(), 'src/app/reducers/'),
       utils:      path.resolve(process.cwd(), 'src/app/utils/'),
-      store:      path.resolve(process.cwd(), 'src/app/store/'),
-      routes:     path.resolve(process.cwd(), 'src/app/routes'),
     },
   },
   devtool: options.devtool,

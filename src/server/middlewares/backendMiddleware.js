@@ -8,6 +8,7 @@ const getUser = (req, res, next) => {
 const getEpisodes = (req, res, next) => {
   keystone.list('Episode')
     .model.find()
+    .sort('-publishedAt')
     .exec((err, episodes) => {
       res.locals.episodes = episodes
       res.json(res.locals)

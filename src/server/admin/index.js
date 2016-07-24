@@ -1,3 +1,7 @@
+import keystone from 'keystone'
+import routes from '../index.js'
+import logger from '../logger'
+
 const init = {
   static: '/',
   name: 'Mama We Made It',
@@ -5,7 +9,7 @@ const init = {
   mongo: 'mongodb://localhost/mwmi',
   session: true,
   auth: true,
-  updates: './updates',
+  updates: '../updates',
   port: process.env.PORT_MWMI || 4000,
   env: process.env.NODE_ENV,
   'auto update': true,
@@ -22,7 +26,12 @@ const nav = {
   users: 'users',
 }
 
-export {
-  init,
-  nav,
-}
+keystone.init(init)
+keystone.import('../models')
+keystone.set('routes', routes)
+keystone.set('nav', nav)
+keystone.start({
+  onHttpServerCreated: err => err
+    ? logger.error(err)
+    : logger.appStarted(process.env.PORT_MWMI)
+})

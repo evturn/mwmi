@@ -19,9 +19,8 @@ const Episodes = ({ episodes }) => {
                 target="_blank">
                 <img
                   className={css.thumbnail}
-                  src={Thumbnail} />
+                  src={x.image ? x.image.secure_url : Thumbnail} />
                 <div className={css.title}>{x.title}</div>
-                <div className={css.desc}>{x.description}</div>
               </a>
             </div>
           </li>

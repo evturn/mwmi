@@ -1,39 +1,50 @@
 import keystone from 'keystone'
 
-const { Field: { Types }, List } = keystone
+const { Field, List } = keystone
 
 const Episode = new List('Episode', {
+  map: {
+    name: 'title'
+  },
   autokey: {
-    path: 'key',
+    path: 'slug',
     from: 'title',
-    unique: true
-  }
+    unique: true,
+  },
+  defaultSort: '-publishedAt',
 })
 
 Episode.add({
   title: {
     type: String,
-    note: 'Tom Jones Drops In and Drinks a Jar of Ketchup'
+    note: 'Tom Jones Swings By and Drinks a Jar of Ketchup',
+    initial: true,
+  },
+  image: {
+    type: Field.Types.CloudinaryImage,
   },
   url: {
-    type: Types.Url,
-    note: `Always include 'http://' for external links. For instance, writing 'twitter.com' translates to 'http://mamawemadeit.com/twitter.com' while writing 'http://twitter.com' translates to 'http://twitter.com'`
+    type: Field.Types.Url,
+    note: `Include 'http://' for external links. Leaving it off is interpretted as a link within your site.`,
   },
-  episodeNumber: {
-    type: Types.Number,
-    label: 'Episode No.',
-    note: `Numbers only. Writing something like 'fifty two' will throw an error. Stick to numerals, br0.`
+  state: {
+    type: Field.Types.Select,
+    options: 'draft, published, archived',
+    default: 'draft',
+    index: true
   },
-  guest: {
-    type: String,
-    note: `Tom Jones`
+  publishedDate: {
+    type: Field.Types.Date,
+    index: true,
+    dependsOn: {
+      state: 'published'
+    }
   },
   createdAt: {
     type: Date,
-    default: Date.now
-  }
+    default: Date.now,
+  },
 })
 
-Episode.defaultSort = '-createdAt'
-Episode.defaultColumns = 'episodeNumber, title, guest, url, createdAt'
+Episode.defaultColumns = 'title|30%, image, url, state|10%'
 Episode.register()
