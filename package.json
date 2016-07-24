@@ -3,7 +3,14 @@
   "version": "0.2.0",
   "description": "© MWMI Website & CMS",
   "scripts": {
-    "start": "cross-env NODE_ENV=development babel-node src/server/admin"
+    "start": "cross-env NODE_ENV=development babel-node src/server/admin",
+    "prebuild": "npm run build:clean",
+    "build:clean": "rimraf ./build && rimraf ./dist",
+    "build": "cross-env NODE_ENV=production webpack --config src/webpack/webpack.prod.babel.js --color -p",
+    "build:prod": "NODE_ENV=production babel src/webpack -d dist/webpack",
+    "build:server": "NODE_ENV=production babel src/server -d dist/server",
+    "postbuild": "npm run build:prod && npm run build:server",
+    "start:prod": "NODE_ENV=production node dist/server/admin"
   },
   "repository": {
     "type": "git",
@@ -72,6 +79,7 @@
     "babel-preset-react": "^6.11.1",
     "babel-preset-react-hmre": "^1.1.1",
     "babel-preset-stage-0": "^6.5.0",
+    "babel-register": "^6.11.5",
     "cross-env": "1.0.8",
     "css-loader": "0.23.1",
     "eventsource-polyfill": "^0.9.6",
@@ -92,7 +100,7 @@
     "rimraf": "^2.5.3",
     "style-loader": "0.13.1",
     "url-loader": "0.5.7",
-    "webpack": "^2.1.0-beta.20",
+    "webpack": "2.1.0-beta.15",
     "webpack-dev-middleware": "^1.6.1",
     "webpack-hot-middleware": "^2.12.0"
   },

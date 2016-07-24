@@ -2,7 +2,6 @@ const path = require('path')
 const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
-const OfflinePlugin = require('offline-plugin')
 
 const cssnext = require('postcss-cssnext')
 const postcssFocus = require('postcss-focus')
@@ -54,14 +53,6 @@ module.exports = require('./webpack.base.babel')({
       inject: true,
     }),
     new ExtractTextPlugin('[name].[contenthash].css'),
-    new OfflinePlugin({
-      relativePaths: true,
-      excludes: ['.htaccess'],
-      caches: {
-        main: [':rest:'],
-        additional: ['*.chunk.js'],
-      },
-    }),
     new webpack.DefinePlugin({
       __DEV__: false,
       'process.env': {
