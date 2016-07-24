@@ -1,9 +1,9 @@
 exports.create = {
   Episode: [
     {
-      'title': 'Butter Smoothies Found To Be Leading Cause In Telepathy',
+      'title': 'Butter Smoothies Found To Be Leading Cause',
       'url': 'http://evturn.com',
-      'image': '/Users/ev/Documents/teflon-shanksta.jpg',
+      'image': 'src/app/containers/Episodes/thumbnail.jpg',
       'state': 'published',
       'publishedDate': '2016-07-24 03:13:56 am',
       'createdAt': '2016-07-24 03:13:56 am'
@@ -17,7 +17,7 @@ exports.create = {
     },{
       'title': 'Anoush Interviews a Water Bottle',
       'url': '/',
-      'image': '/Users/ev/Documents/teflon-shanksta.jpg',
+      'image': 'src/app/containers/Episodes/thumbnail.jpg',
       'state': 'published',
       'publishedDate': '2016-05-01 10:43:18 pm',
       'createdAt': '2016-04-29 10:45:18 pm'

@@ -11,7 +11,12 @@
 
 .li {
   text-transform: uppercase;
-  font-size: 42px;
+  font-size: 22px;
   color: #B9B19F;
-  cursor: pointer;
+}
+
+@media(min-width: 1024px) {
+  .li {
+    font-size: 42px;
+  }
 }

@@ -86,14 +86,16 @@
   position: relative;
   margin: 0 auto;
   height: 100%;
-
   composes: bg-dark;
   position: relative;
   margin: 0 auto;
-  padding-top: 2%;
-  padding-bottom: 2%;
   min-height: 100vh;
-  padding-top: 10px;
+}
+
+@media(min-width: 1024px) {
+  .content {
+    padding-top: 2%;
+  }
 }
 
 .content:before,
@@ -109,13 +111,14 @@
 .hero {
   position: relative;
   margin: 0 auto;
-  width: 370px;
+  width: 375px;
 }
 
 .image {
   height: auto;
   width: 100%;
   display: block;
+  padding: 0 2.5px;
 }
 
 @media (min-width: 1024px) {
