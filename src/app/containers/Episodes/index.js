@@ -1,6 +1,9 @@
 import React from 'react'
 
-const fallbackImg = 'https://db.tt/0sSuBZOS'
+const fallbackImg = [
+  'https://res.cloudinary.com/mamawemadeit-com/image/upload/v1469381319/fqafiw8mzdzs2ozcx0xm.png',
+  'https://res.cloudinary.com/mamawemadeit-com/image/upload/v1469383024/nuxyttfrvu8az9z304sk.png',
+]
 
 import css from './styles.css'
 
@@ -19,7 +22,7 @@ const Episodes = ({ episodes }) => {
                 target="_blank">
                 <img
                   className={css.thumbnail}
-                  src={x.image ? x.image.secure_url : fallbackImg} />
+                  src={x.image ? x.image.secure_url : fallbackImg[Math.ceil(Math.random() * 100) % 2]} />
                 <div className={css.title}>{x.title}</div>
               </a>
             </div>

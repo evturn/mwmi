@@ -11,7 +11,6 @@ const Episode = new List('Episode', {
     from: 'title',
     unique: true,
   },
-  defaultSort: '-publishedAt',
 })
 
 Episode.add({
@@ -19,6 +18,7 @@ Episode.add({
     type: String,
     note: 'Tom Jones Swings By and Drinks a Jar of Ketchup',
     initial: true,
+    required: true,
   },
   image: {
     type: Field.Types.CloudinaryImage,
@@ -33,7 +33,7 @@ Episode.add({
     default: 'draft',
     index: true
   },
-  publishedDate: {
+  publishedAt: {
     type: Field.Types.Date,
     index: true,
     dependsOn: {
@@ -46,5 +46,6 @@ Episode.add({
   },
 })
 
+Episode.defaultSort = '-createdAt'
 Episode.defaultColumns = 'title|30%, image, url, state|10%'
 Episode.register()
