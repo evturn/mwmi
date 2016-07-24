@@ -120,8 +120,8 @@
 
 @media (min-width: 1024px) {
   .hero {
-    width: 800px;
-    margin-bottom: 30px;
+    width: 700px;
+    margin-bottom: -50px;
     margin-top: -60px;
   }
 }

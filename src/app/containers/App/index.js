@@ -13,19 +13,17 @@ import css from './styles.css'
 
 const App = props => (
   <div className={css.site}>
-    <div>
-      <Header />
-      <div className={css.content}>
-        <div className={css.hero}>
-          <img
-            className={css.image}
-            src={Trophy}
-          />
-        </div>
-        <Episodes episodes={props.episodes} />
+    <div className={css.content}>
+      <div className={css.hero}>
+        <img
+          className={css.image}
+          src={Trophy}
+        />
       </div>
-      <Footer />
+      <Header />
+      <Episodes episodes={props.episodes} />
     </div>
+    <Footer />
   </div>
 )
 
