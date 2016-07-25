@@ -7,7 +7,7 @@ const init = {
   name: 'Mama We Made It',
   brand: 'MWMI',
   mongo: 'mongodb://localhost/mwmi',
-  session: true,
+  session: 'mongo',
   auth: true,
   updates: '../updates',
   port: process.env.PORT_MWMI || 4000,

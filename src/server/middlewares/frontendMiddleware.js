@@ -1,16 +1,18 @@
 import express from 'express'
 import path from 'path'
 import compression from 'compression'
-import webpackDevMiddleware from 'webpack-dev-middleware'
-import webpackHotMiddleware from 'webpack-hot-middleware'
-import webpack from 'webpack'
 
-const devMiddleware = (app, options) => {
-  const compiler = webpack(options)
+const devMiddleware = (app, webpackConfig) => {
+  const webpack = require('webpack')
+  const webpackDevMiddleware = require('webpack-dev-middleware')
+  const webpackHotMiddleware = require('webpack-hot-middleware')
+  const compiler = webpack(webpackConfig)
+
   const middleware = webpackDevMiddleware(compiler, {
     noInfo: true,
-    publicPath: options.output.publicPath,
+    publicPath: webpackConfig.output.publicPath,
     silent: true,
+    stats: 'errors-only',
   })
 
   app.use(middleware)
@@ -19,25 +21,34 @@ const devMiddleware = (app, options) => {
   const fs = middleware.fileSystem
 
   app.get('*', (req, res) => {
-    const file = fs.readFileSync(path.join(compiler.outputPath, 'index.html'))
-    res.send(file.toString())
+    fs.readFile(path.join(compiler.outputPath, 'index.html'), (err, file) => {
+      if (err) {
+        res.sendStatus(404)
+      } else {
+        res.send(file.toString())
+      }
+    })
   })
 }
 
 const prodMiddleware = (app, options) => {
-  app.use(compression())
-  app.use(options.output.publicPath, express.static(options.output.path))
+  const publicPath = options.publicPath || '/'
+  const outputPath = options.outputPath || path.resolve(process.cwd(), 'build')
 
-  app.get('*', (req, res) => res.sendFile(path.join(options.output.path, 'index.html')))
+  app.use(compression())
+  app.use(publicPath, express.static(outputPath))
+
+  app.get('*', (req, res) => {
+    res.sendFile(path.join(outputPath, 'index.html'))
+  })
 }
 
-export default options => {
-  const app = express()
-
-  if (process.env.NODE_ENV === 'development') {
-    devMiddleware(app, options)
-  } else {
+export default (app, options) => {
+  if (process.env.NODE_ENV === 'production') {
     prodMiddleware(app, options)
+  } else {
+    const webpackConfig = require('../../webpack/webpack.dev.babel')
+    devMiddleware(app, webpackConfig)
   }
 
   return app

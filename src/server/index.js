@@ -1,9 +1,7 @@
-import frontend from './middlewares/frontendMiddleware'
-import * as middleware from './middlewares/backendMiddleware'
+import path from 'path'
 
-const webpackConfig = process.env.NODE_ENV !== 'production'
-  ? require('../webpack/webpack.dev.babel')
-  : require('../webpack/webpack.prod.babel')
+import * as middleware from './middlewares/backendMiddleware'
+import setup from './middlewares/frontendMiddleware'
 
 export default app => {
   app.get('/api/locals',
@@ -11,5 +9,8 @@ export default app => {
     middleware.getEpisodes
   )
 
-  app.use(frontend(webpackConfig))
+  setup(app, {
+    publicPath: path.resolve(process.cwd(), '/'),
+    outputPath: path.resolve(process.cwd(), 'build'),
+  })
 }
