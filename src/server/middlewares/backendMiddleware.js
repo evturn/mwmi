@@ -6,6 +6,10 @@ const getUser = (req, res, next) => {
 }
 
 const getEpisodes = (req, res, next) => {
+  if (req.path !== '/mwmi') {
+    return next('route')
+  }
+
   keystone.list('Episode')
     .model.find()
     .where('state', 'published')

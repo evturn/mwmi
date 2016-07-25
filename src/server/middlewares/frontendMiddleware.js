@@ -21,13 +21,10 @@ const devMiddleware = (app, webpackConfig) => {
   const fs = middleware.fileSystem
 
   app.get('*', (req, res) => {
-    fs.readFile(path.join(compiler.outputPath, 'index.html'), (err, file) => {
-      if (err) {
-        res.sendStatus(404)
-      } else {
-        res.send(file.toString())
-      }
-    })
+    fs.readFile(
+      path.join(compiler.outputPath, 'index.html'),
+      (e, file) => e ? res.sendStatus(404) : res.send(file.toString())
+    )
   })
 }
 

@@ -4,7 +4,7 @@ import * as middleware from './middlewares/backendMiddleware'
 import setup from './middlewares/frontendMiddleware'
 
 export default app => {
-  app.get('/api/locals',
+  app.get('/mwmi',
     middleware.getUser,
     middleware.getEpisodes
   )

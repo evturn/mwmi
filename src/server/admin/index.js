@@ -12,6 +12,7 @@ const init = {
   updates: '../updates',
   port: process.env.PORT_MWMI || 4000,
   env: process.env.NODE_ENV,
+  'trust proxy': true,
   'auto update': true,
   'admin path': 'admin',
   'user model': 'User',

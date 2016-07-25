@@ -2,7 +2,7 @@ import 'whatwg-fetch'
 import { Observable } from 'rxjs'
 
 export default cb => (
-  Observable.fromPromise(request(`/api/locals`))
+  Observable.fromPromise(request(`/mwmi`))
     .map(({ episodes, user }) => ({ episodes, user }))
     .catch(e => Observable.of(catchError(e)))
     .subscribe(cb)
