@@ -18,7 +18,6 @@ Episode.add({
     type: String,
     label: 'Title',
     note: 'Tom Jones Swings By and Drinks a Jar of Ketchup',
-    index: true,
   },
   image: {
     type: Field.Types.CloudinaryImage,
