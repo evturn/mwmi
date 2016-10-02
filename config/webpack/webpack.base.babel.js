@@ -1,26 +1,33 @@
 const path = require('path')
 const webpack = require('webpack')
+const cssnext = require('postcss-cssnext')
+const postcssFocus = require('postcss-focus')
+const postcssReporter = require('postcss-reporter')
 
-module.exports = (options) => ({
-  entry: options.entry,
+module.exports = opts => ({
+  entry: opts.entry,
+
+  plugins: opts.plugins,
+
   output: Object.assign({
     path: path.resolve(process.cwd(), 'build'),
-    publicPath: path.resolve(process.cwd(), '/'),
-  }, options.output),
+    publicPath: '/',
+  }, opts.output),
+
   module: {
     loaders: [{
       test: /\.js$/,
       loader: 'babel',
       exclude: /node_modules/,
-      query: options.babelQuery,
+      query: opts.babelQuery,
     }, {
       test: /\.css$/,
       exclude: /node_modules/,
-      loader: options.cssLoaders,
+      loader: opts.cssLoaders,
     }, {
       test: /\.css$/,
       include: /node_modules/,
-      loaders: ['style-loader', 'css-loader'],
+      loaders: [ 'style-loader', 'css-loader' ],
     }, {
       test: /\.(eot|svg|ttf|woff|woff2)$/,
       loader: 'file-loader',
@@ -41,37 +48,27 @@ module.exports = (options) => ({
       loader: 'url-loader?limit=10000',
     }],
   },
-  plugins: options.plugins.concat([
-    new webpack.optimize.CommonsChunkPlugin('common.js'),
-    new webpack.ProvidePlugin({
-      fetch: 'exports?self.fetch!whatwg-fetch',
-    }),
-    new webpack.DefinePlugin({
-      'process.env': {
-        NODE_ENV: JSON.stringify(process.env.NODE_ENV),
-      },
-    }),
-  ]),
-  postcss: _ => options.postcssPlugins,
+
   resolve: {
     modules: ['app', 'node_modules'],
-    extensions: [
-      '',
-      '.js',
-      '.jsx',
-      '.react.js',
-    ],
+    extensions: ['', '.js', '.jsx', '.react.js'],
     packageMains: [
       'jsnext:main',
       'main',
     ],
     alias: {
-      containers: path.resolve(process.cwd(), 'src/app/containers/'),
-      components: path.resolve(process.cwd(), 'src/app/components/'),
-      utils:      path.resolve(process.cwd(), 'src/app/utils/'),
-    },
+      containers: path.resolve(process.cwd(), 'app', 'containers'),
+      components: path.resolve(process.cwd(), 'app', 'components'),
+      utils:      path.resolve(process.cwd(), 'app', 'utils'),
+    }
   },
-  devtool: options.devtool,
+
+  postcss: _ => [
+    postcssFocus(),
+    cssnext({ browsers: ['last 2 versions', 'IE > 10'] }),
+    postcssReporter({ clearMessages: true }),
+  ],
+  devtool: opts.devtool,
   target: 'web',
   stats: false,
   progress: true,

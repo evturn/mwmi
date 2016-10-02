@@ -1,5 +1,5 @@
 import keystone from 'keystone'
-import transform from 'model-transform'
+// import transform from 'model-transform'
 
 const { Field: { Types }, List } = keystone
 
@@ -40,8 +40,6 @@ User.add({
 User.schema.virtual('canAccessKeystone').get(function() {
   return this.isAdmin
 })
-
-transform.toJSON(User)
 
 User.defaultColumns = 'name, email, username, isAdmin'
 User.register()

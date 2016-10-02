@@ -1,11 +1,18 @@
 import keystone from 'keystone'
 
-const getUser = (req, res, next) => {
+export default function initLocals() {
+  return [
+    getUser,
+    getEpisodes
+  ]
+}
+
+function getUser(req, res, next) {
   res.locals.user = req.user
   next()
 }
 
-const getEpisodes = (req, res, next) => {
+function getEpisodes(req, res, next) {
   if (req.path !== '/mwmi') {
     return next('route')
   }
@@ -18,9 +25,4 @@ const getEpisodes = (req, res, next) => {
       res.locals.episodes = episodes
       res.json(res.locals)
     })
-}
-
-export {
-  getUser,
-  getEpisodes,
 }
