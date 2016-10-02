@@ -1,6 +1,6 @@
 {
   "name": "mwmi",
-  "version": "1.5.0",
+  "version": "2.0.0",
   "description": "© MWMI Website & CMS",
   "scripts": {
     "start": "NODE_ENV=development babel-node server/admin",
@@ -13,47 +13,14 @@
     "prebuild": "npm run clean",
     "build": "npm run build:client && npm run build:server",
     "start:prod": "NODE_ENV=production node lib/admin",
-    "deploy": "NODE_ENV=production node nohup lib/admin &"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/evturn/mwmi.git"
-  },
-  "author": {
-    "name": "Evan Turner",
-    "url": "http://evturn.com",
-    "github": "http://github.com/evturn",
-    "npm": "https://www.npmjs.com/~evturn"
-  },
-  "babel": {
-    "presets": [
-      "es2015",
-      "react",
-      "stage-0"
-    ],
-    "plugins": [
-      "add-module-exports",
-      "transform-function-bind"
-    ],
-    "env": {
-      "production": {
-        "only": [
-          "app"
-        ],
-        "plugins": [
-          "transform-react-remove-prop-types",
-          "transform-react-constant-elements",
-          "transform-react-inline-elements"
-        ]
-      }
-    }
+    "deploy": "NODE_ENV=production nohup node lib/admin &"
   },
   "dependencies": {
     "chalk": "^1.1.3",
     "cloudinary": "^1.4.3",
     "connect-mongo": "^1.3.2",
     "express": "^4.14.0",
-    "keystone": "keystone@next",
+    "keystone": "^4.0.0-beta.1",
     "mongoose": "^4.6.2",
     "npm-check": "^5.2.3",
     "react": "^15.3.2",
@@ -100,6 +67,39 @@
     "webpack-dev-middleware": "^1.8.3",
     "webpack-hot-middleware": "^2.12.2",
     "write-file-webpack-plugin": "^3.3.0"
+  },
+  "babel": {
+    "presets": [
+      "es2015",
+      "react",
+      "stage-0"
+    ],
+    "plugins": [
+      "add-module-exports",
+      "transform-function-bind"
+    ],
+    "env": {
+      "production": {
+        "only": [
+          "app"
+        ],
+        "plugins": [
+          "transform-react-remove-prop-types",
+          "transform-react-constant-elements",
+          "transform-react-inline-elements"
+        ]
+      }
+    }
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/evturn/mwmi.git"
+  },
+  "author": {
+    "name": "Evan Turner",
+    "url": "http://evturn.com",
+    "github": "http://github.com/evturn",
+    "npm": "https://www.npmjs.com/~evturn"
   },
   "license": "ISC"
 }
