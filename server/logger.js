@@ -1,21 +1,21 @@
-import chalk from 'chalk'
-import ip from 'ip'
-
-const divider = `${chalk.gray('------------------------------------------------')}`
+import c from 'chalk'
 
 export default {
-  error:       err => console.log(chalk.red(err)),
-  appStarted: port => console.log(serverListening(port)),
+  error:      err => console.log(c.red(err)),
+  appStarted: env => serverListening(env),
 }
 
-function serverListening(port) {
-  return `
-${chalk.yellow('Server started\n')}
-${divider}
-${chalk.bold('Access URLs:')}
-Localhost: ${chalk.blue('http://localhost:' + chalk.magenta(port))}
-      LAN: ${chalk.blue('http://' + ip.address() + ':' + chalk.magenta(port))}
-${divider}
-${chalk.gray('\nPress' + chalk.italic(' CTRL-C ') + 'or' + chalk.italic(' CMD-. ') + 'to stop')}
-`
+function serverListening(env) {
+  const n = `\n`
+  const __ =  `------------------------`
+  const _ = __ + __
+  const msg = [
+    n,
+    `${c.gray(_)}`,
+    `${c.yellow('Server started 🌐')}`,
+    `${c.bold('Running in:')} ${c.magenta(env)}`,
+    `${c.gray(_)}`,
+    n,
+  ].join(n)
+  console.log(msg)
 }

@@ -41,21 +41,35 @@ exports.create = {
       'image': 'https://res.cloudinary.com/mamawemadeit-com/image/upload/v1469431222/cf2clmbsryfrl5fgax9d.jpg',
       'state': 'published',
       'publishedAt': '2016-04-26 12:48:06 pm',
-      'createdAt': '2016-4-30 12:48:06 pm'
+      'createdAt': '2016-04-30 12:48:06 pm'
     },{
       'title': 'Let Me Tell You About The Time I Told You About The Time Let Me',
       'url': '/',
       'image': 'https://res.cloudinary.com/mamawemadeit-com/image/upload/v1469431222/cf2clmbsryfrl5fgax9d.jpg',
       'state': 'published',
       'publishedAt': '2016-04-25 01:28:06 pm',
-      'createdAt': '2016-4-30 01:28:06 pm'
+      'createdAt': '2016-04-30 01:28:06 pm'
     },{
       'title': 'Michael Yackson Sings the Blues',
       'url': '/',
       'image': 'https://res.cloudinary.com/mamawemadeit-com/image/upload/v1469431222/cf2clmbsryfrl5fgax9d.jpg',
       'state': 'published',
       'publishedAt': '2016-04-24 02:16:42 pm',
-      'createdAt': '2016-4-30 02:16:42 pm'
-    },
+      'createdAt': '2016-04-30 02:16:42 pm'
+    },{
+      'title': 'I Still Tie My Shoes With Chopsticks',
+      'url': '/',
+      'image': 'https://res.cloudinary.com/mamawemadeit-com/image/upload/v1469431222/cf2clmbsryfrl5fgax9d.jpg',
+      'state': 'published',
+      'publishedAt': '2016-10-02 04:09:12 pm',
+      'createdAt': '2016-10-02 04:09:12 pm'
+    },{
+      'title': 'Dude, Yes, That Is An Actual Bread Sandwich',
+      'url': '/',
+      'image': 'https://res.cloudinary.com/mamawemadeit-com/image/upload/v1469431222/cf2clmbsryfrl5fgax9d.jpg',
+      'state': 'published',
+      'publishedAt': '2016-10-02 06:06:12 pm',
+      'createdAt': '2016-10-02 06:06:12 pm'
+    }
   ]
 }
