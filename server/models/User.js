@@ -1,8 +1,6 @@
 import keystone from 'keystone'
-// import transform from 'model-transform'
 
 const { Field: { Types }, List } = keystone
-
 const User = new List('User')
 
 User.add({

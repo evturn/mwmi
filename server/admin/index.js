@@ -1,3 +1,4 @@
+import 'babel-polyfill'
 import keystone from 'keystone'
 import routes from '../index.js'
 import logger from '../logger'
@@ -10,6 +11,7 @@ const init = {
   session: 'mongo',
   auth: true,
   updates: '../updates',
+  logger: false,
   port: process.env.PORT_MWMI || 4000,
   env: process.env.NODE_ENV,
   'trust proxy': true,

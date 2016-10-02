@@ -7,11 +7,11 @@
     "check": "npm-check -u",
     "clean": "rimraf ./build && rimraf ./lib",
     "build:client": "NODE_ENV=production webpack --config config/webpack/webpack.prod.babel.js --color -p",
-    "build:server": "NODE_ENV=production babel server -d lib",
+    "build:server": "NODE_ENV=production mkdir lib && babel server -d lib",
     "prebuild": "npm run clean",
     "build": "npm run build:client && npm run build:server",
-    "start:prod": "NODE_ENV=production node lib/server/admin",
-    "deploy": "NODE_ENV=production node nohup lib/server/admin &"
+    "start:prod": "NODE_ENV=production node lib/admin",
+    "deploy": "NODE_ENV=production node nohup lib/admin &"
   },
   "repository": {
     "type": "git",
@@ -53,7 +53,6 @@
     "compression": "^1.6.2",
     "express": "^4.14.0",
     "keystone": "keystone@next",
-    "moment": "^2.15.1",
     "npm-check": "^5.2.3",
     "react": "^15.3.2",
     "react-dom": "^15.3.2",
@@ -72,6 +71,7 @@
     "babel-plugin-transform-react-constant-elements": "^6.9.1",
     "babel-plugin-transform-react-inline-elements": "^6.8.0",
     "babel-plugin-transform-react-remove-prop-types": "^0.2.9",
+    "babel-polyfill": "^6.16.0",
     "babel-preset-es2015": "^6.16.0",
     "babel-preset-react": "^6.16.0",
     "babel-preset-react-hmre": "^1.1.1",
