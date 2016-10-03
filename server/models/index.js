@@ -2,6 +2,7 @@ import c from 'chalk'
 import mongoose from 'mongoose'
 import registerUser from './User'
 import registerEpisode from './Episode'
+import log from '../logger'
 
 export default keystone => {
   keystone.set('mongoose', mongoose)
@@ -10,30 +11,6 @@ export default keystone => {
   keystone.set('mongo', 'mongodb://localhost/mwmi')
   keystone.set('session store', 'connect-mongo')
   mongoose.Promise = global.Promise
-  mongoose.connection.on('error', DBConnectionError())
-  mongoose.connection.once('open',  DBConnected)
+  mongoose.connection.on('error', log.DBConnectionError())
+  mongoose.connection.once('open',  log.DBConnected)
 }
-
-function DBConnected() {
-  const n = `\n`
-  const msg = [
-    n,
-    `${c.green('DB connected 🖖🏽')}`,
-    n
-  ].join(n)
-  console.log(msg)
-}
-
-function DBConnectionError() {
-  const n = `n`
-  const msg = [
-  n,
-  `${c.bgRed.white('Connection error:')}`,
-  n
-  ].join(n)
-
-  return console.error.bind(console, msg)
-}
-
-
-
