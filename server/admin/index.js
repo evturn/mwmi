@@ -18,7 +18,7 @@ const init = {
   'trust proxy': true,
   'admin path': 'admin',
   'user model': 'User',
-  port: process.env.PORT_MWMI || 3000,
+  port: process.env.PORT_MWMI || 4000,
   env: process.env.NODE_ENV,
   'cookie secret': process.env.MWMI_COOKIE_SECRET,
   'cloudinary config': __DEV__
