@@ -7,6 +7,7 @@ cms.init({
   'cookie secret': 'hereismycookiesecret',
   'user model': 'User',
   auth: true,
+  env: process.env.NODE_ENV,
   mongo: 'mongodb://localhost/mwmi',
   name: 'MWMI',
   port: process.env.PORT_MWMI || 4000,

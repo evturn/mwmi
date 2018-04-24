@@ -13,8 +13,7 @@ class Home extends Component {
   componentDidMount() {
     fetch('/api/episodes')
       .then(x => x.json())
-      .then(episodes => 
-        this.setState({ episodes }));
+      .then(({ episodes }) => this.setState({ episodes }));
   }
 
   render() {
