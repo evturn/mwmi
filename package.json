@@ -6,7 +6,7 @@
   "repository": "https://github.com/evturn/mwmi.git",
   "scripts": {
     "start": "NODE_ENV=development node --experimental-modules ./server/dev.mjs",
-    "build": "NODE_ENV=production node --experimental-modules ./tools/webpack.config.prod.mjs"
+    "build": "NODE_ENV=production sh scripts/build.sh"
   },
   "dependencies": {
     "keystone": "^4.0.0-beta.1",
