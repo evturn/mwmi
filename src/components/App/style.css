@@ -1,0 +1,11 @@
+:root {
+  --pinetree: #171914;
+  --akaroa: #b9b19f;
+  --raleway: 'Raleway', sans-serif;
+}
+
+body {
+  background-color: var(--pinetree);
+  margin: 0;
+  font-family: var(--raleway);
+}
