@@ -18,7 +18,6 @@ cms.init({
 });
 
 const api = (req, res, next) => {
-  console.log(req);
   cms.list('Episode')
     .model
     .find()
