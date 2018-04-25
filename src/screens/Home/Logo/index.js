@@ -1,5 +1,5 @@
 import React from 'react';
-import image from './mwmi-logo.png';
+import image from '../../../static/mwmi-logo.png';
 import styles from './style.css';
 
 const Logo = props => {
