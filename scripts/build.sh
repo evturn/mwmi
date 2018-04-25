@@ -11,13 +11,13 @@ if [ -d $BUILDDIR ]; then
   echo `tput setaf 2`$'✓  Removed old files.\n'`tput sgr0`;
 fi
 
-mkdir "${PWD}/build/"
+mkdir "${BUILDDIR}/"
 
-echo `tput setaf 6`$'\n➤  Compiling project...'`tput sgr0`;
+echo `tput setaf 6`$'\n➤  Compiling project...\n'`tput sgr0`;
 
 node --experimental-modules --no-warnings "${TOOLSDIR}/webpack.config.prod.mjs";
 
-echo `tput setaf 6`$'\n➤  Copying public files...'`tput sgr0`;
+echo `tput setaf 6`$'\n➤  Copying public files...\n'`tput sgr0`;
 
 rsync -avh "${PUBLICDIR}/media/" "${BUILDDIR}/media";
 rsync -avh "${PUBLICDIR}/manifest.json" "${BUILDDIR}/";

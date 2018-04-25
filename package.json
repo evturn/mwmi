@@ -5,9 +5,9 @@
   "author": "Evan Turner <ev@evturn.com>",
   "repository": "https://github.com/evturn/mwmi.git",
   "scripts": {
-    "start": "NODE_ENV=development node --experimental-modules ./server/dev.mjs",
-    "build": "NODE_ENV=production sh scripts/build.sh",
-    "serve": "sh scripts/serve.sh"
+    "start": "sh ./scripts/env.sh start",
+    "build": "sh ./scripts/env.sh build",
+    "serve": "sh ./scripts/env.sh serve"
   },
   "dependencies": {
     "connect-mongo": "^2.0.1",

@@ -4,17 +4,17 @@ import { pathTo } from '../tools/utils.mjs';
 
 cms.init({
   'admin path': 'admin',
-  'cloudinary config': process.env.MWMI_CLOUDINARY_CONFIG,
-  'cookie secret': process.env.MWMI_COOKIE_SECRET,
+  'cloudinary config': process.env.CLOUDINARY_URL,
+  'cookie secret': process.env.COOKIE_SECRET,
   'session store': 'connect-mongo',
   'trust proxy': true,
   'user model': 'User',
   auth: true,
   env: process.env.NODE_ENV,
   favicon: pathTo('public', 'media', 'favicon.ico'),
-  mongo: 'mongodb://localhost/mwmi',
+  mongo: process.env.MONGO,
   name: 'MWMI',
-  port: process.env.PORT_MWMI || 4000,
+  port: process.env.PORT,
   static: pathTo('build'),
 });
 
