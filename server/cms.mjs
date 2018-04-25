@@ -4,7 +4,8 @@ import { pathTo } from '../tools/utils.mjs';
 
 cms.init({
   'admin path': 'admin',
-  'cookie secret': 'hereismycookiesecret',
+  'cloudinary config': process.env.MWMI_CLOUDINARY_CONFIG,
+  'cookie secret': process.env.MWMI_COOKIE_SECRET,
   'session store': 'connect-mongo',
   'trust proxy': true,
   'user model': 'User',
