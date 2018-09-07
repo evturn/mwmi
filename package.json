@@ -4,22 +4,21 @@
   "description": "© MWMI Website",
   "author": "Evan Turner <ev@evturn.com>",
   "repository": "https://github.com/evturn/mwmi.git",
-  "scripts": {
-    "start": "sh ./scripts/env.sh start",
-    "build": "sh ./scripts/env.sh build",
-    "serve": "sh ./scripts/env.sh serve"
-  },
+  "scripts": {},
   "dependencies": {
+    "express": "^4.16.3",
     "react": "^16.3.2",
-    "react-dom": "^16.3.2"
+    "react-dom": "^16.3.2",
+    "react-router": "^4.3.1",
+    "rss-parser": "^3.4.3"
   },
   "devDependencies": {
-    "@babel/core": "^7.0.0-beta.46",
-    "@babel/polyfill": "^7.0.0-beta.46",
-    "@babel/preset-env": "^7.0.0-beta.46",
-    "@babel/preset-react": "^7.0.0-beta.46",
+    "@babel/core": "^7.0.0",
+    "@babel/polyfill": "^7.0.0",
+    "@babel/preset-env": "^7.0.0",
+    "@babel/preset-react": "^7.0.0",
     "autoprefixer": "^8.3.0",
-    "babel-loader": "^8.0.0-beta.0",
+    "babel-loader": "^8.0.0",
     "css-loader": "^0.28.11",
     "file-loader": "^1.1.11",
     "html-webpack-plugin": "^3.2.0",
@@ -27,7 +26,7 @@
     "postcss-loader": "^2.1.4",
     "style-loader": "^0.21.0",
     "url-loader": "^1.0.1",
-    "webpack": "^4.6.0",
+    "webpack": "^4.17.2",
     "webpack-dev-middleware": "^3.1.2",
     "webpack-hot-middleware": "^2.22.1"
   },

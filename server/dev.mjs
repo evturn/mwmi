@@ -1,21 +1,21 @@
+import express from 'express';
 import webpack from 'webpack';
 import devMiddleware from 'webpack-dev-middleware';
 import hotMiddleware from 'webpack-hot-middleware';
-import getAppInstance from './cms.mjs';
 import config from '../tools/webpack.config.dev.mjs';
 import { pathTo  } from '../tools/utils.mjs';
 
-const compiler   = webpack(config);
+const app = express();
+const compiler = webpack(config);
 const middleware = devMiddleware(compiler, {
   logLevel: 'error',
   publicPath: config.output.publicPath,
 });
 
 const outputPath = pathTo(compiler.outputPath, 'index.html');
-const fs         = middleware.fileSystem;
+const fs = middleware.fileSystem;
 
-getAppInstance(app => {
-  app.use(middleware);
-  app.use(hotMiddleware(compiler));
-  app.get('/', (req, res) => res.send(fs.readFileSync(outputPath).toString()));
-});
+app.use(middleware);
+app.use(hotMiddleware(compiler));
+app.get('*', (req, res) => res.send(fs.readFileSync(outputPath).toString()));
+app.listen(3000, () => console.log('Running in development on 3000'));
