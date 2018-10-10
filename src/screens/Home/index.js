@@ -1,29 +1,15 @@
-import React, { Component } from 'react';
-import Episodes from './Episodes';
+import React from 'react';
+import Player from './Player';
 import Logo from './Logo';
+import styles from './style.css';
 
-class Home extends Component {
-  constructor() {
-    super();
-    this.state = {
-      episodes: [],
-    }
-  }
-
-  componentDidMount() {
-    fetch('/api/episodes')
-      .then(x => x.json())
-      .then(({ episodes }) => this.setState({ episodes }));
-  }
-
-  render() {
-    return (
-      <div>
-        <Logo />
-        <Episodes episodes={this.state.episodes} />
-      </div>
-    );
-  }
-}
+const Home = props => {
+  return (
+    <div className={styles.root}>
+      <Logo />
+      <Player />
+    </div>
+  );
+};
 
 export default Home;
