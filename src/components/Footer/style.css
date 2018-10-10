@@ -1,13 +1,14 @@
 .root {
   height: 40px;
   width: 100%;
-  background-color: var(--akaroa);
+  background-color: var(--pinetree);
   text-align: center;
+  border-top: 1px solid var(--akaroa);
 }
 
 .text {
   font-weight: 200;
   font-size: 11px;
   line-height: 40px;
-  color: var(--pinetree);
+  color: var(--akaroa);
 }
