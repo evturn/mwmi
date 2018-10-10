@@ -1,0 +1,13 @@
+.root {
+  height: 40px;
+  width: 100%;
+  background-color: var(--akaroa);
+  text-align: center;
+}
+
+.text {
+  font-weight: 200;
+  font-size: 11px;
+  line-height: 40px;
+  color: var(--pinetree);
+}
