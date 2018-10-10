@@ -11,7 +11,7 @@ const compiler = webpack({
     path: pathTo('build'),
     filename: 'js/[name].[chunkhash:8].js',
     chunkFilename: 'js/[name].[chunkhash:8].chunk.js',
-    publicPath: '/',
+    publicPath: './',
   },
   mode: 'production',
   optimization: {
