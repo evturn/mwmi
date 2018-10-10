@@ -1,16 +1,18 @@
 {
   "name": "mwmi",
-  "version": "3.0.0",
+  "version": "4.0.0",
   "description": "© MWMI Website",
   "author": "Evan Turner <ev@evturn.com>",
   "repository": "https://github.com/evturn/mwmi.git",
-  "scripts": {},
+  "scripts": {
+    "start": "node --experimental-modules ./tools/dev-server.mjs",
+    "build": "node --experimental-modules ./tools/webpack.config.prod.mjs"
+  },
   "dependencies": {
     "express": "^4.16.3",
     "react": "^16.3.2",
     "react-dom": "^16.3.2",
-    "react-router": "^4.3.1",
-    "rss-parser": "^3.4.3"
+    "react-router": "^4.3.1"
   },
   "devDependencies": {
     "@babel/core": "^7.0.0",
