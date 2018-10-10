@@ -2,8 +2,8 @@ import express from 'express';
 import webpack from 'webpack';
 import devMiddleware from 'webpack-dev-middleware';
 import hotMiddleware from 'webpack-hot-middleware';
-import config from '../tools/webpack.config.dev.mjs';
-import { pathTo  } from '../tools/utils.mjs';
+import config from './webpack.config.dev.mjs';
+import { pathTo  } from './utils.mjs';
 
 const app = express();
 const compiler = webpack(config);
